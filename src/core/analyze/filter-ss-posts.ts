@@ -1,7 +1,7 @@
 import { ISSThread, ISSThreadPost } from '../../db/interfaces';
 
 /**
- * 投稿をフィルタします
+ * 投稿をフィルタリングします
  * @param ss スレッド
  * @param posts スレッドの投稿
  * @return フィルタリングされた投稿
