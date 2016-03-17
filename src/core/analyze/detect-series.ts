@@ -12,100 +12,97 @@ import checkCross from './check-cross';
  * @return 同定したシリーズ
  */
 export default (ss: ISSThread): Promise<ISeries[]> => new Promise((resolve, reject) => {
-	// Get all series
-	Series.find({}, '_id title kana aliases', (err: any, allseries: ISeries[]) => {
-		if (err !== null) {
-			return reject(err);
-		}
+	Promise.all([
+		// Get all series
+		Series.find({}, '_id title kana aliases'),
 		// Get all characters
-		Character.find({}, '_id name kana screenName aliases series', (err: any, chars: ICharacter[]) => {
-			if (err !== null) {
-				return reject(err);
-			}
+		Character.find({}, '_id name kana screenName aliases series')
+	]).then((results: any) => {
+		const allseries = <ISeries[]>results[0];
+		const allchars = <ICharacter[]>results[1];
 
-			// タイトル内の【】内の文字列
-			const textInBracketsMatch = ss.title.match(/【(.+?)】/g);
-			const textInBrackets = textInBracketsMatch === null ? null : textInBracketsMatch
-				.map(x => x.trim())
-				.map(x => x.substr(1, x.length - 2));
+		// タイトル内の【】内の文字列
+		const textInBracketsMatch = ss.title.match(/【(.+?)】/g);
+		const textInBrackets = textInBracketsMatch === null ? null : textInBracketsMatch
+			.map(x => x.trim())
+			.map(x => x.substr(1, x.length - 2));
 
-			// 【】内の文字列に一致するシリーズを探す
-			const seriesInTitle =
-				textInBrackets === null
-					? null
-					: allseries
-						.filter(series =>
-							textInBrackets.map(text =>
-								ascertainSeries(series, text)
-							).indexOf(true) !== -1)
-						[0];
+		// 【】内の文字列に一致するシリーズを探す
+		const seriesInTitle =
+			textInBrackets === null
+				? null
+				: allseries
+					.filter(series =>
+						textInBrackets.map(text =>
+							ascertainSeries(series, text)
+						).indexOf(true) !== -1)
+					[0];
 
-			// クロスSSかどうか
-			const isCross = checkCross(ss);
+		// クロスSSかどうか
+		const isCross = checkCross(ss);
 
-			// SS内に登場するすべてのキャラクター名(と思われる文字列)を抽出
-			const extractedNames = extractCharacterNames(ss)
-				// 重複は除去
-				.filter((x, i, self) => self.indexOf(x) === i);
+		// SS内に登場するすべてのキャラクター名(と思われる文字列)を抽出
+		const extractedNames = extractCharacterNames(ss)
+			// 重複は除去
+			.filter((x, i, self) => self.indexOf(x) === i);
 
-			// 登場頻度ランキング
-			let chart: any[] = [];
+		// 登場頻度ランキング
+		let chart: any[] = [];
 
-			chars.forEach(char => {
-				(<string[]>char.series).forEach(charSeries => {
-					// ランキング内のシリーズコンテキストを取得
-					let seriesContext = chart.filter(x => x.series === charSeries.toString())[0];
+		allchars.forEach(char => {
+			(<string[]>char.series).forEach(charSeries => {
+				// ランキング内のシリーズコンテキストを取得
+				let seriesContext = chart.filter(x => x.series === charSeries.toString())[0];
 
-					// ランキングにシリーズがまだ登録されてなかったら登録
-					if (seriesContext === undefined) {
-						const i = chart.push({
-							series: charSeries.toString(),
-							found: []
-						});
-						seriesContext = chart[i - 1];
-					}
-
-					// キャラがこのSSに登場したらそのキャラのシリーズに+1
-					extractedNames.forEach(name => {
-						if (ascertainCharacterByName(char, name)) {
-							// 同じキャラの複数登場よるn重+1防止
-							if (seriesContext.found.indexOf(char.id) === -1) {
-								seriesContext.found.push(char.id);
-							}
-						}
+				// ランキングにシリーズがまだ登録されてなかったら登録
+				if (seriesContext === undefined) {
+					const i = chart.push({
+						series: charSeries.toString(),
+						found: []
 					});
+					seriesContext = chart[i - 1];
+				}
+
+				// キャラがこのSSに登場したらそのキャラのシリーズに+1
+				extractedNames.forEach(name => {
+					if (ascertainCharacterByName(char, name)) {
+						// 同じキャラの複数登場よるn重+1防止
+						if (seriesContext.found.indexOf(char.id) === -1) {
+							seriesContext.found.push(char.id);
+						}
+					}
 				});
 			});
-
-			chart.sort((a, b) => a.found.length > b.found.length ? -1 : 1);
-
-			if (chart[0].found.length > 0) {
-				if (isCross && chart[1].found.length > 0) {
-					Series.find({
-						_id: { $in: [chart[0].series, chart[1].series] }
-					}, (err: any, series: ISeries[]) => {
-						if (err !== null) {
-							reject(err);
-						} else {
-							resolve(series);
-						}
-					});
-				} else {
-					Series.findById(chart[0].series, (err: any, series: ISeries) => {
-						if (err !== null) {
-							reject(err);
-						} else {
-							resolve([series]);
-						}
-					});
-				}
-			} else if (seriesInTitle !== null) {
-				resolve([seriesInTitle]);
-			}
-			// 該当なし(同定失敗)
-			else {
-				resolve(null);
-			}
 		});
-	});
+
+		chart.sort((a, b) => a.found.length > b.found.length ? -1 : 1);
+
+		if (chart[0].found.length > 0) {
+			if (isCross && chart[1].found.length > 0) {
+				Series.find({
+					_id: { $in: [chart[0].series, chart[1].series] }
+				}, (err: any, series: ISeries[]) => {
+					if (err !== null) {
+						reject(err);
+					} else {
+						resolve(series);
+					}
+				});
+			} else {
+				Series.findById(chart[0].series, (err: any, series: ISeries) => {
+					if (err !== null) {
+						reject(err);
+					} else {
+						resolve([series]);
+					}
+				});
+			}
+		} else if (seriesInTitle !== null) {
+			resolve([seriesInTitle]);
+		}
+		// 該当なし(同定失敗)
+		else {
+			resolve(null);
+		}
+	}, reject);
 });
