@@ -242,6 +242,9 @@ export default (app: express.Express) => {
 	});
 }
 
+/**
+ * コントローラーを呼び出します。
+ */
 function call(
 	req: express.Request,
 	res: express.Response,
