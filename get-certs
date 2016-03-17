@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# GET CERTS FLOW
+# SEE: https://letsencrypt.org/howitworks/
+
+# STOP ALL WEB SERVERS
+forever stopall
+
+# GET CERTS
+letsencrypt certonly --standalone \
+-d ssmato.me \
+-d about.ssmato.me \
+-d admin.ssmato.me \
+-d api.ssmato.me \
+-d characters.ssmato.me \
+-d i.ssmato.me \
+-d resources.ssmato.me \
+-d signup.ssmato.me \
+-d signin.ssmato.me \
+-d signout.ssmato.me \
+-d series.ssmato.me \
+-d search.ssmato.me \
+--server https://acme-v01.api.letsencrypt.org/directory

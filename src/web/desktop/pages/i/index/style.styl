@@ -1,0 +1,79 @@
+@import '../../../ui'
+@import '../../../common/ss-preview'
+
+#welcomeback
+	display: block;
+	margin: 0;
+	padding: 16px;
+	text-align: center;
+
+	.go-conpane
+		margin-left: 8px;
+
+main
+	display: block;
+	box-sizing: border-box;
+	max-width: 700px;
+	margin: 0 auto;
+
+#tabs
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-bottom: solid 1px #ddd;
+
+	*
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		cursor: default;
+
+	> li
+		display: inline-block;
+		margin: 0 0 -1px 0;
+		padding: 10px 20px;
+		color: #777;
+		border: solid 1px transparent;
+
+		*
+			pointer-events: none;
+
+		&:hover
+		&.active
+			color: #555;
+
+		&.active
+			border: solid 1px #ddd;
+			border-bottom: solid 1px #fff;
+
+		> p
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+
+			> i
+				margin-right: 6px;
+
+#read-later, #favorites, #history
+	> .sss
+		> .ss
+			ss()
+
+			margin: 0;
+			padding: 22px 28px;
+
+			border: none;
+			border-bottom: solid 1px #ddd;
+			border-radius: 0;
+
+			&:last-child
+				border-bottom: none;
+
+		> .empty
+			display: block;
+			margin: 0;
+			padding: 16px;
+			text-align: center;
+			color: #888;

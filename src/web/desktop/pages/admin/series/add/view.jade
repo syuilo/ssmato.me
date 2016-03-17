@@ -1,0 +1,68 @@
+extend ../../../../ui
+
+block title
+	| シリーズの登録 - SSまとめ
+
+block assets
+	script(src='https://www.google.com/recaptcha/api.js')
+	
+block contents
+	main(role='main')
+		header
+			h1 シリーズの登録
+			p データベースに新規シリーズを追加します。
+		
+		div.body
+			form#form(autocomplete='off')
+				header
+					i.fa.fa-server
+					| シリーズ概要
+				label.required
+					p.caption
+						| タイトル
+					input(name='title'
+						type='text'
+						placeholder='例: 魔法少女まどか☆マギカ'
+						autocomplete='off'
+						autofocus
+						required)
+				label.required
+					p.caption
+						| タイトル(ふりがな)
+					input(name='kana'
+							type='text'
+							placeholder='例: まほうしょうじょまどかまぎか'
+							pattern='^[ぁ-んー ]+$'
+							autocomplete='off'
+							required)
+				label
+					p.caption
+						| 呼び名 ※ , で区切る
+					input(name='aliases'
+							type='text'
+							placeholder='例: まどマギ, まどかマギカ'
+							autocomplete='off')
+				label
+					p.caption
+						| 説明(あらすじなど)
+					textarea(name='description'
+							placeholder='例: 大好きな家族がいて、親友がいて、時には笑い、時には泣く、そんなどこにでもある日常。\r\n市立見滝原中学校に通う、普通の中学二年生・鹿目まどかも、そんな日常の中で暮らす一人。\r\n\r\nある日、彼女に不思議な出会いが訪れる。この出会いは偶然なのか、必然なのか、彼女はまだ知らない。\r\n\r\nそれは、彼女の運命を変えてしまうような出会い――\r\nそれは、新たなる魔法少女物語の始まり――'
+							autocomplete='off')
+				label#recaptcha
+					div.g-recaptcha(
+						data-callback='onRecaptchaed'
+						data-expired-callback='onRecaptchaExpired'
+						data-sitekey=config.recaptchaSiteKey)
+				div.actions
+					input(type='reset', value='リセット')
+					button(type='submit')
+						i.fa.fa-check
+						span 登録
+
+			img.separator(src= config.urls.resources + '/desktop/pages/admin/character/add/separator.png', alt='')
+
+			aside.history
+				h2 最近登録されたシリーズ
+				ol
+					each series in recentSeries
+						li: a(title=series.kana)= series.title

@@ -1,0 +1,31 @@
+extend ../../../../ui
+
+block title
+	| SSの取得 - SSまとめ
+
+block contents
+	main(role='main')
+		header
+			h1 SSの取得
+			p Webページをスクレイピングして、データベースに新規SSを登録します。
+		
+		div.body
+			form#form(autocomplete='off')
+				header
+					i.fa.fa-search
+					| SSの情報
+				label.url.required
+					p.caption
+						| URL
+					input(name='url'
+						type='url'
+						autocomplete='off'
+						autofocus
+						required)
+				div.actions
+					strong.caution
+						i.fa.fa-exclamation-triangle
+						| 対象のSSの転載が許可されているか確認してください。
+					button(type='submit')
+						i.fa.fa-search
+						span 取得

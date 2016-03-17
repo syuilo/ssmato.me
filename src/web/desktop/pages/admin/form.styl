@@ -1,0 +1,374 @@
+@import '../../ui'
+
+html, body, input, textarea, select
+	font-family: 'MS PGothic', 'ＭＳ ゴシック', 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+
+html
+	background #fff
+
+	&, *
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		cursor: default;
+
+	&.processing
+		&, *
+			cursor: wait !important;
+
+main
+	max-width: 600px;
+	margin: 0 auto;
+
+	button
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		cursor: pointer;
+		display: block;
+		vertical-align: bottom;
+		box-sizing: border-box;
+		padding: 10px 16px;
+		margin: 16px;
+		min-width: 72px;
+		font-weight: normal;
+		font-size: 1em;
+		line-height: 1em;
+		color: #333;
+		outline: none;
+		border: solid 1px #d5d5d5;
+		border-radius: 3px;
+		box-shadow: none;
+		background: #fff;
+		background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+		background-image: linear-gradient(#fcfcfc, #eee);
+
+		*
+			pointer-events: none;
+
+		&:disabled
+			opacity: 0.5;
+
+		&:hover
+			border: solid 1px #ccc;
+			background: darken($theme-color, 5%);
+			background-image: -webkit-linear-gradient(#eee, #ddd);
+			background-image: linear-gradient(#eee, #ddd);
+
+		&:active
+			border: solid 1px #b5b5b5;
+			background: #dcdcdc;
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+
+		&:focus
+			border: solid 1px #ff9693 !important;
+			box-shadow: 0 0 5px rgba(255, 150, 147, 0.5);
+
+		&:active:focus
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 0 5px rgba(255, 150, 147, 0.5);
+
+		i
+			margin-right: 4px;
+
+	> header
+		display: block;
+		padding: 24px 0 32px 0;
+		color: #444;
+
+		h1
+			display: block;
+			margin: 0 0 16px 0;
+			font-size: 2em;
+			line-height: 32px;
+			font-weight: bold;
+
+			i
+				margin-right: 8px;
+				color: #FF9693;
+
+		p
+			display: block;
+			margin: 0;
+
+	> .body
+		display: block;
+		box-sizing: border-box;
+
+		&:after
+			content: "";
+			display: block;
+			clear: both;
+
+		> form
+			display: block;
+			box-sizing: border-box;
+			min-width: 334px;
+			border: solid 1px #ddd;
+			border-radius: 4px;
+
+			& + form
+				margin-top: 16px;
+
+			> header
+				display: block;
+				line-height: 42px;
+				padding: 0 16px;
+				background: #fbfbfb;
+				border-bottom: solid 1px #ddd;
+				border-radius: 4px 4px 0 0;
+				color: #555;
+				font-weight: bold;
+
+				i
+					margin-right: 5px;
+					color: #aaa;
+
+			> label, > .group
+				display: block;
+				position: relative;
+				margin: 16px;
+
+				&.required
+					p.caption
+						font-weight: bold;
+
+						&:after
+							content: "※必須";
+							margin-left: 4px;
+							font-size: 0.8em;
+							color: #EF9886;
+
+				.caption
+					margin: 0 0 4px 0;
+					color: #555;
+					font-size: 1em;
+
+					> i
+						margin-right: 0.25em;
+						color: #777;
+
+				.info
+					display: block;
+					margin: 4px 0;
+					font-size: 0.8em;
+
+					&[data-state='none']
+						display: none;
+
+					&[data-state='error']
+						color: #FF1161;
+
+					&[data-state='processing']
+						color: #999;
+
+					&[data-state='ok']
+						color: #3CB7B5;
+
+					> i
+						margin-right: 0.3em;
+
+				&#recaptcha
+					border-top: solid 1px #eee;
+					margin: 16px 0;
+					padding: 16px 16px 0 16px;
+
+			[type=text], [type=password], [type=url]
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				user-select: text;
+				-moz-user-select: text;
+				-webkit-user-select: text;
+				-ms-user-select: text;
+				display: block;
+				cursor: auto;
+				box-sizing: border-box;
+				padding: 10px;
+				margin: 0;
+				width: 100%;
+				max-width: 24em;
+				font-size: 1em;
+				color: #222;
+				outline: none;
+				border: solid 1px #ddd;
+				border-radius: 3px;
+				// box-shadow: 0 0 0 114514px #fff inset;
+				background: transparent;
+				transition: all 0.2s ease;
+
+				&:disabled
+					opacity: 0.5;
+					transition: all 0s ease;
+
+				&:hover
+					border: solid 1px #bbb;
+					transition: all 0s ease;
+
+				&:focus
+					color: darken($theme-color, 30%);
+					border: solid 1px $theme-color;
+					box-shadow: 0 0 4px rgba($theme-color, 0.2);
+					transition: all 0s ease;
+
+				&[readonly]
+					color: #555;
+					background: #fafafa;
+
+			textarea
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				user-select: text;
+				-moz-user-select: text;
+				-webkit-user-select: text;
+				-ms-user-select: text;
+				display: block;
+				cursor: auto;
+				box-sizing: border-box;
+				padding: 10px;
+				margin: 0;
+				width: 100%;
+				min-width: 100%;
+				max-width: 100%;
+				min-height: 5em;
+				font-size: 1em;
+				color: #222;
+				outline: none;
+				border: solid 1px #ddd;
+				border-radius: 3px;
+				background: transparent;
+				transition: color 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+
+				&:disabled
+					opacity: 0.5;
+					transition: all 0s ease;
+
+				&:hover
+					border: solid 1px #bbb;
+					transition: all 0s ease;
+
+				&:focus
+					color: darken($theme-color, 20%);
+					border: solid 1px $theme-color;
+					box-shadow: 0 0 4px rgba($theme-color, 0.2);
+					transition: all 0s ease;
+
+			select
+				user-select: text;
+				-moz-user-select: text;
+				-webkit-user-select: text;
+				-ms-user-select: text;
+				display: block;
+				cursor: auto;
+				box-sizing: border-box;
+				padding: 10px;
+				margin: 0;
+				width: 100%;
+				max-width: 24em;
+				font-size: 1em;
+				color: #222;
+				outline: none;
+				border: solid 1px #ddd;
+				border-radius: 3px;
+				background: transparent;
+
+				&:disabled
+					opacity: 0.5;
+					transition: all 0s ease;
+
+				&:hover
+					border: solid 1px #bbb;
+					transition: all 0s ease;
+
+				&:focus
+					border: solid 1px $theme-color;
+					box-shadow: 0 0 4px rgba($theme-color, 0.2);
+					transition: all 0s ease;
+
+			.actions
+				position: relative;
+				margin: 16px 0 0 0;
+				padding: 16px;
+				text-align: right;
+				border-top: solid 1px #eee;
+
+				[type=submit], [type=reset]
+					-webkit-appearance: none;
+					-moz-appearance: none;
+					appearance: none;
+					-moz-user-select: none;
+					-webkit-user-select: none;
+					-ms-user-select: none;
+					user-select: none;
+					cursor: pointer;
+					display: inline-block;
+					vertical-align: bottom;
+					box-sizing: border-box;
+					padding: 10px 16px;
+					margin: 0 0 0 12px;
+					min-width: 72px;
+					font-size: 1em;
+					line-height: 1em;
+					outline: none;
+					border-radius: 3px;
+					box-shadow: none;
+
+					*
+						pointer-events: none;
+
+					&:disabled
+						opacity: 0.5;
+
+					&:active
+						box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+
+					&:focus
+						border: solid 1px #ff9693 !important;
+						box-shadow: 0 0 5px rgba(255, 150, 147, 0.5);
+
+					&:active:focus
+						box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 0 5px rgba(255, 150, 147, 0.5);
+
+					i
+						margin-right: 4px;
+
+				[type=reset]
+					font-weight: normal;
+					color: #333;
+					border: solid 1px #d5d5d5;
+					background: #fff;
+					background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+					background-image: linear-gradient(#fcfcfc, #eee);
+
+					&:hover
+						border: solid 1px #ccc;
+						background: darken($theme-color, 5%);
+						background-image: -webkit-linear-gradient(#eee, #ddd);
+						background-image: linear-gradient(#eee, #ddd);
+
+					&:active
+						border: solid 1px #b5b5b5;
+						background: #dcdcdc;
+
+				[type=submit]
+					font-weight: bold;
+					color: #fff;
+					border: solid 1px darken($theme-color, 20%);
+					background: $theme-color;
+					background-image: -webkit-linear-gradient(lighten($theme-color, 10%), darken($theme-color, 15%));
+					background-image: linear-gradient(lighten($theme-color, 10%), darken($theme-color, 15%));
+
+					&:hover
+						border: solid 1px darken($theme-color, 25%);
+						background: darken($theme-color, 5%);
+						background-image: -webkit-linear-gradient($theme-color, darken($theme-color, 20%));
+						background-image: linear-gradient($theme-color, darken($theme-color, 20%));
+
+					&:active
+						border: solid 1px darken($theme-color, 40%);
+						background: darken($theme-color, 30%);

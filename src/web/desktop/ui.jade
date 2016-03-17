@@ -1,0 +1,38 @@
+extend ../common
+
+block body
+	header#ui-header
+		nav.nav(role='navigation')
+			div.body
+				div.left
+					a#logo(href= config.url, role='banner')
+						img(src= config.urls.resources + '/logo-mini.png', alt='ss matome')
+					a(href= config.urls.search) SSを探す
+					a(href= config.urls.series) シリーズ(カテゴリ)
+					a(href= config.urls.characters) キャラクター
+					a(href= config.url) タグ
+				div.right
+					form.search(action= config.urls.search, method='get', role='search')
+						input(type='search', name='q', placeholder!='&#xf002; 検索')
+						div.result
+					if login
+						a.read-later(href= config.urls.i, title='「あとで読む」に保存したSS')
+							i.fa.fa-archive
+						a.i(href= config.urls.i)= me.screenName
+					else
+						a.signup(href= config.urls.signup + '?callback=' + url) 新規登録
+						a.signin(href= config.urls.signin + '?callback=' + url) ログイン
+	
+	div#ui-contents
+		block contents
+
+	footer#ui-footer
+		small(role='contentinfo')
+			a.title(href= config.url) SSまとめ
+			span.copyright (c)
+			a.author(href='https://twitter.com/syuilo') syuilo
+			span.year 2016
+	
+
+	button#ui-go-top-button.hidden(title='ページの一番上へ')
+		i.fa.fa-angle-up

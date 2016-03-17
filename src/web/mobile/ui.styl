@@ -1,0 +1,50 @@
+@import '../common'
+
+$header-height = 48px;
+
+#ui-header
+	display: block;
+	background: #fff;
+
+	.body
+		display: block;
+		position: relative;
+		max-width: 800px;
+		margin: 0 auto;
+
+		&:after
+			content: "";
+			display: block;
+			clear: both;
+
+		.top
+			display: block;
+			float: left;
+			padding: 0 8px;
+
+		.account
+			display: block;
+			float: right;
+
+			.i
+				display: inline-block;
+				padding: 0 8px;
+
+			.signup
+			.signin
+				display: inline-block;
+				margin: 0 8px;
+
+#ui-footer
+	display: block;
+	padding: 16px 0;
+	text-align: center;
+
+	small
+		color: rgba(0, 0, 0, 0.5);
+
+		a
+			color: inherit;
+
+		*
+			margin: 0 2px;

@@ -1,0 +1,192 @@
+@import '../../ui'
+
+html
+	background: #F7F7F7;
+
+main
+	> article
+		> header
+			padding: 28px 28px;
+
+			> .body
+				max-width: 800px;
+				margin: 0 auto;
+
+				h1
+					display: block;
+					margin: 0 0 8px 0;
+					font-size: 1.5em;
+					font-weight: bold;
+					color: #7D4B1A;
+
+				.series
+					display: block;
+					margin: 0;
+					font-size: 1em;
+
+					a
+						margin: 0 4px;
+
+		> .content
+			margin: 0 12px;
+			//border: solid 1px #ddd;
+			border-radius: 4px;
+			//background: #fffbfb;
+			background: #fff;
+
+			> .body
+				max-width: 800px;
+				margin: 0 auto;
+				font-family: 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+
+				> .filter
+					display: block;
+					margin: 0;
+					padding: 8px;
+					font-size: 0.9em;
+					text-align: center;
+
+					> .caption
+						display: inline;
+						margin-right: 4px;
+						color: #806358;
+
+						> i
+							margin-right: 4px;
+
+					> .mode
+						margin: 0 4px;
+
+						&.active
+							font-weight: bold;
+
+				> .posts
+					> .post
+						padding: 0 32px;
+						word-break: break-word;
+						font-size: 1em;
+
+						&.active
+							> .body
+								> .actions
+									visibility: visible;
+
+						&[data-popularity='a']
+							> .body
+								> .text
+									font-size: 1.5em;
+									font-weight: bold;
+
+						&[data-popularity='b']
+							> .body
+								> .text
+									font-size: 1.25em;
+									font-weight: bold;
+
+						&[data-popularity='c']
+							> .body
+								> .text
+									font-size: 1em;
+									font-weight: bold;
+
+						> header
+							margin-bottom: 8px;
+
+							.number
+								display: inline;
+								margin-right: 8px;
+								color: #715D56;
+
+							.name
+								display: inline;
+								margin: 0 8px 0 0;
+								font-size: 0.8em;
+								font-weight: bold;
+								color: #FF9693;
+
+							.time
+								display: inline;
+								margin-right: 8px;
+								font-size: 0.7em;
+								color: #B3A19B;
+
+							.id
+								display: inline;
+								opacity: 0.5;
+								font-size: 0.6em;
+
+						> .body
+							> .text
+								padding: 0 1em;
+								color: #806358;
+
+							> .actions
+								visibility: hidden;
+
+								> button
+									display: inline-block;
+									-webkit-appearance: none;
+									-moz-appearance: none;
+									appearance: none;
+									margin: 0;
+									padding: 0;
+									width: 42px;
+									height: 42px;
+									font-size: 1.1em;
+									line-height: 32px;
+									border: none;
+									border-radius: 0;
+									background: transparent;
+									box-shadow: none;
+									color: #ADA7A7;
+									cursor: pointer;
+
+									*
+										pointer-events: none;
+
+									&:hover
+										color: #666;
+
+									&:disabled
+										opacity: 0.5;
+										cursor: wait;
+
+		> footer
+			> .body
+				max-width: 800px;
+				margin: 0 auto;
+
+				small
+					word-break: break-all;
+
+	@media (max-width: 500px)
+		> article
+			> header
+				padding: 28px 16px;
+
+				> .body
+					h1
+						font-size: 1em;
+
+					.series
+						font-size: 0.8em;
+
+			> .content
+				margin: 0;
+				border: none;
+				border-top: solid 1px #ddd;
+				border-radius: 0;
+
+				> .body
+					> .posts
+						> .post
+							padding: 0 12px;
+							font-size: 0.8em;
+
+							> header
+								.id
+									font-size: 0.5em;
+
+							> .body
+								> .text
+									padding: 0;

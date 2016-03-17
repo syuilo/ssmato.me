@@ -1,0 +1,47 @@
+extend ../../ui
+
+block assets
+	if callback != null
+		script!= 'var CALLBACK="' + callback + '";Object.freeze(CALLBACK);'
+	else
+		script!= 'var CALLBACK=null;Object.freeze(CALLBACK);'
+
+block title
+	| ログイン
+
+block contents
+	header
+		h1 ログイン
+		p ログインすると、ブックマークや栞などの便利な機能が使えます。
+	div.body
+		form#form
+			label
+				p
+					i.fa.fa-at
+					| ユーザーID
+				input#id(name='screen-name'
+					type='text'
+					pattern='^[0-9A-Za-z\-]+$'
+					placeholder='User ID'
+					autofocus
+					required)
+			label
+				p
+					i.fa.fa-lock
+					| パスワード
+				input(name='password'
+					type='password'
+					placeholder='Password'
+					required)
+			p.info(data-state='none')
+				i
+				span
+			button(type='submit')
+				i.fa.fa-sign-in
+				span.text ログイン
+			a.signup(href=config.urls.signup)
+				i.fa.fa-angle-right
+				| 新規登録はこっち
+			a.forgot-password()
+				i.fa.fa-angle-right
+				| パスワードを忘れた場合

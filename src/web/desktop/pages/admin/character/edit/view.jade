@@ -1,0 +1,131 @@
+extend ../../../../ui
+
+block title
+	| キャラクターの編集 - SSまとめ
+
+block assets
+	script(src='https://www.google.com/recaptcha/api.js')
+	
+block contents
+	main(role='main')
+		header
+			h1 キャラクターの編集
+			p キャラクター情報を編集します。
+		
+		div.body
+			form#form(autocomplete='off')
+				header
+					i.fa.fa-user
+					| 「
+					= character.name
+					| 」のキャラクター情報編集
+				div.group.series.required
+					label
+						p.caption
+							| 登場シリーズ
+						select(name='series'
+								autocomplete='off'
+								autofocus
+								required)
+							option(selected, disabled, hidden, value='') ---選択してください---
+							each series in serieses
+								option(value= series.id)= series.title
+					a(href='/series/add', target='_blank') 該当するシリーズが無い場合
+				label.required
+					p.caption
+						| 名前
+					input(name='name'
+							type='text'
+							placeholder='例: 佐倉 杏子'
+							autocomplete='off'
+							required)
+				label.required
+					p.caption
+						| 名前(ふりがな)
+					input(name='kana'
+							type='text'
+							placeholder='例: さくら きょうこ'
+							pattern='^[ぁ-んー ]+$'
+							autocomplete='off'
+							required)
+				label.required
+					p.caption
+						| 表示名
+					input(name='screen-name'
+							type='text'
+							placeholder='例: 杏子'
+							autocomplete='off'
+							required)
+				label.required
+					p.caption
+						| 呼び名 ※ , で区切る
+					input(name='aliases'
+							type='text'
+							placeholder='例: 杏子, あんこ, あん'
+							autocomplete='off'
+							required)
+				label.required
+					p.caption
+						| イメージカラー
+					input(name='color'
+							type='color'
+							autocomplete='off'
+							required)
+				label
+					p.caption
+						| BIO
+					textarea(name='bio'
+							placeholder='例: マミの縄張りを狙い、別の町からやってきた魔法少女。\r\nいつも何かを食べている。\r\n周囲の被害を鑑みない利己主義者。'
+							autocomplete='off')
+				label
+					p.caption
+						| 写真
+					input(name='image', type='file', accept='image/jpeg')
+				div.group.gender
+					p.caption
+						| 性別
+					label
+						input(name='gender', type='radio', value='male')
+						| 男性(雄)
+					label
+						input(name='gender', type='radio', value='female')
+						| 女性(雌)
+					label
+						input(name='gender', type='radio', value='hermaphrodite')
+						| 両性(雌雄同体)
+					label(title='作中で性別が明らかにされていないケース。')
+						input(name='gender', type='radio', value='unknown')
+						| 不明
+					label(title='そのSSによって性別の扱いが異なるケース。(たとえば「勇者」など)')
+						input(name='gender', type='radio', value='undefined')
+						| 不定
+					label(title='作品レベルで性別が変動するようなケース。')
+						input(name='gender', type='radio', value='dynamic')
+						| 動的
+					label(title='キャラクターに性別という概念が無いケース。')
+						input(name='gender', type='radio', value='none')
+						| なし
+					label(title='上記のどれにも当てはまらない場合はこちらを選択してください。')
+						input(name='gender', type='radio', value='other')
+						| その他
+				label#recaptcha
+					div.g-recaptcha(
+							data-callback='onRecaptchaed'
+							data-expired-callback='onRecaptchaExpired'
+							data-sitekey=config.recaptchaSiteKey)
+				div.actions
+					button(type='button')
+						i.fa.fa-trash
+						span 削除
+					input(type='reset', value='リセット')
+					button(type='submit')
+						i.fa.fa-check
+						span 登録
+
+			img.separator(src= config.urls.resources + '/desktop/pages/admin/character/edit/separator.png', alt='')
+
+			aside.history
+				h2 最近登録されたキャラクター
+				ol
+					each character in recentCharacters
+						li: a(title=character.kana)= character.name

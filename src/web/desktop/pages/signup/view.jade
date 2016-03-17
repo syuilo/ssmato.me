@@ -1,0 +1,85 @@
+extend ../../ui
+
+block title
+	| 新規メンバー登録
+
+block assets
+	if callback != null
+		script!= 'var CALLBACK="' + callback + '";Object.freeze(CALLBACK);'
+	else
+		script!= 'var CALLBACK=null;Object.freeze(CALLBACK);'
+
+	script(src='https://www.google.com/recaptcha/api.js')
+
+block contents
+	header
+		h1 SSまとめメンバーに登録
+		p メンバーになると、ブックマークや栞などの便利な機能が使えます。※無料です。
+	div.body
+		form#form(autocomplete='off')
+			label#screen-name
+				p.caption
+					i.fa.fa-at
+					| ユーザーID
+				input(name='screen-name'
+					type='text'
+					pattern='^[0-9A-Za-z\-]{2,15}$'
+					placeholder='半角英数字'
+					autocomplete='off'
+					autofocus
+					required)
+				p.info(data-state='none')
+					i
+					span
+			
+			label#password
+				p.caption
+					i.fa.fa-lock
+					| パスワード
+				input(name='password'
+					type='password'
+					placeholder='8文字以上'
+					autocomplete='off'
+					required)
+				p.info(data-state='none')
+					i
+					span
+			
+			label#retype-password
+				p.caption
+					i.fa.fa-lock
+					| パスワード(再入力)
+				input(name='retype-password'
+					type='password'
+					placeholder=''
+					autocomplete='off'
+					required)
+				p.info(data-state='none')
+					i
+					span
+			
+			label#recaptcha
+				p.caption
+					i.fa.fa-toggle-off
+					| 認証
+				div.g-recaptcha(
+					data-callback='onRecaptchaed'
+					data-expired-callback='onRecaptchaExpired'
+					data-sitekey=config.recaptchaSiteKey)
+			
+			button(type='submit')
+				i.fa.fa-check
+				span アカウント作成
+		
+		img.separator(src= config.urls.resources + '/desktop/pages/signup/separator.png', alt='')
+
+		article.overview
+			h2 メンバーになるとできること
+			ul
+				li SSをブックマークできます
+				li SSを評価できます
+				li レスを評価できます
+				li SSにコメントできます
+				li 栞を付けてどこまで読んだか把握できます
+				li and more!
+				

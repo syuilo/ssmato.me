@@ -1,0 +1,45 @@
+extend ../../../ui
+include ../../../common/ss-preview
+
+block title
+	| ダッシュボード - SSまとめ
+
+block contents
+	p#welcomeback
+		| Welcome back, #{me.screenName}!
+		if me.isAdmin
+			a.go-conpane(href=config.urls.admin) SSまとめ管理ページへ
+	main(role='main')
+		ul#tabs
+			li(data-ref='read-later'): p
+				i.fa.fa-clock-o
+				| あとで読む
+			li(data-ref='favorites'): p
+				i.fa.fa-heart
+				| お気に入り
+			li(data-ref='history'): p
+				i.fa.fa-eye
+				| 履歴
+		div#pages
+			article#read-later(data-name='read-later')
+				div.sss
+					if readlaters.length != 0
+						each ss in readlaters
+							+ss(ss, 'remove-from-read-laters')
+					else
+						p.empty 「あとで読む」に追加されているSSはありません
+			article#favorites(data-name='favorites')
+				div.sss
+					if favorites.length != 0
+						each ss in favorites
+							+ss(ss)
+					else
+						p.empty お気に入りに追加したSSはありません
+			article#history(data-name='history')
+				div.sss
+					if history.length != 0
+						each ss in history
+							+ss(ss)
+					else
+						p.empty 閲覧履歴はありません
+			

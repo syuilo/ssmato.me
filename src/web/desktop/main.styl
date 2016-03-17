@@ -1,0 +1,90 @@
+@import './ui'
+
+html
+	background: #D9E6DC;
+
+#ui-contents
+	margin: 0 10px;
+
+	> .main-container
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		justify-content: center;
+		position: relative;
+		padding: 0 10px;
+		margin: 0 auto;
+		max-width: 1000px;
+		background: #fff;
+
+		> main
+			position: relative;
+			flex: 1 1;
+			margin: 10px 0;
+
+		> .side
+			position: relative;
+			flex: 1 1 230px;
+			max-width: 230px;
+			margin-left: 10px;
+			padding: 0;
+			font-size: 0.9em;
+
+			> .body
+				padding: 10px 0;
+
+				> section
+					position: relative;
+					padding: 12px;
+					margin: 0 0 10px 0;
+
+					&:last-child
+						margin-bottom: 0;
+
+					> h2
+						display: block;
+						margin: 0;
+						padding: 0;
+						font-size: 1em;
+						font-weight: normal;
+						color: #8E7870;
+
+						> a
+							color: inherit;
+
+					&.popular-series,
+					&.popular-characters,
+					&.popular-tags
+						> .search
+							display: block;
+							position: absolute;
+							top: 12px;
+							right: 12px;
+							color: #C7C7C7;
+
+						> ol
+							display: block;
+							margin: 0;
+							padding: 0;
+							list-style: none;
+
+							> li
+								display: block;
+								margin: 4px 0;
+								padding: 0;
+
+								i
+									margin-right: 4px;
+
+								.count
+									margin-left: 3px;
+									font-size: 0.9em;
+									opacity: 0.7;
+
+					&.popular-characters
+						> ol
+							> li
+								i
+									opacity: 0.7;

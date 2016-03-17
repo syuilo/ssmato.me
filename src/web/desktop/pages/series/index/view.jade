@@ -1,0 +1,40 @@
+extend ../../../ui
+include ../../../common/ss-preview
+
+block title
+	= series.title + ' - SSまとめ'
+
+block meta
+	- var summary = series.description;
+	meta(name='keywords', content='SS, SSまとめ, ' + series.title + ', ' + series.aliases.join(','))
+	meta(name='description', content= summary)
+	meta(property='og:title', content=series.title)
+	meta(property='og:type', content='article')
+	meta(property='og:description', content= summary)
+	meta(property='og:url', content= config.url)
+	meta(property='og:image', content= config.urls.resources + '/logo.jpg')
+	meta(property='og:site_name', content='SSまとめ')
+	meta(property='twitter:card', content='summary')
+	meta(property='twitter:site', content='@syuilo')
+	meta(property='twitter:title', content=series.title)
+	meta(property='twitter:description', content= summary)
+	meta(property='twitter:image', content= config.urls.resources + '/logo.jpg')
+	meta(property='twitter:url', content= config.url)
+
+block content
+	main(role='main')
+		article
+			header
+				div.top
+					div.body
+						h1= series.title
+						p.description= series.description
+				div.bottom
+					div.body
+						p 工事中
+			div.container
+				div.main
+					section.recent
+						div.sss
+							each ss in sss
+								+ss(ss)

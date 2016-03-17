@@ -1,0 +1,57 @@
+doctype html
+
+!= '\n<!-- Thank you for using ssmato.me! <3 @syuilo -->\n'
+
+- var htmlSchema = 'http://schema.org/WebPage';
+
+block vars
+
+html(lang='ja', dir='ltr', itemscope, itemtype= htmlSchema)
+	
+	- var setScript = function (name, val) {
+	-   return 'var ' + name + '=' + val + ';Object.freeze(' + name + ');';
+	- }
+	- var escapeScript = function (name, val) {
+	-   return 'eval(decodeURIComponent("' + encodeURIComponent('var ' + name + '=' + val + ';Object.freeze(' + name + ');') + '"));';
+	- }
+
+	head(prefix='og: http://ogp.me/ns#')
+		meta(charset='utf-8')
+		meta(name='robots', content='all')
+		meta(name='application-name', content='SSまとめ')
+		meta(name='theme-color', content= config.themeColor)
+		meta(name='referrer', content='origin')
+		meta(name='csrf-token', content= csrftoken)
+		block meta
+		title
+			block title
+		script!= 'document.domain = \'' + config.domain + '\';'
+		link(rel='shortcut icon', href= config.url + '/favicon.ico')
+		link(rel='icon', href= config.url + '/favicon.ico')
+		link(rel='image_src', href= config.url + '/favicon.ico')
+		link(rel='apple-touch-icon', sizes='120x120', href= config.urls.resources + '/apple-touch-icon-120x120.png')
+		link(rel='apple-touch-icon', sizes='144x144', href= config.urls.resources + '/apple-touch-icon-144x144.png')
+		link(rel='apple-touch-icon', sizes='180x180', href= config.urls.resources + '/apple-touch-icon-180x180.png')
+		link(rel='manifest', href= config.url + '/manifest.json')
+		link(rel='search', href= config.urls.search, title='search')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+		link(rel='stylesheet', href= stylePath)
+		script!= setScript('CONFIG', JSON.stringify(config))
+		script!= setScript('LOGIN', login.toString())
+		script(src= scriptPath, async, defer)
+		script(type='application/ld+json').
+			{
+			  "@context": "http://schema.org",
+			  "@type": "WebSite",
+			  "url": "#{config.url}",
+			  "potentialAction": {
+			    "@type": "SearchAction",
+			    "target": "#{config.urls.search}?q={q}",
+			    "query-input": "required name=q"
+			  }
+			}
+
+		block assets
+	
+	body
+		block body

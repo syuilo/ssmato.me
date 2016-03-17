@@ -1,0 +1,83 @@
+{
+  "repos": [
+    {
+      "url": "https://github.com/borisyankov/DefinitelyTyped.git",
+      "ref": "master"
+    }
+  ],
+  "path": "typings",
+  "bundle": "typings/bundle.d.ts",
+  "link": {
+    "npm": {
+      "include": true
+    }
+  },
+  "dependencies": {
+    "express/express.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "mongoose/mongoose.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "jade/jade.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "gulp/gulp.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "gulp-typescript/gulp-typescript.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "gulp-tslint/gulp-tslint.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "body-parser/body-parser.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "cookie-parser/cookie-parser.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "express-session/express-session.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "moment/moment.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "compression/compression.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "connect-mongo/connect-mongo.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "request/request.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "gm/gm.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "multer/multer.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "browserify/browserify.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "glob/glob.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "csurf/csurf.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "bcrypt/bcrypt.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "seedrandom/seedrandom.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "mongoose-deep-populate/mongoose-deep-populate.d.ts": {
+      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+    },
+    "mongodb/mongodb.d.ts": {
+      "ref": "4fd64879854251c64a085b3f62ab47eaf03d15e8"
+    }
+  }
+}

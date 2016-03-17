@@ -1,0 +1,37 @@
+extend ./ui
+
+block contents
+	div.main-container
+		main(role='main')
+			block content
+		div.side
+			div.body
+				section.popular-series
+					h2: a(href= config.urls.series) シリーズ
+					a.search
+						i.fa.fa-search
+					ol.series
+						each series in uiPopularSeries
+							li: a(href= config.urls.series + '/' + series.id, title= series.kana)
+								=series.title
+								span.count= '(' + series.ssCount + ')'
+				section.popular-characters
+					h2: a(href= config.urls.characters) キャラ
+					a.search
+						i.fa.fa-search
+					ol.characters
+						each character in uiPopularCharacters
+							li: a(href= config.urls.characters + '/' + character.id, title= character.kana)
+								i.fa.fa-circle(style='color:' + character.color)
+								=character.name
+								span.count= '(' + character.ssCount + ')'
+				section.popular-tags
+					h2: a(href= config.urls.tags) タグ
+					a.search
+						i.fa.fa-search
+					ol.tags
+						//
+							each series in popularSeries
+								li: a(href= config.urls.series + '/' + series.id)
+									=series.title
+									span.count= '(' + series.ssCount + ')'

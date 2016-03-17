@@ -1,0 +1,76 @@
+{
+  "name": "ssmatome",
+  "version": "0.0.0",
+  "description": "SS matome",
+  "main": "./built/index.js",
+  "repository": {
+    "url": "https://github.com/syuilo/ssmatome.git"
+  },
+  "scripts": {
+    "start": "node --harmony ./built/index.js",
+    "start-production": "NODE_ENV=production node --harmony ./built/index.js",
+    "dtsm": "dtsm --insight false install",
+    "build": "gulp build",
+    "lint": "gulp lint",
+    "test": "gulp test"
+  },
+  "license": "MIT",
+  "browserify": {
+    "transform": [
+      "browserify-livescript",
+      "debowerify",
+      [
+        "jadeify",
+        {
+          "compileDebug": false,
+          "pretty": false
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "bower": "1.7.7",
+    "browserify": "13.0.0",
+    "browserify-livescript": "0.2.3",
+    "debowerify": "1.4.1",
+    "dtsm": "1.0.0",
+    "event-stream": "3.3.2",
+    "gulp": "3.9.1",
+    "gulp-cssnano": "2.1.1",
+    "gulp-stylus": "2.3.0",
+    "gulp-tslint": "4.3.3",
+    "gulp-typescript": "2.12.1",
+    "gulp-uglify": "1.5.3",
+    "jadeify": "4.6.0",
+    "tslint": "3.6.0",
+    "typescript": "1.8.7",
+    "typescript-require": "0.2.9-1",
+    "vinyl-buffer": "1.0.0",
+    "vinyl-source-stream": "1.1.0"
+  },
+  "dependencies": {
+    "bcrypt": "0.8.5",
+    "body-parser": "1.15.0",
+    "cheerio-httpcli": "0.6.5",
+    "compression": "1.6.1",
+    "connect-mongo": "1.1.0",
+    "cookie-parser": "1.4.1",
+    "cors": "2.7.1",
+    "csurf": "1.8.3",
+    "express": "4.13.4",
+    "express-session": "1.13.0",
+    "gm": "1.21.1",
+    "html-entities": "1.2.0",
+    "jade": "1.11.0",
+    "moment": "2.11.2",
+    "mongoose": "4.4.7",
+    "mongoose-deep-populate": "3.0.0",
+    "multer": "1.1.0",
+    "request": "2.69.0",
+    "seedrandom": "2.4.2",
+    "sleep": "3.0.1",
+    "subdomain": "1.2.0",
+    "vhost": "3.0.2"
+  },
+  "private": true
+}

@@ -1,0 +1,34 @@
+extend ../../main
+include ../../common/ss-preview
+
+block title
+	| SSまとめ
+
+block meta
+	- var summary = '「SSまとめ」はこの世にある全てのSSを収集するべく運営されているプロジェクトです';
+	meta(name='keywords', content='SS, SSまとめ')
+	meta(name='description', content= summary)
+	meta(property='og:title', content='SSまとめ')
+	meta(property='og:type', content='article')
+	meta(property='og:description', content= summary)
+	meta(property='og:url', content= config.url)
+	meta(property='og:image', content= config.urls.resources + '/logo.png')
+	meta(property='og:site_name', content='SSまとめ')
+	meta(property='twitter:card', content='summary')
+	meta(property='twitter:site', content='@syuilo')
+	meta(property='twitter:title', content='SSまとめ')
+	meta(property='twitter:description', content= summary)
+	meta(property='twitter:image', content= config.urls.resources + '/logo.png')
+	meta(property='twitter:url', content= config.url)
+
+block content
+	article
+		header
+			img.logo(src= config.urls.resources + '/logo.png', alt='SSまとめ')
+			h1 SSまとめ
+			p 国内最大級のキャラクタ情報データベースを擁し、それらを基に正確で高度なSSの解析を行います。
+		div.main
+			div.recent
+				div.sss
+					each ss in recentSS
+						+ss(ss)

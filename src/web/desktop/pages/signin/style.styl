@@ -1,0 +1,173 @@
+@import '../../ui'
+
+html, body, input, textarea, select
+	font-family: 'MS PGothic', 'ＭＳ ゴシック', 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+
+html
+	background #fff
+
+	&.processing
+		&, *
+			cursor: wait !important;
+
+#ui-contents
+	max-width: 800px;
+	margin: 0 auto;
+
+	> header
+		display: block;
+		padding: 24px 16px 32px 16px;
+		color: #444;
+
+		h1
+			display: block;
+			margin: 0 0 16px 0;
+			font-size: 2em;
+			line-height: 32px;
+			font-weight: bold;
+
+		p
+			display: block;
+			margin: 0;
+
+	> .body
+		display: block;
+		box-sizing: border-box;
+		padding: 0 16px;
+
+		form
+			display: block;
+			width: 302px;
+
+			label
+				display: block;
+				position: relative;
+				margin: 16px 0;
+
+				&:first-child
+					margin: 0 0 16px 0;
+
+				> p
+					margin: 0 0 4px 0;
+					color: #555;
+					font-size: 1em;
+
+					> i
+						margin-right: 0.25em;
+						color: #777;
+
+				> .info
+					display: block;
+					margin: 4px 0;
+					font-size: 0.8em;
+
+					&[data-state='none']
+						display: none;
+
+					&[data-state='error']
+						color: #FF1161;
+
+					&[data-state='processing']
+						color: #999;
+
+					&[data-state='ok']
+						color: #3CB7B5;
+
+					> i
+						margin-right: 0.3em;
+
+			[type=text], [type=password]
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				user-select: text;
+				-moz-user-select: text;
+				-webkit-user-select: text;
+				-ms-user-select: text;
+				display: inline-block;
+				cursor: auto;
+				box-sizing: border-box;
+				padding: 10px;
+				margin: 0;
+				width: 100%;
+				font-size: 1em;
+				color: #222;
+				outline: none;
+				border: solid 1px #ddd;
+				border-radius: 3px;
+				box-shadow: 0 0 0 114514px #fff inset;
+				background: transparent;
+				transition: all 0.2s ease;
+
+				&:disabled
+					opacity: 0.5;
+
+				&:hover
+					border: solid 1px #bbb;
+					transition: all 0s ease;
+
+				&:focus
+					color: darken($theme-color, 20%);
+					border: solid 1px $theme-color;
+					transition: all 0s ease;
+
+			[type=submit]
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				cursor: pointer;
+				display: block;
+				box-sizing: border-box;
+				position: relative;
+				padding: 12px 12px 12px 48px;
+				margin: 20px 0 22px auto;
+				font-size: 1em;
+				color: #fff;
+				outline: none;
+				border: none;
+				border-radius: 3px;
+				box-shadow: none;
+				background: $theme-color;
+
+				*
+					pointer-events: none;
+
+				&:before
+					content: "";
+					display: block;
+					width: 40px;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background: rgba(0, 0, 0, 0.1);
+					border-radius: 3px 0 0 3px;
+
+				> i
+					display: block;
+					width: 40px;
+					height: 1em;
+					position: absolute;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					margin: auto 0;
+
+				&:disabled
+					opacity: 0.5;
+
+				&:hover
+					background: darken($theme-color, 5%);
+
+				&:active
+					background: darken($theme-color, 10%);
+
+			.signup
+			.forgot-password
+				display: block;
+				margin: 8px 0;
+				color: #888;
+				font-size: 0.7em;
+
+				> i
+					margin-right: 0.3em;

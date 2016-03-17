@@ -1,0 +1,216 @@
+@import '../common'
+
+$header-height = 48px;
+
+html
+	background: #fff;
+
+#ui-header
+	display: block;
+	height: $header-height;
+	background: #f4f4f4;
+	border-bottom: solid 1px #ddd;
+
+	.nav
+		display: block;
+		height: 100%;
+
+		&:after
+			content: '';
+			display: block;
+			clear: both;
+
+		.body
+			display: block;
+			max-width: 1024px;
+			height: 100%;
+			margin: 0 auto;
+
+			.left
+				display: block;
+				float: left;
+				height: 100%;
+
+				#logo
+					display: inline-block;
+					box-sizing: border-box;
+					padding: 8px;
+					height: $header-height;
+
+					> img
+						display: inline-block;
+						height: 100%;
+
+				a
+					display: inline-block;
+					margin: 0 8px;
+					vertical-align: bottom;
+					font-size: 0.9em;
+					line-height: $header-height;
+					color: #888;
+
+			.right
+				display: block;
+				float: right;
+				height: 100%;
+
+				> .search
+					display: block;
+					float: left;
+					position: relative;
+
+					> input
+						-webkit-appearance: none;
+						-moz-appearance: none;
+						appearance: none;
+						user-select: text;
+						-moz-user-select: text;
+						-webkit-user-select: text;
+						-ms-user-select: text;
+						cursor: auto;
+						box-sizing: border-box;
+						margin: 0;
+						padding: 6px 18px;
+						width: 14em;
+						height: 48px;
+						font-size: 1em;
+						line-height: calc(48px - 12px);
+						background: transparent;
+						outline: none;
+						border: none;
+						border-radius: 0;
+						box-shadow: none;
+						transition: color 0.5s ease, border 0.5s ease;
+						font-family: FontAwesome, 'MS PGothic', 'ＭＳ ゴシック', 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+
+						&[data-active='true']
+							background: #fff;
+
+					> .result
+						display: block;
+						position: absolute;
+						top: auto;
+						right: 0;
+						z-index: 3;
+						width: 340px;
+						margin: 0;
+						padding: 0;
+						background: #fff;
+
+				> .read-later
+					display: inline-block;
+					padding: 0 12px;
+					line-height: $header-height;
+
+					&:hover
+						> i
+							color: #444;
+
+					> i
+						vertical-align: middle;
+						color: #888;
+
+					> .count
+						display: inline-block;
+						position: relative;
+						z-index: 1;
+						padding: 1px 2px;
+						margin-right: -1em;
+						margin-left: -0.5em;
+						vertical-align: super;
+						font-size: 0.7em;
+						line-height: 1em;
+						color: #fff;
+						background: $theme-color;
+						border-radius: 2px;
+
+				> .i
+					display: inline-block;
+					padding: 0 8px;
+					font-size: 0.9em;
+					line-height: $header-height;
+					color: #888;
+					text-decoration: none;
+
+					&:hover
+						color: #444;
+						text-decoration: none;
+
+				> .signup
+				> .signin
+					display: inline-block;
+					margin: 0 8px;
+					line-height: $header-height;
+
+#ui-footer
+	display: block;
+	padding: 32px 0;
+	text-align: center;
+
+	small
+		color: rgba(0, 0, 0, 0.5);
+
+		a
+			color: inherit;
+
+		*
+			margin: 0 2px;
+
+#ui-go-top-button
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	pointer-events: auto;
+	display: block;
+	position: fixed;
+	bottom: 32px;
+	right: 32px;
+	width: 64px;
+	height: 64px;
+	font-size: 1.5em;
+	color: #aba49e;
+	border: none;
+	outline: none;
+	background: #eee;
+	cursor: pointer;
+	opacity: 1;
+	transition: opacity 0.5s ease;
+
+	*
+		pointer-events: none;
+
+	&:hover
+		color: #938a83;
+		background: #ddd;
+
+	&:active
+		color: #7a7169;
+		background: #ddd;
+
+	&.hidden
+		pointer-events: none;
+		opacity: 0;
+
+.ui-tooltip
+	pointer-events: none;
+	display: block;
+	position: absolute;
+	z-index: 512;
+	margin: 0;
+	padding: 6px 10px;
+	white-space: nowrap;
+	font-size: 0.8em;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.8);
+	border-radius: 4px;
+
+	&:before
+		content: "";
+		display: block;
+		position: absolute;
+		bottom: -8px;
+		left: calc(50% - 4px);
+		border-top: solid 4px rgba(0, 0, 0, 0.8);
+		border-right: solid 4px transparent;
+		border-bottom: solid 4px transparent;
+		border-left: solid 4px transparent;

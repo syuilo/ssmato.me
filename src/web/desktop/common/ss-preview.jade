@@ -1,0 +1,49 @@
+mixin ss(ss, _action)
+	- var action = _action === undefined ? 'read-later' : _action;
+	article.ss(data-id= ss.id, data-is-favorited='false')
+		header
+			h1
+				a(href= config.url + '/' + ss.id)
+					= ss.title
+					span.posts= '(' + ss.posts.length + ')'
+			div.series
+				p.caption
+					| シリーズ:
+				if ss.series.length == 0
+					span.unknown 不明
+				else if ss.series.length == 1
+					a.title(href= config.urls.series + '/' + ss.series[0].id)= ss.series[0].title
+				else
+					each series in ss.series
+						a.title(href= config.urls.series + '/' + series.id)= series.title
+					span.is-cross
+						| (クロス)
+			if ss.characters.length > 0
+				div.characters
+					p.caption
+						| キャラ:
+					ul
+						each chara in ss.characters
+							li: a(href= config.urls.character + '/' + chara.id,
+								title= chara.name + ' (' + chara.kana + ')',
+								style='color:' + chara.color)= chara.screenName
+			div.actions
+				case action
+					when 'read-later'
+						button.read-later(data-tooltip='あとで読む'): i.fa.fa-clock-o
+					when 'remove-from-read-laters'
+						button.remove-later(data-tooltip='「あとで読む」から削除'): i.fa.fa-minus
+		div.body
+			div.text!= ss.posts[0].html
+			a.more(href= config.url + '/' + ss.id) 続きを読む
+		footer
+			p.views
+				i.fa.fa-eye
+				span.count= ss.views.length
+			p.comments
+				i.fa.fa-comments
+				span.count= ss.commentsCount
+			p.favorites
+				button(data-tooltip='お気に入りに登録')
+					i.fa.fa-heart
+				span.count= ss.favoritesCount

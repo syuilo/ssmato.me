@@ -1,0 +1,41 @@
+@import '../../ui'
+@import '../../common/ss-preview'
+
+html
+	background: #f4f4f4;
+
+main
+	> article
+		> header
+			#logo
+				display: block;
+				box-sizing: border-box;
+				margin: 0 auto;
+				padding: 16px;
+				width: 100%;
+				max-width: 300px;
+
+				> img
+					display: block;
+					width: 100%;
+
+		> section
+			max-width: 800px;
+			margin: 0 auto;
+
+		> .recent
+			h2
+				margin: 16px;
+				color: #9A6759;
+				font-size: 1em;
+
+			.sss
+				.ss
+					ss()
+
+	@media (max-width: 500px)
+		> article
+			> header
+				> .body
+					h1
+						font-size: 1.5em;

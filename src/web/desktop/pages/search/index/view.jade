@@ -1,0 +1,16 @@
+extend ../../../ui
+include ../../../common/ss-preview
+
+block title
+	| ダッシュボード - SSまとめ
+
+block contents
+	article#stack
+		header
+			h1 「あとで読む」にスタックされているSS
+		div.body
+			div.sss
+				each ss in me.stack
+					+ss(ss)
+	if me.isAdmin
+		a(href=config.urls.admin) SSまとめ管理ページへ

@@ -1,0 +1,47 @@
+extend ../../../../../ui
+
+block title
+	| SSの編集 - SSまとめ
+
+block assets
+	script!= 'var SSID="' + ss.id + '";Object.freeze(SSID);'
+
+block contents
+	main(role='main')
+		header
+			h1= ss.title
+			p SSの情報を編集したり等します。
+		
+		div.body
+			form#sssae
+				header
+					i.fa.fa-search
+					| SyuiloSSAnalyzeEngine
+				button.reanalyze(type='button')
+					| 解析を依頼
+			form#form(autocomplete='off')
+				header
+					i.fa.fa-database
+					| SSの情報
+				label.url.required
+					p.caption
+						| URL
+					input(name='url'
+						type='url'
+						autocomplete='off'
+						readonly
+						value=ss.url
+						required)
+				label.url.required
+					p.caption
+						| タイトル
+					input(name='title'
+						type='text'
+						autocomplete='off'
+						readonly
+						value=ss.title
+						required)
+				div.actions
+					button(type='submit')
+						i.fa.fa-check
+						span 更新

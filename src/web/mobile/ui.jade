@@ -1,0 +1,25 @@
+extend ../common
+
+prepend meta
+	meta(name='viewport', content='width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes')
+
+block body
+	header#ui-header
+		div.body
+			a.top(href=config.url) SSまとめ
+			div.account
+				if login
+					a.i(href= config.urls.i)= me.screenName
+				else
+					a.signup(href= config.urls.signup + '?callback=' + url) 新規登録
+					a.signin(href= config.urls.signin + '?callback=' + url) ログイン
+	
+	div#ui-contents
+		block content
+
+	footer#ui-footer
+		small(role='contentinfo')
+			a.title(href= config.url) SSまとめ
+			span.copyright (c)
+			a.author(href='https://twitter.com/syuilo') syuilo
+			span.year 2016
