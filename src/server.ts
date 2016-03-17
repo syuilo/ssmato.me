@@ -155,6 +155,14 @@ if (config.https.enable) {
 		key: fs.readFileSync(config.https.keyPath),
 		cert: fs.readFileSync(config.https.certPath)
 	}, app);
+
+	// 非TLSはリダイレクト
+	http.createServer((req, res) => {
+		res.writeHead(301, {
+			Location: config.public.url + req.url
+		});
+		res.end();
+	}).listen(config.port.http);
 } else {
 	port = config.port.http;
 	server = http.createServer(app);
