@@ -75,9 +75,12 @@ export default (ss: ISSThread): Promise<ISeries[]> => new Promise((resolve, reje
 			});
 		});
 
+		// 見つかったキャラクターの多さでソート
 		chart.sort((a, b) => a.found.length > b.found.length ? -1 : 1);
 
+		// シリーズが見つかったら
 		if (chart[0].found.length > 0) {
+			// クロスオーバーかつ第二候補も見つかったら
 			if (isCross && chart[1].found.length > 0) {
 				Series.find({
 					_id: { $in: [chart[0].series, chart[1].series] }
@@ -88,7 +91,9 @@ export default (ss: ISSThread): Promise<ISeries[]> => new Promise((resolve, reje
 						resolve(series);
 					}
 				});
-			} else {
+			}
+			// それ以外は最有力候補をシリーズとして断定
+			else {
 				Series.findById(chart[0].series, (err: any, series: ISeries) => {
 					if (err !== null) {
 						reject(err);
@@ -97,6 +102,7 @@ export default (ss: ISSThread): Promise<ISeries[]> => new Promise((resolve, reje
 					}
 				});
 			}
+		// SS内からシリーズを判断できないかつSSタイトルでシリーズを推定出来ていた場合
 		} else if (seriesInTitle !== null) {
 			resolve([seriesInTitle]);
 		}
