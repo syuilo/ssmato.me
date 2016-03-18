@@ -53,12 +53,10 @@ export default loadConfig();
 
 export interface IConfig {
 	mongo: {
-		dbUri: string;
-		localUri: string;
+		uri: string;
 		options: {
 			user: string;
 			pass: string;
-			replicaSet: string;
 		}
 	};
 	port: {
