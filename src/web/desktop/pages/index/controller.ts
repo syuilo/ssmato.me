@@ -6,7 +6,9 @@ import ui from '../../ui';
 module.exports = (req: express.Request, res: express.Response): void => {
 	ui(req, res).then(() => {
 		SS
-		.find({})
+		.find({
+			'isDeleted': false
+		})
 		.sort({
 			_id: -1
 		})

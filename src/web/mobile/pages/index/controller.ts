@@ -4,7 +4,9 @@ import { ISSThread } from '../../../../db/interfaces';
 
 module.exports = (req: express.Request, res: express.Response): void => {
 	SS
-	.find({})
+	.find({
+		'isDeleted': false
+	})
 	.sort({
 		_id: -1
 	})
