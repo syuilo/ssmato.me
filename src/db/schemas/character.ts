@@ -15,18 +15,6 @@ export default function(db: Connection): Model<Document> {
 		ssCount: { type: Number, required: false, default: 0 }
 	});
 
-	schema.index({
-		series: 1, name: 1
-	}, {unique: true});
-
-	schema.index({
-		series: 1, kana: 1
-	}, {unique: true});
-
-	schema.index({
-		series: 1, aliases: 1
-	}, {unique: true});
-
 	if (!schema.options.toObject) {
 		schema.options.toObject = {};
 	}
