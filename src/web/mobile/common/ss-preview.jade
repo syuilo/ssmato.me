@@ -23,9 +23,9 @@ mixin ss(ss)
 						| キャラ:
 					ul
 						each chara in ss.characters
-							li: a(href= config.urls.character + '/' + chara.id,
-								title= chara.name + ' (' + chara.kana + ')',
-								style='color:' + chara.color)= chara.screenName
+							li: a(href= config.urls.character + '/' + chara.profile.id,
+								title= chara.profile.name + ' (' + chara.profile.kana + ')',
+								style='color:' + chara.profile.color)= chara.profile.screenName
 		div.body
 			div.text!= ss.posts[0].html
 			a.more(href= config.url + '/' + ss.id) 続きを読む
