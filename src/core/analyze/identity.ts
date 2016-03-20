@@ -26,7 +26,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	}
 
 	// 乗算アイデンティティ
-	const timesId = test(/[×]?\d+$/);
+	const timesId = test(/[×]\d+$/);
 	if (timesId !== null) {
 		return timesId;
 	}
