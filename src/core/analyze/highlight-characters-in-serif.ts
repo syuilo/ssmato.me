@@ -102,6 +102,7 @@ export default (allchars: ICharacter[], serif: string): string => {
 	let tmpname = name;
 	let highlight = '';
 
+	// 文字列内をすべて探索
 	for (let i = 1; i < tmpname.length + 1; i++) {
 		let candidate: CharacterIdentity = null;
 
@@ -140,7 +141,7 @@ export default (allchars: ICharacter[], serif: string): string => {
 				ids.push(candidate);
 
 				// ハイライト
-				highlight += genHtml(candidate.character, tmpname.substring(0, candidate.name.length));
+				highlight += genHtml(candidate.character, candidate.name);
 
 				// 切り出し
 				tmpname = tmpname.substring(candidate.name.length);
