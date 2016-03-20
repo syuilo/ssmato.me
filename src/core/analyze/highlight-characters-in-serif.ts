@@ -105,6 +105,14 @@ export default (allchars: ICharacter[], serif: string): string => {
 	for (let i = 1; i < tmpname.length + 1; i++) {
 		let candidate: CharacterIdentity = null;
 
+		// 最大の確かさを持つ候補を探索する
+		/* Note:
+		 * 例えば「あかねあかり」という入力が与えられた場合、最初から探索していくと
+		 * まず(赤座 あかりとしての)「あか」が検出される可能性がある(赤座 あかね ではなくてという意味)
+		 * その判定を採択すると、残りの入力は「ねあかり」となり、正しい判定ではなくなっていくというのが分かる。
+		 * この問題を防ぐために、まず検出時に探索をすぐに打ち切るのではなく、
+		 * 全ての可能性を検出して、その中で最も「確かな」解を選択すれば良い。
+		 * ここで「確からしさ」の導出が鍵となる。私は「検出した文字列の長さ」を「確からしさ」として採用した。
 		for (let j = 1; j < tmpname.length + 1; j++) {
 			const part = tmpname.substring(0, j);
 
