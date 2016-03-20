@@ -1,6 +1,10 @@
+const Entities = require('html-entities').AllHtmlEntities;
+const entities = new Entities();
+
 import { ICharacter } from '../../db/interfaces';
 import extractName from './extract-name-part-in-serif';
-import ascertainCharacterByName from './ascertain-character-by-name';
+import CharacterIdentity from './character-identity';
+import identity from './identity';
 // import config from '../../config';
 
 /* tslint:disable:max-line-length */
@@ -13,20 +17,24 @@ import ascertainCharacterByName from './ascertain-character-by-name';
  */
 export default (allchars: ICharacter[], serif: string): string => {
 	// 台詞の名前部分を抽出
-	const name = extractName(serif);
+	let name = extractName(serif);
 
 	if (name === null) {
 		return serif;
 	}
 
+	name = entities.decode(name);
+
 	serif = serif.trim();
 
 	// 抽出した名前と思われる文字列に合致する呼び方のキャラクターを抽出
-	const character = allchars.filter(c => ascertainCharacterByName(c, name))[0];
+	const characterIdentity = allchars
+		.map(c => identity(c, name))
+		.filter(x => x !== null)[0];
 
 	// キャラが見つかったら
-	if (character !== undefined) {
-		return genHtml(character, name)
+	if (characterIdentity !== undefined) {
+		return genHtml(characterIdentity.character, name)
 			+ serif.substring(name.length);
 	}
 
@@ -46,11 +54,14 @@ export default (allchars: ICharacter[], serif: string): string => {
 		}
 
 		if (names.length > 1) {
-			let chars: ICharacter[] = [];
+			let chars: CharacterIdentity[] = [];
 
 			// 区切った各キャラ名に対し合致するキャラを取得
 			names.forEach(n => {
-				const _char = allchars.filter(c => ascertainCharacterByName(c, n))[0];
+				const _char = allchars
+					.map(c => identity(c, n))
+					.filter(x => x !== null)[0];
+
 				if (_char !== undefined) {
 					chars.push(_char);
 				} else {
@@ -64,7 +75,11 @@ export default (allchars: ICharacter[], serif: string): string => {
 
 				// 各キャラをハイライト
 				chars.forEach((c, i) => {
-					htmls.push(genHtml(c, names[i]));
+					if (c !== null) {
+						htmls.push(genHtml(c.character, names[i]));
+					} else {
+						htmls.push(genHtml(null, names[i]));
+					}
 				});
 
 				// セパレータで再結合
@@ -83,26 +98,43 @@ export default (allchars: ICharacter[], serif: string): string => {
 	}
 
 	// 見つからなかったら --- 複数のキャラの発言時に まどほむ のように繋げて記述する場合がある
+	let ids: CharacterIdentity[] = [];
 	let tmpname = name;
 	let highlight = '';
-	let breakFlug = false;
-	// キャラが埋まるまで検索
-	while (tmpname !== '' && !breakFlug) {
-		const before = highlight;
-		allchars.forEach(c => {
-			const charnames = [c.name, c.kana].concat(c.aliases);
-			charnames.forEach(charname => {
-				if (new RegExp(`^${charname}`).test(tmpname)) {
-					highlight += genHtml(c, charname);
-					tmpname = tmpname.substr(charname.length);
-				}
-			});
-		});
-		const after = highlight;
 
-		// 検索前と検索後で結果が変わらなかったらこれ以上検索しても無駄なので打ち切る
-		if (before === after) {
-			breakFlug = true;
+	for (let i = 1; i < tmpname.length + 1; i++) {
+		let candidate: CharacterIdentity = null;
+
+		for (let j = 1; j < tmpname.length + 1; j++) {
+			const part = tmpname.substring(0, j);
+
+			const characterIdentity = allchars
+				.map(c => identity(c, part))
+				.filter(x => x !== null)[0];
+
+			// キャラが見つかったら
+			if (characterIdentity !== undefined) {
+				// 候補にする
+				candidate = characterIdentity;
+			}
+		}
+
+		// 候補が見つかったら
+		if (candidate !== null) {
+			// 既に同じアイデンティティが登録されていなかったら
+			if (!candidate.find(ids)) {
+				// アイデンティティ追加
+				ids.push(candidate);
+
+				// ハイライト
+				highlight += genHtml(candidate.character, tmpname.substring(0, candidate.name.length));
+
+				// 切り出し
+				tmpname = tmpname.substring(candidate.name.length);
+
+				// スキャナリセット
+				i = 0;
+			}
 		}
 	}
 
@@ -116,6 +148,8 @@ export default (allchars: ICharacter[], serif: string): string => {
 }
 
 function genHtml(char: ICharacter, name: string): string {
+	name = entities.encode(name);
+
 	if (char !== null) {
 		return `<span class=name title="${char.name} (${char.kana})" style="color:${char.color};">${name}</span>`;
 	} else {
