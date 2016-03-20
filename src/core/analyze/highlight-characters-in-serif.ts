@@ -35,7 +35,7 @@ export default (allchars: ICharacter[], serif: string): string => {
 	// キャラが見つかったら
 	if (characterIdentity !== undefined) {
 		return genHtml(characterIdentity.character, name)
-			+ serif.substring(name.length);
+			+ serif.substring(entities.encode(name).length);
 	}
 
 	// 見つからなかったら --- 複数のキャラの発言時に A・B・C のように区切って記述する場合がある
@@ -84,7 +84,7 @@ export default (allchars: ICharacter[], serif: string): string => {
 
 				// セパレータで再結合
 				return htmls.join(separator)
-					+ serif.substring(name.length);
+					+ serif.substring(entities.encode(name).length);
 			} else {
 				return null;
 			}
