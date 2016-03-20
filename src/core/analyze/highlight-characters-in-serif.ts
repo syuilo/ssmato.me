@@ -113,6 +113,7 @@ export default (allchars: ICharacter[], serif: string): string => {
 		 * この問題を防ぐために、まず検出時に探索をすぐに打ち切るのではなく、
 		 * 全ての可能性を検出して、その中で最も「確かな」解を選択すれば良い。
 		 * ここで「確からしさ」の導出が鍵となる。私は「検出した文字列の長さ」を「確からしさ」として採用した。
+		 */
 		for (let j = 1; j < tmpname.length + 1; j++) {
 			const part = tmpname.substring(0, j);
 
