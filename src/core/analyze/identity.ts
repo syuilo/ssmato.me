@@ -20,7 +20,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	}
 
 	// 数字付きアイデンティティ
-	const numberId = test(/\d+$/);
+	const numberId = test(/[×]?\d+$/);
 	if (numberId !== null) {
 		return numberId;
 	}
