@@ -756,24 +756,44 @@ function identity(character: ICharacter, name: string): CharacterIdentity {
 	}
 
 	// 括弧付きアイデンティティ
+	/* e.g.
+	 * 櫻子(幼)
+	 * 
+	 * 状態を表す
+	 */
 	const bracketsId = test(/[（\(].+?[）\)]/);
 	if (bracketsId !== null) {
 		return bracketsId;
 	}
 
 	// 数字付きアイデンティティ
+	/* e.g.
+	 * まどか2
+	 * 
+	 * 往々にして複数人に分裂したりする
+	 */
 	const numberId = test(/\d+$/);
 	if (numberId !== null) {
 		return numberId;
 	}
 
 	// 乗算アイデンティティ
+	/* e.g.
+	 * 杏子×100
+	 * 
+	 * 往々にして複数人に分裂したりする
+	 */
 	const timesId = test(/[×]\d+$/);
 	if (timesId !== null) {
 		return timesId;
 	}
 
 	// アルファベット付きアイデンティティ
+	/* e.g.
+	 * 京子B
+	 * 
+	 * 往々にして複数人に分裂したりする
+	 */
 	const aluphabetId = test(/[a-zA-Z]+$/);
 	if (aluphabetId !== null) {
 		return aluphabetId;
@@ -797,6 +817,11 @@ function identity(character: ICharacter, name: string): CharacterIdentity {
 		}
 	}
 
+	/**
+	 * キャラクター名がクエリと合致するか否かを取得します。
+	 * @param query クエリ
+	 * @return bool
+	 */
 	function inquiry(query: string): boolean {
 		return character.name === query ||
 			character.screenName === query ||
