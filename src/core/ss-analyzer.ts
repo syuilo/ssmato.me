@@ -301,8 +301,10 @@ export default class SSAnalyzer {
 				returns.forEach(post => {
 					// SSの文と思われる投稿を3回以上しているユーザーはIDの変わった>>1(もしくは引き継ぎ)だと判断する
 					if (ownerIds.indexOf(post.userId) === -1) {
-						const textsCount = returns
-							.filter(x => (<any>x).isSerifs && x.userId === post.userId).length;
+						const textsCount =
+							returns
+							.filter(x => (<any>x).isSerifs && x.userId === post.userId)
+							.length;
 
 						if (textsCount >= 3) {
 							ownerIds.push(post.userId);
