@@ -1,4 +1,4 @@
-import { ISSThread, ISSThreadPost } from '../../db/interfaces';
+import { ISSThread, ISSThreadPost } from '../db/interfaces';
 
 /**
  * 投稿をフィルタリングします
