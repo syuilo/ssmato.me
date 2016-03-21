@@ -292,16 +292,19 @@ export default class SSAnalyzer {
 					}
 
 					// 「シリーズのキャラが登場するSS形式の投稿」かどうか
-					//  ￣￣￣￣￣￣￣￣￣￣￣￣
+					//  ￣￣￣￣￣￣￣￣￣￣￣￣￣
 					(<any>post).isSerifs = isSerifs(post.text);
 				});
 
 				const ownerIds: string[] = [posts[0].userId];
 
 				returns.forEach(post => {
-					// 本文と思われる投稿を3回以上しているユーザーはIDの変わった>>1(もしくは引き継ぎ)だと判断する
+					// SSの文と思われる投稿を3回以上しているユーザーはIDの変わった>>1(もしくは引き継ぎ)だと判断する
 					if (ownerIds.indexOf(post.userId) === -1) {
-						if (returns.filter(x => (<any>x).isSerifs && x.userId === post.userId).length >= 3) {
+						const textsCount = returns
+							.filter(x => (<any>x).isSerifs && x.userId === post.userId).length;
+
+						if (textsCount >= 3) {
 							ownerIds.push(post.userId);
 						}
 					}
@@ -898,7 +901,7 @@ function paint(seed: string): string[] {
 	const luminance = Math.floor(
 		rWeight * r + gWeight * g + bWeight * b);
 
-	// 16新数に変換
+	// 16進数に変換
 	const rHex1 = r.toString(16);
 	const gHex1 = g.toString(16);
 	const bHex1 = b.toString(16);
