@@ -1,5 +1,9 @@
 import { ICharacter } from '../../db/interfaces';
 
+/* Note:
+ * 単に「ID(アイディー)」と呼ぶとデータベースのインデックスとしてのIDと紛らわしくなるので アイデンティティ と呼びます。
+ */
+
 /**
  * キャラクターのアイデンティティを表します。
  * @class CharacterIdentity
