@@ -45,28 +45,30 @@ export default
 	posts.forEach((post, i) => {
 		const user = post.user;
 
-		if (masters.filter(x => x.id === user.id).length === 0) {
-			// >>1はオーナー
-			if (post.number === 1) {
-				masters.push(user);
-				return;
-			}
+		if (masters.filter(x => x.id === user.id).length !== 0) {
+			return;
+		}
 
-			// トリップ
-			if (masters.filter(x => x.trip === user.trip).length !== 0) {
-				masters.push(user);
-				return;
-			}
+		// >>1はオーナー
+		if (post.number === 1) {
+			masters.push(user);
+			return;
+		}
 
-			// SSの文と思われる投稿を3回以上しているユーザーはIDの変わった>>1(もしくは引き継ぎ)だと判断する
-			const textsCount =
-				isSerifses
-				.filter(x => x.isSerifs && x.user.id === user.id)
-				.length;
+		// トリップ
+		if (masters.filter(x => x.trip === user.trip).length !== 0) {
+			masters.push(user);
+			return;
+		}
 
-			if (textsCount >= 3) {
-				masters.push(user);
-			}
+		// SSの文と思われる投稿を3回以上しているユーザーはIDの変わった>>1(もしくは引き継ぎ)だと判断する
+		const textsCount =
+			isSerifses
+			.filter(x => x.isSerifs && x.user.id === user.id)
+			.length;
+
+		if (textsCount >= 3) {
+			masters.push(user);
 		}
 	});
 
