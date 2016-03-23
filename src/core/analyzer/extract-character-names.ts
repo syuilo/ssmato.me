@@ -16,7 +16,8 @@ export default (
 ): string[] => extractCharacterNamesInText(
 	// 本文だけ
 	ss.posts
-	.filter(x => x.isMaster)
+	// SEE: https://github.com/Microsoft/TypeScript/issues/7649
+	.filter(x => (<any>x).isMaster)
 	.map(x => x.text)
 	// キャラクター名がタイトルに含まれている場合が多い
 	// 【安価】のようにタイトルは装飾されていることも多いので非装飾化
