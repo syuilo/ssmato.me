@@ -4,6 +4,7 @@ import { ISeries, ICharacter } from '../../db/interfaces';
 import { ISS } from './interfaces';
 
 import askCharacter from './ask-character';
+import extractCharacterNames from './extract-character-names';
 
 /**
  * 対象のSSに登場するキャラクターとその割合を抽出します
@@ -30,7 +31,7 @@ export default (
 
 		const foundCharacters =
 			// 登場するすべてのキャラクターの名前と思われる文字列を取得
-			this.extractCharacterNames(ss)
+			extractCharacterNames(ss)
 			// その名前(と思われる文字列)で呼ばれているシリーズ内のキャラクターを取得
 			.map(name => allchars.filter(char => askCharacter(char, name)))
 			// 上の過程で発生した空配列(キャラクターが見つからなかった場合 filter に合致せず[]が返るため)を除去
