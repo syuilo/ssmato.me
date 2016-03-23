@@ -1,9 +1,7 @@
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 
-import { ISeries, ICharacter } from '../../db/interfaces';
-
-import { IPost } from './interfaces';
+import { ISeries, ICharacter, IPost } from './interfaces';
 
 import CharacterIdentity from './character-identity';
 import extractNamePartInSerif from './extract-name-part-in-serif';
@@ -14,8 +12,12 @@ import identity from './identity';
  * @class SSContext
  */
 export default class SSContext {
+
 	public series: ISeries[];
-	public characters: ICharacter[];
+
+	public characters: (ICharacter & {
+		onStageRatio: number;
+	})[];
 
 	public posts: (IPost & {
 		isMaster: boolean;

@@ -21,9 +21,15 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 		})
 	}).then(context => {
 
+		ss.series = context.series;
+
+		ss.characters = context.characters;
+
 		// HTML生成
-		ss.posts.forEach(post => {
-			post.html = postHtmlConv(characters, post);
+		const htmls = context.genHtml();
+
+		ss.posts.forEach((post, i) => {
+			post.html = htmls[i];
 		});
 
 		ss.markModified('posts');
@@ -37,5 +43,5 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 				resolve(ss);
 			}
 		});
-	});
+	}, reject);
 });

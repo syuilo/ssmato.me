@@ -1,4 +1,4 @@
-import { ICharacter } from '../../db/interfaces';
+import { ICharacter } from './interfaces';
 
 /* Note:
  * 単に「ID(アイディー)」と呼ぶとデータベースのインデックスとしてのIDと紛らわしくなるので アイデンティティ と呼びます。

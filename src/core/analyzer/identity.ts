@@ -1,4 +1,4 @@
-import { ICharacter } from '../../db/interfaces';
+import { ICharacter } from './interfaces';
 
 import CharacterIdentity from './character-identity';
 

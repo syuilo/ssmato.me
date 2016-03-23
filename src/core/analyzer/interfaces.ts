@@ -13,3 +13,22 @@ export interface ISS {
 	title: string;
 	posts: IPost[];
 }
+
+export interface ISeries {
+	id: string;
+	title: string;
+	kana: string;
+	aliases: string[];
+	description: string;
+	ssCount: number;
+}
+
+export interface ICharacter {
+	id: string;
+	name: string;
+	kana: string;
+	screenName: string;
+	aliases: string[];
+	color: string;
+	series: string[];
+}

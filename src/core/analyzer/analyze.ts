@@ -26,8 +26,9 @@
  * SOFTWARE.
  */
 
-import { ISS } from './interfaces';
+import { ISS, ICharacter, ISeries } from './interfaces';
 
+import World from './world';
 import modifyTrip from './modify-trip';
 import paintId from './paint-id';
 import weakMarkMaster from './weak-mark-master';
@@ -41,7 +42,10 @@ import SSContext from './sscontext';
  * @param ss SS
  * @return SSContext
  */
-export default function analyze(ss: ISS): Promise<SSContext> {
+export default function analyze(series: ISeries[], characters: ICharacter[], ss: ISS): Promise<SSContext> {
+
+	const world = new World(series, characters);
+
 	return new Promise((resolve, reject) => {
 		const context = new SSContext();
 
@@ -61,7 +65,7 @@ export default function analyze(ss: ISS): Promise<SSContext> {
 
 		context.posts = posts3;
 
-		detectSeries({
+		detectSeries(world, {
 			title: ss.title,
 			posts: posts3
 		}).then(series => {
@@ -73,18 +77,16 @@ export default function analyze(ss: ISS): Promise<SSContext> {
 			}
 
 			// シリーズが判ったので「強い」mark-masterを実行できる
-			strongMarkMaster(posts2, series).then(posts4 => {
+			strongMarkMaster(world, posts2, series).then(posts4 => {
 
 				context.posts = posts4;
 
 				// 登場キャラクター抽出
-				extractCharacters({
+				extractCharacters(world, {
 					title: ss.title,
 					series: series,
 					posts: posts4
-				}).then(characterContexts => {
-					const characters = characterContexts.map(c => c.character);
-
+				}).then(characters => {
 					context.characters = characters;
 
 					resolve(context);

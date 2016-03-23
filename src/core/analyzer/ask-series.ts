@@ -1,4 +1,4 @@
-import { ISeries } from '../../db/interfaces';
+import { ISeries } from './interfaces';
 
 /**
  * 対象のシリーズがある名前で呼ばれているか否かを取得します。
