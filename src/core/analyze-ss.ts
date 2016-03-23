@@ -52,9 +52,14 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			})
 		}).then(context => {
 
-			ss.series = context.series;
+			ss.series = context.series.map(x => x.id);
 
-			ss.characters = context.characters;
+			ss.characters = context.characters.map(x => {
+				return {
+					profile: x.id,
+					onStageRatio: x.onStageRatio
+				};
+			});
 
 			// HTML生成
 			const htmls = context.genHtml();
