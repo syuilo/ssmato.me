@@ -5,6 +5,8 @@ import { ISS } from './interfaces';
 
 import askSeries from './ask-series';
 import askCharacter from './ask-character';
+import checkCross from './check-cross';
+import extractCharacterNames from './extract-character-names';
 
 /**
  * SSのシリーズを同定します
@@ -45,10 +47,10 @@ export default(
 					[0];
 
 		// クロスSSかどうか
-		const isCross = this.isCross();
+		const isCross = checkCross(ss);
 
 		// SS内に登場するすべてのキャラクター名(と思われる文字列)を抽出
-		const extractedNames = this.extractCharacterNames(ss.posts)
+		const extractedNames = extractCharacterNames(ss)
 			// 重複は除去
 			.filter((x, i, self) => self.indexOf(x) === i);
 
