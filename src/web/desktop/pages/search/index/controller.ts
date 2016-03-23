@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { SS, SSThread } from '../../../../../db/models';
 import { IUser, ICharacter, ISSThread } from '../../../../../db/interfaces';
-import postHtmlConv from '../../../../../core/post-html-conv';
 
 module.exports = (req: express.Request, res: express.Response): void => {
 	const q: string = req.query.q;

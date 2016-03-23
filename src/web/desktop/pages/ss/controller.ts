@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { ISSThread } from '../../../../db/interfaces';
 import compilePost from '../../../../core/compile-ss-thread-post';
-import filter from '../../../../core/analyze/filter-ss-posts';
+import filter from '../../../../core/filter-ss-posts';
 import read from '../../../../core/read-ss';
 import ui from '../../ui';
 

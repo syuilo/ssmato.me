@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { Series, SS, Character } from '../../../../../db/models';
 import { ISeries, ISSThread, ICharacter } from '../../../../../db/interfaces';
-import postHtmlConv from '../../../../../core/post-html-conv';
 
 module.exports = (req: express.Request, res: express.Response): void => {
 	const series = res.locals.series;
@@ -23,7 +22,6 @@ module.exports = (req: express.Request, res: express.Response): void => {
 					Character.find({
 						series: { $in: (<ISeries[]>ss.series).map(x => x.id) }
 					}, 'name kana aliases color _id', (err: any, characters: ICharacter[]) => {
-						ssobj.posts[0].text = postHtmlConv(characters, ss.posts[0]);
 						resove(ssobj);
 					});
 				} else {
