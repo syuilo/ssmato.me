@@ -19,8 +19,6 @@ export interface ISeries {
 	title: string;
 	kana: string;
 	aliases: string[];
-	description: string;
-	ssCount: number;
 }
 
 export interface ICharacter {

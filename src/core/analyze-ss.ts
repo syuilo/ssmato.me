@@ -1,4 +1,5 @@
-import { ISSThread } from '../db/interfaces';
+import { Series, Character } from '../db/models';
+import { ISSThread, ISeries, ICharacter } from '../db/interfaces';
 import analyze from './analyzer/analyze';
 
 /**
@@ -7,41 +8,72 @@ import analyze from './analyzer/analyze';
  * @return ss
  */
 export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reject) => {
-	analyze({
-		title: ss.title,
-		posts: ss.posts.map(post => {
+	Promise.all([
+		// Get all series
+		Series.find({}, '_id title kana aliases'),
+		// Get all characters
+		Character.find({}, '_id name kana screenName aliases series color')
+	]).then((results: any) => {
+		const allseries = <ISeries[]>results[0];
+		const allchars = <ICharacter[]>results[1];
+
+		const _allseries = allseries.map(series => {
 			return {
-				text: post.text,
-				number: post.number,
-				user: {
-					id: post.userId,
-					name: post.userName
-				}
+				id: series.id.toString(),
+				title: series.title,
+				kana: series.kana,
+				aliases: series.aliases
 			};
-		})
-	}).then(context => {
-
-		ss.series = context.series;
-
-		ss.characters = context.characters;
-
-		// HTML生成
-		const htmls = context.genHtml();
-
-		ss.posts.forEach((post, i) => {
-			post.html = htmls[i];
 		});
 
-		ss.markModified('posts');
-		ss.markModified('characters');
-
-		ss.save((err: any, ss: ISSThread) => {
-			if (err !== null) {
-				console.error(err);
-				reject(err);
-			} else {
-				resolve(ss);
-			}
+		const _allchars = allchars.map(char => {
+			return {
+				id: char.id.toString(),
+				name: char.name,
+				kana: char.kana,
+				screenName: char.screenName,
+				aliases: char.aliases,
+				color: char.color,
+				series: (<any>char.series).map((series: any) => series.toString())
+			};
 		});
-	}, reject);
+
+		analyze(_allseries, _allchars, {
+			title: ss.title,
+			posts: ss.posts.map(post => {
+				return {
+					text: post.text,
+					number: post.number,
+					user: {
+						id: post.userId,
+						name: post.userName
+					}
+				};
+			})
+		}).then(context => {
+
+			ss.series = context.series;
+
+			ss.characters = context.characters;
+
+			// HTML生成
+			const htmls = context.genHtml();
+
+			ss.posts.forEach((post, i) => {
+				post.html = htmls[i];
+			});
+
+			ss.markModified('posts');
+			ss.markModified('characters');
+
+			ss.save((err: any, ss: ISSThread) => {
+				if (err !== null) {
+					console.error(err);
+					reject(err);
+				} else {
+					resolve(ss);
+				}
+			});
+		}, reject);
+	});
 });
