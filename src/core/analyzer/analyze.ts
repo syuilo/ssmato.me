@@ -77,7 +77,7 @@ export default function analyze(series: ISeries[], characters: ICharacter[], ss:
 			}
 
 			// シリーズが判ったので「強い」mark-masterを実行できる
-			strongMarkMaster(world, posts2, series).then(posts4 => {
+			strongMarkMaster(world, posts3, series).then(posts4 => {
 
 				context.posts = posts4;
 

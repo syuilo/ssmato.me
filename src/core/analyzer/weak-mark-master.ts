@@ -22,25 +22,21 @@ export default
 		// >>1は問答無用で本文
 		if (post.number === 1) {
 			isMaster = true;
-			return;
 		}
 
 		// >>1とIDが同じだったら本文とみて間違いない
-		if (post.user.id === posts[0].user.id) {
+		else if (post.user.id === posts[0].user.id) {
 			isMaster = true;
-			return;
 		}
 
 		// トリップ
-		if (post.user.trip === posts[0].user.trip) {
+		else if (post.user.trip === posts[0].user.trip) {
 			isMaster = true;
-			return;
 		}
 
 		// IDが違っても「SS形式の投稿」なら本文の可能性がそれなりに高い
-		if (isSerifs(post.text)) {
+		else if (isSerifs(post.text)) {
 			isMaster = true;
-			return;
 		}
 
 		return Object.assign({}, post, {
