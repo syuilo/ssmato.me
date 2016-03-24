@@ -20,22 +20,6 @@ export default(
 		}[]
 	}
 ): Promise<ISeries[]> => new Promise((resolve, reject) => {
-	// タイトル内の【】内の文字列
-	const textInBracketsMatch = ss.title.match(/【(.+?)】/g);
-	const textInBrackets = textInBracketsMatch === null ? null : textInBracketsMatch
-		.map(x => x.trim())
-		.map(x => x.substr(1, x.length - 2));
-
-	// 【】内の文字列に一致するシリーズを探す
-	const seriesInTitle =
-		textInBrackets === null
-			? null
-			: world.series
-				.filter(series =>
-					textInBrackets.map(text =>
-						askSeries(series, text)
-					).indexOf(true) !== -1)
-				[0];
 
 	// クロスSSかどうか
 	const isCross = checkCross(ss);
@@ -81,17 +65,37 @@ export default(
 		// クロスオーバーかつ第二候補も見つかったら
 		if (isCross && chart[1].found.length > 0) {
 			resolve([chart[0].series, chart[1].series]);
+			return;
 		}
+
 		// それ以外は最有力候補をシリーズとして断定
-		else {
-			resolve([chart[0].series]);
-		}
-	// SS内からシリーズを判断できないかつSSタイトルでシリーズを推定出来ていた場合
-	} else if (seriesInTitle !== null) {
+		resolve([chart[0].series]);
+		return;
+	}
+
+	// タイトル内の【】内の文字列
+	const textInBracketsMatch = ss.title.match(/【(.+?)】/g);
+	const textInBrackets = textInBracketsMatch === null ? null : textInBracketsMatch
+		.map(x => x.trim())
+		.map(x => x.substr(1, x.length - 2));
+
+	// 【】内の文字列に一致するシリーズを探す
+	const seriesInTitle =
+		textInBrackets === null
+			? null
+			: world.series
+				.filter(series =>
+					textInBrackets.map(text =>
+						askSeries(series, text)
+					).indexOf(true) !== -1)
+				[0];
+
+	// SSタイトルでシリーズを推定出来たら
+	if (seriesInTitle !== undefined && seriesInTitle !== null) {
 		resolve([seriesInTitle]);
+		return;
 	}
+
 	// 該当なし(同定失敗)
-	else {
-		resolve(null);
-	}
+	resolve(null);
 });
