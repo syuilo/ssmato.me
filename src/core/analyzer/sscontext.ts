@@ -13,15 +13,38 @@ import identity from './identity';
  */
 export default class SSContext {
 
-	public series: ISeries[];
+	public series: ISeries[] = null;
 
 	public characters: (ICharacter & {
 		onStageRatio: number;
-	})[];
+	})[] = null;
 
 	public posts: (IPost & {
 		isMaster: boolean;
-	})[];
+	})[] = null;
+
+	constructor();
+	constructor(
+		series?: ISeries[],
+		characters?: (ICharacter & {
+			onStageRatio: number;
+		})[],
+		posts?: (IPost & {
+			isMaster: boolean;
+		})[]
+	) {
+		if (series !== undefined) {
+			this.series = series;
+		}
+
+		if (characters !== undefined) {
+			this.characters = characters;
+		}
+
+		if (posts !== undefined) {
+			this.posts = posts;
+		}
+	}
 
 	/**
 	 * SSのHTMLを生成します。
