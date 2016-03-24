@@ -78,6 +78,9 @@
     },
     "mongodb/mongodb.d.ts": {
       "ref": "4fd64879854251c64a085b3f62ab47eaf03d15e8"
+    },
+    "debug/debug.d.ts": {
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     }
   }
 }

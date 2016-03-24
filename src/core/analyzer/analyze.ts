@@ -26,6 +26,10 @@
  * SOFTWARE.
  */
 
+import * as _debug from 'debug';
+
+const debug = _debug('sssa');
+
 import { ISS, ICharacter, ISeries } from './interfaces';
 
 import World from './world';
@@ -42,18 +46,27 @@ import SSContext from './sscontext';
  * @param ss SS
  * @return SSContext
  */
-export default function analyze(series: ISeries[], characters: ICharacter[], ss: ISS): Promise<SSContext> {
+export default (
+	series: ISeries[],
+	characters: ICharacter[],
+	ss: ISS
+): Promise<SSContext> => {
+
+	debug('開始しています...');
 
 	const world = new World(series, characters);
+	debug('ワールドを初期化しました');
 
 	return new Promise((resolve, reject) => {
 		const context = new SSContext();
 
 		// トリップ解析
 		const posts1 = ss.posts.map(modifyTrip);
+		debug('トリップを設定しました');
 
 		// IDの背景色と文字色を決定
 		const posts2 = posts1.map(paintId);
+		debug('IDカラーを設定しました');
 
 		// 本文を判別
 		/* Note:
@@ -62,6 +75,7 @@ export default function analyze(series: ISeries[], characters: ICharacter[], ss:
 		 * まずSSが同定されているという前提が必要ない「弱い」マークを実行してSSを同定した後に「強い」(正確な)マークを行えばよい
 		 */
 		const posts3 = weakMarkMaster(posts2);
+		debug('弱いマークをしました');
 
 		context.posts = posts3;
 
@@ -69,15 +83,19 @@ export default function analyze(series: ISeries[], characters: ICharacter[], ss:
 			title: ss.title,
 			posts: posts3
 		}).then(series => {
+			debug('シリーズを同定しました');
+
 			context.series = series;
 
 			// シリーズが判らなかったら終了
 			if (series === null) {
+				debug('シリーズが判らなかったので終了しました');
 				return resolve(context);
 			}
 
 			// シリーズが判ったので「強い」mark-masterを実行できる
 			strongMarkMaster(world, posts3, series).then(posts4 => {
+				debug('強いマークをしました');
 
 				context.posts = posts4;
 
@@ -87,11 +105,15 @@ export default function analyze(series: ISeries[], characters: ICharacter[], ss:
 					series: series,
 					posts: posts4
 				}).then(characters => {
+					debug('キャラクターの統計を抽出しました');
+
 					context.characters = characters;
 
+					debug('完了');
 					resolve(context);
 				}, reject);
 			});
 		}, reject);
 	});
+
 }
