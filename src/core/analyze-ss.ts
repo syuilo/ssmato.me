@@ -52,14 +52,22 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			})
 		}).then(context => {
 
-			ss.series = context.series.map(x => x.id);
+			if (context.series !== null) {
+				ss.series = context.series.map(x => x.id);
+			} else {
+				ss.series = [];
+			}
 
-			ss.characters = context.characters.map(x => {
-				return {
-					profile: x.id,
-					onStageRatio: x.onStageRatio
-				};
-			});
+			if (context.series !== null) {
+				ss.characters = context.characters.map(x => {
+					return {
+						profile: x.id,
+						onStageRatio: x.onStageRatio
+					};
+				});
+			} else {
+				ss.characters = [];
+			}
 
 			// HTML生成
 			const htmls = context.genHtml();
@@ -69,6 +77,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			});
 
 			ss.markModified('posts');
+			ss.markModified('series');
 			ss.markModified('characters');
 
 			ss.save((err: any, ss: ISSThread) => {
