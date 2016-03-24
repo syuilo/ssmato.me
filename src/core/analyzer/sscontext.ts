@@ -107,6 +107,12 @@ export default class SSContext {
 				+ serif.substring(entities.encode(name).length);
 		}
 
+		// あまりにも長い名前は解析が困難なので中断
+		if (name.length > 32) {
+			this.highlightCache[name] = null;
+			return serif;
+		}
+
 		// 見つからなかったら --- 複数のキャラの発言時に A・B・C のように区切って記述する場合がある
 
 		const separators =
