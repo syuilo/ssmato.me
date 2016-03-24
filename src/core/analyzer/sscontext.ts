@@ -23,6 +23,8 @@ export default class SSContext {
 		isMaster: boolean;
 	})[] = null;
 
+	private highlightCache: any = {};
+
 	constructor();
 	constructor(
 		series?: ISeries[],
@@ -52,15 +54,15 @@ export default class SSContext {
 	 * @return string
 	 */
 	public genHtml(): string[] {
-		return this.posts.map(post => {
+		return this.posts.map((post, i) => {
 			let html: string = entities.encode(post.text);
 
 			// 安価
 			html = html.replace(/&gt;&gt;(\d+)/g, '<span class=anchor data-target=$1>$&</span>');
 
-			return html.split('\n').map(x => {
+			return html.split('\n').map((x, i) => {
 				if (this.characters !== null && this.characters.length > 0 && post.isMaster) {
-					x = this.highlight(x);
+					x = this.analyzeLine(x);
 				}
 				return x;
 			}).join('<br>');
@@ -73,7 +75,7 @@ export default class SSContext {
 	 * @param serif 台詞
 	 * @return html
 	 */
-	private highlight(serif: string): string {
+	private analyzeLine(serif: string): string {
 		// 台詞の名前部分を抽出
 		let name = extractNamePartInSerif(serif);
 
@@ -85,6 +87,15 @@ export default class SSContext {
 
 		serif = serif.trim();
 
+		if (this.highlightCache.hasOwnProperty(name)) {
+			const cache = this.highlightCache[name];
+			if (cache === null) {
+				return serif;
+			} else {
+				return cache + serif.substring(entities.encode(name).length);
+			}
+		}
+
 		// 抽出した名前と思われる文字列に合致する呼び方のキャラクターを抽出
 		const characterIdentity = this.characters
 			.map(c => identity(c, name))
@@ -92,7 +103,7 @@ export default class SSContext {
 
 		// キャラが見つかったら
 		if (characterIdentity !== undefined) {
-			return genHtml(characterIdentity.character, name)
+			return this.highlight(characterIdentity.character, name)
 				+ serif.substring(entities.encode(name).length);
 		}
 
@@ -134,9 +145,9 @@ export default class SSContext {
 					// 各キャラをハイライト
 					chars.forEach((c, i) => {
 						if (c !== null) {
-							htmls.push(genHtml(c.character, names[i]));
+							htmls.push(this.highlight(c.character, names[i]));
 						} else {
-							htmls.push(genHtml(null, names[i]));
+							htmls.push(this.highlight(null, names[i]));
 						}
 					});
 
@@ -158,7 +169,7 @@ export default class SSContext {
 		// 見つからなかったら --- 複数のキャラの発言時に まどほむ のように繋げて記述する場合がある
 		let ids: CharacterIdentity[] = [];
 		let tmpname = name;
-		let highlight = '';
+		let highlightHtml = '';
 
 		// 文字列内をすべて探索
 		for (let i = 1; i < tmpname.length + 1; i++) {
@@ -204,7 +215,7 @@ export default class SSContext {
 					ids.push(candidate);
 
 					// ハイライト
-					highlight += genHtml(candidate.character, candidate.name);
+					highlightHtml += this.highlight(candidate.character, candidate.name);
 
 					// 切り出し
 					tmpname = tmpname.substring(candidate.name.length);
@@ -216,21 +227,28 @@ export default class SSContext {
 		}
 
 		// 文字列がキャラ名で埋まったら
-		if (highlight !== '' && tmpname === '') {
-			return highlight + serif.substring(name.length);
+		if (highlightHtml !== '' && tmpname === '') {
+			return highlightHtml + serif.substring(name.length);
 		}
 
 		// 諦め
+		this.highlightCache[name] = null;
 		return serif;
+	}
 
-		function genHtml(char: ICharacter, name: string): string {
-			name = entities.encode(name);
+	private highlight(char: ICharacter, name: string): string {
+		let html: string;
 
-			if (char !== null) {
-				return `<span class=name title="${char.name} (${char.kana})" style="color:${char.color};">${name}</span>`;
-			} else {
-				return name;
-			}
+		const _name = entities.encode(name);
+
+		if (char !== null) {
+			html = `<span class=name title="${char.name} (${char.kana})" style="color:${char.color};">${_name}</span>`;
+		} else {
+			html = _name;
 		}
+
+		this.highlightCache[name] = html;
+
+		return html;
 	}
 }
