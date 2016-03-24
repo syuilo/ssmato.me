@@ -35,22 +35,6 @@ block content
 					span.count= ss.posts.length
 				
 				div.info
-					div
-						time.created-at(datetime= posts[0].createdAt.toISOString())
-							i.fa.fa-clock-o
-							= posts[0].displayCreatedAt
-					div.kyoppie
-						p.views
-							i.fa.fa-eye
-							span.count= ss.views.length
-						p.comments
-							i.fa.fa-comments
-							span.count= ss.commentsCount
-						p.favorites
-							button(data-tooltip='お気に入りに登録')
-								i.fa.fa-heart
-							span.count= ss.favoritesCount
-					
 					div.series
 						p.caption
 							i.fa.fa-folder-open
@@ -63,6 +47,18 @@ block content
 								a.title(href= config.urls.series + '/' + series.id, title=series.kana)= series.title
 							span.is-cross
 								| (クロス)
+
+					div.kyoppie
+						p.views
+							i.fa.fa-eye
+							span.count= ss.views.length
+						p.comments
+							i.fa.fa-comments
+							span.count= ss.commentsCount
+						p.favorites
+							button(data-tooltip='お気に入りに登録')
+								i.fa.fa-heart
+							span.count= ss.favoritesCount
 					
 					if ss.characters.length > 0
 						div.characters
