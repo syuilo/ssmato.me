@@ -74,8 +74,14 @@ export default
 
 	// スキャン
 	const returns = posts.map(post => {
+		const isMaster = (
+			masters
+			.filter(x => x.id === post.user.id)
+			.length
+		) !== 0;
+
 		return Object.assign({}, post, {
-			isMaster: (masters.filter(x => x.id === post.user.id).length !== 0)
+			isMaster
 		});
 	});
 
