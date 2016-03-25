@@ -58,7 +58,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 				ss.series = [];
 			}
 
-			if (context.series !== null) {
+			if (context.characters !== null) {
 				ss.characters = context.characters.map(x => {
 					return {
 						profile: x.id,
