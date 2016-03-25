@@ -87,6 +87,7 @@ export default class SSContext {
 
 		serif = serif.trim();
 
+		// キャッシュがあればそれを利用
 		if (this.highlightCache.hasOwnProperty(name)) {
 			const cache = this.highlightCache[name];
 			if (cache === null) {
@@ -259,6 +260,7 @@ export default class SSContext {
 			html = _name;
 		}
 
+		// キャッシュしておく
 		this.highlightCache[name] = html;
 
 		return html;
