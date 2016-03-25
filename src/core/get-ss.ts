@@ -216,7 +216,7 @@ function analyzePastlogCgiVer2_0($: any, html: string): IThread {
 }
 
 function sanitize(text: string): string {
-	return text.replace(/<.+?>/g, '');
+	return entities.decode(text.replace(/<.+?>/g, ''));
 }
 
 function nullOrEmpty(val: string): boolean {
