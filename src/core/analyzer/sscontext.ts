@@ -54,6 +54,8 @@ export default class SSContext {
 	 * @return string
 	 */
 	public genHtml(): string[] {
+		debug('HTMLを生成します...');
+
 		const html = this.posts.map((post, i) => {
 			let html: string = entities.encode(post.text);
 
