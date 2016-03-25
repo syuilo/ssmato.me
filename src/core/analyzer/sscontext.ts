@@ -54,7 +54,7 @@ export default class SSContext {
 	 * @return string
 	 */
 	public genHtml(): string[] {
-		return this.posts.map((post, i) => {
+		const html = this.posts.map((post, i) => {
 			let html: string = entities.encode(post.text);
 
 			// 安価
@@ -67,6 +67,10 @@ export default class SSContext {
 				return x;
 			}).join('<br>');
 		});
+
+		debug('HTMLを生成しました');
+
+		return html;
 	}
 
 	/**
