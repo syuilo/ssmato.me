@@ -215,7 +215,7 @@ export default class SSContext {
 				}
 				// キャラが複数人見つかったら
 				else if (characterIdentities.length > 1) {
-					// TODO: 前後の文脈から判断などする
+					// TODO: 前後の文脈から判断などする(ただしその場合はキャッシュは使えない)
 					candidate = characterIdentities[0];
 				}
 			}
