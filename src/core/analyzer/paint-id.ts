@@ -1,3 +1,4 @@
+const assign = require('assign-deep');
 import * as seedrandom from 'seedrandom';
 
 import { IPost } from './interfaces';
@@ -48,7 +49,7 @@ export default
 	const background = `#${rHex2}${gHex2}${bHex2}`;
 	const foreground = luminance > 180 ? '#000' : '#fff';
 
-	return Object.assign({}, post, {
+	return assign(post, {
 		user: {
 			backgroundColor: background,
 			foregroundColor: foreground

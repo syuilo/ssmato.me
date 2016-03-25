@@ -1,3 +1,6 @@
+import * as _debug from 'debug';
+const debug = _debug('sssa');
+
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 
@@ -21,6 +24,10 @@ export default class SSContext {
 
 	public posts: (IPost & {
 		isMaster: boolean;
+		user: {
+			backgroundColor: string;
+			foregroundColor: string
+		}
 	})[] = null;
 
 	private highlightCache: any = {};
@@ -33,6 +40,10 @@ export default class SSContext {
 		})[],
 		posts?: (IPost & {
 			isMaster: boolean;
+			user: {
+				backgroundColor: string;
+				foregroundColor: string
+			}
 		})[]
 	) {
 		if (series !== undefined) {

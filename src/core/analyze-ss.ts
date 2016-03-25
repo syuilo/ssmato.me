@@ -73,6 +73,9 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			const htmls = context.genHtml();
 
 			ss.posts.forEach((post, i) => {
+				post.isMaster = context.posts[i].isMaster;
+				post.userIdBackgroundColor = context.posts[i].user.backgroundColor;
+				post.userIdForegroundColor = context.posts[i].user.foregroundColor;
 				post.html = htmls[i];
 			});
 

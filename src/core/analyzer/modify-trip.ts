@@ -1,3 +1,5 @@
+const assign = require('assign-deep');
+
 import { IPost } from './interfaces';
 
 const tripSymbol: string = '◆';
@@ -24,7 +26,7 @@ export default
 		trip = null;
 	}
 
-	return Object.assign({}, post, {
+	return assign(post, {
 		user: {
 			trip: trip
 		}

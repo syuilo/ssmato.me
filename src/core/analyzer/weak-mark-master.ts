@@ -1,3 +1,5 @@
+const assign = require('assign-deep');
+
 import { IPost } from './interfaces';
 
 /**
@@ -39,7 +41,7 @@ export default
 			isMaster = true;
 		}
 
-		return Object.assign({}, post, {
+		return assign(post, {
 			isMaster: isMaster
 		});
 	});

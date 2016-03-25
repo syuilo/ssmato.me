@@ -1,3 +1,5 @@
+const assign = require('assign-deep');
+
 import { ISeries, ICharacter, IPost, IUser } from './interfaces';
 
 import World from './world';
@@ -56,7 +58,7 @@ export default
 		}
 
 		// トリップ
-		if (masters.filter(x => x.trip === user.trip).length !== 0) {
+		if (user.trip !== null && masters.filter(x => x.trip === user.trip).length !== 0) {
 			masters.push(user);
 			return;
 		}
@@ -80,7 +82,7 @@ export default
 			.length
 		) !== 0;
 
-		return Object.assign({}, post, {
+		return assign(post, {
 			isMaster
 		});
 	});
