@@ -128,44 +128,45 @@ export default class SSContext {
 				return null;
 			}
 
-			if (names.length > 1) {
-				let chars: CharacterIdentity[] = [];
-
-				// 区切った各キャラ名に対し合致するキャラを取得
-				names.forEach(n => {
-					const _char = this.characters
-						.map(c => identity(c, n))
-						.filter(x => x !== null)[0];
-
-					if (_char !== undefined) {
-						chars.push(_char);
-					} else {
-						// 順序を保つためにキャラが見つからなかったら null をpush
-						chars.push(null);
-					}
-				});
-
-				if (chars.length !== 0) {
-					let htmls: string[] = [];
-
-					// 各キャラをハイライト
-					chars.forEach((c, i) => {
-						if (c !== null) {
-							htmls.push(this.highlight(c.character, names[i]));
-						} else {
-							htmls.push(this.highlight(null, names[i]));
-						}
-					});
-
-					// セパレータで再結合
-					return htmls.join(separator)
-						+ serif.substring(entities.encode(name).length);
-				} else {
-					return null;
-				}
-			} else {
+			if (names.length <= 1) {
 				return null;
 			}
+
+			let chars: CharacterIdentity[] = [];
+
+			// 区切った各キャラ名に対し合致するキャラを取得
+			names.forEach(n => {
+				const _char = this.characters
+					.map(c => identity(c, n))
+					.filter(x => x !== null)[0];
+
+				if (_char !== undefined) {
+					chars.push(_char);
+				} else {
+					// 順序を保つためにキャラが見つからなかったら null をpush
+					chars.push(null);
+				}
+			});
+
+			if (chars.length === 0) {
+				return null;
+			}
+
+			let htmls: string[] = [];
+
+			// 各キャラをハイライト
+			chars.forEach((c, i) => {
+				if (c !== null) {
+					htmls.push(this.highlight(c.character, names[i]));
+				} else {
+					htmls.push(this.highlight(null, names[i]));
+				}
+			});
+
+			// セパレータで再結合
+			return htmls.join(separator)
+				+ serif.substring(entities.encode(name).length);
+
 		}).filter(result => result !== null);
 
 		if (htmls.length !== 0) {
@@ -202,14 +203,19 @@ export default class SSContext {
 			for (let j = 1; j < tmpname.length + 1; j++) {
 				const part = tmpname.substring(0, j);
 
-				const characterIdentity = this.characters
+				const characterIdentities = this.characters
 					.map(c => identity(c, part))
-					.filter(x => x !== null)[0];
+					.filter(x => x !== null);
 
-				// キャラが見つかったら
-				if (characterIdentity !== undefined) {
+				// キャラが１人見つかったら
+				if (characterIdentities.length === 1) {
 					// 候補にする
-					candidate = characterIdentity;
+					candidate = characterIdentities[0];
+				}
+				// キャラが複数人見つかったら
+				else if (characterIdentities.length > 1) {
+					// TODO: 前後の文脈から判断などする
+					candidate = characterIdentities[0];
 				}
 			}
 
