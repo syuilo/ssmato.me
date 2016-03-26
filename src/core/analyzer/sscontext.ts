@@ -16,12 +16,21 @@ import identity from './identity';
  */
 export default class SSContext {
 
+	/**
+	 * SSのシリーズ
+	 */
 	public series: ISeries[] = null;
 
+	/**
+	 * このSSに登場するキャラクター
+	 */
 	public characters: (ICharacter & {
 		onStageRatio: number;
 	})[] = null;
 
+	/**
+	 * SSの投稿
+	 */
 	public posts: (IPost & {
 		isMaster: boolean;
 		user: {
