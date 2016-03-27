@@ -1,10 +1,10 @@
 {
-  "name": "ssmatome",
+  "name": "ssmato.me",
   "version": "0.0.0",
   "description": "SS matome",
   "main": "./built/index.js",
   "repository": {
-    "url": "https://github.com/syuilo/ssmatome.git"
+    "url": "https://github.com/syuilo/ssmato.me.git"
   },
   "scripts": {
     "start": "node --harmony ./built/index.js",
