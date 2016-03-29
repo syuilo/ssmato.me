@@ -35,7 +35,7 @@ console.log(`[${worker.id}] Initializing...`);
 
 const store = MongoStore(expressSession);
 
-const sessionExpires: number = 1000 * 60 * 60 * 24 * 365;
+const sessionExpires = 1000 * 60 * 60 * 24 * 365;
 const subdomainOptions = {
 	base: config.public.domain
 };
@@ -168,7 +168,7 @@ if (config.https.enable) {
 	server = http.createServer(app);
 }
 
-server.listen(port, () => {
+server.listen(port, config.bindIp, () => {
 	const host = server.address().address;
 	const port = server.address().port;
 

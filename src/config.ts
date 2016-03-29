@@ -68,6 +68,7 @@ export interface IConfig {
 		keyPath: string;
 		certPath: string;
 	};
+	bindIp: string;
 	cookiePass: string;
 	sessionKey: string;
 	sessionSecret: string;
