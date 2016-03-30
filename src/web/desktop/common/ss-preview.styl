@@ -96,6 +96,7 @@ ss()
 				cursor: pointer;
 
 		> .info
+			position: relative;
 			padding: 0 16px;
 			color: #a7aeb3;
 
@@ -129,6 +130,26 @@ ss()
 					li
 						display: inline;
 						margin: 0 4px;
+
+			> .characters-ratio
+				display: block;
+				position: absolute;
+				bottom: -1px;
+				left: 0;
+				overflow: hidden;
+				white-space: nowrap;
+				width: 100%;
+				font-size: 0;
+				background: #fff;
+
+				&:hover
+					> span
+						opacity: 1 !important;
+
+				> span
+					display: inline-block;
+					vertical-align: top;
+					height: 1px;
 
 		> .actions
 			display: none;

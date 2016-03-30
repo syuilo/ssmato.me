@@ -30,6 +30,13 @@ mixin ss(ss, _action)
 								li: a(href= config.urls.character + '/' + chara.profile.id,
 									title= chara.profile.name + ' (' + chara.profile.kana + ')',
 									style='color:' + chara.profile.color)= chara.profile.screenName
+					div.characters-ratio
+						each chara in ss.characters
+							span(style={
+								background: chara.profile.color,
+								opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
+								width: (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%'
+							})
 			div.actions
 				case action
 					when 'read-later'
