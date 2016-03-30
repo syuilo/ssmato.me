@@ -6,7 +6,7 @@ module.exports = ($ss) ->
 
 	is-favorited = false
 
-	$favorite-button = $ss.find '> footer > .favorites > button'
+	$favorite-button = $ss.find '> header > .title > .favorite'
 	favorite-button-tooltip = tooltip $favorite-button
 
 	if LOGIN

@@ -1,26 +1,31 @@
 ss()
 	display: block;
 	position: relative;
-	margin: 0 0 10px 0;
-	padding: 22px 28px;
+	margin: 16px;
+	padding: 0;
 	word-break: break-word;
 	color: #806358;
 	font-size: 1em;
 	font-family: 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
-	border: solid 1px #ddd;
+	border: solid 1px #cad2d6;
 	border-radius: 4px;
+	background: #fff;
+	overflow: hidden;
 
 	&:last-child
 		margin-bottom: 0;
 
 	&:hover
+		> header > .title > .favorite
+			display: inline-block;
+
 		> header > .actions
 			display: block;
 
 	&[data-is-favorited='false']
-		> footer
-			> .favorites
-				button
+		> header
+			> .title
+				> .favorite
 					color: #888;
 
 					&:hover
@@ -33,9 +38,9 @@ ss()
 						opacity: 0.7;
 
 	&[data-is-favorited='true']
-		> footer
-			> .favorites
-				button
+		> header
+			> .title
+				> .favorite
 					color: #FF1358;
 
 					&:hover
@@ -48,56 +53,87 @@ ss()
 						opacity: 0.7;
 
 	> header
-		margin: 0 0 16px 0;
-		padding: 0 0 8px 0;
-		//border-bottom: solid 1px #F1E6E6;
+		margin: 0;
+		padding: 0;
+		border-bottom: solid 1px #e1e8ed;
 
-		> h1
+		> .title
 			display: block;
 			margin: 0;
+			padding: 0 16px;
+			line-height: 50px;
 			font-size: 1.2em;
-			font-weight: bold;
+			font-weight: normal;
+			background: #fdfdfd;
+			border-bottom: solid 1px #e1e8ed;
 
-			.posts
-				opacity: 0.7;
-				font-weight: normal;
+			a
+				color: #66757f;
 
-		> .series
-			display: inline;
-			margin: 0 8px 0 0;
-			font-size: 0.9em;
-
-			> .caption
-				display: inline;
-				margin: 0;
-
-			> .unknown
-			> .title
-				margin: 0 4px;
-
-		> .characters
-			display: inline;
-			font-size: 0.9em;
-
-			> .caption
-				display: inline;
-				margin: 0;
-
-			ul
-				display: inline;
-				margin: 0;
-				padding: 0;
-				list-style: none;
-
-				li
+				h1
 					display: inline;
+					margin: 0;
+					font-weight: normal;
+					font-size: 1em;
+
+				.posts
+					opacity: 0.5;
+					font-weight: normal;
+					font-size: 0.7em;
+					line-height: 0;
+
+			.favorite
+				display: none;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				font-size: 1.1em;
+				border: none;
+				background: transparent;
+				box-shadow: none;
+				transition: color 0.2s ease;
+				cursor: pointer;
+
+		> .info
+			padding: 0 16px;
+			color: #a7aeb3;
+
+			> .series
+				display: inline;
+				margin: 0 8px 0 0;
+				font-size: 0.9em;
+
+				> .caption
+					display: inline;
+					margin: 0;
+
+				> .unknown
+				> .title
 					margin: 0 4px;
+
+			> .characters
+				display: inline;
+				font-size: 0.9em;
+
+				> .caption
+					display: inline;
+					margin: 0;
+
+				ul
+					display: inline;
+					margin: 0;
+					padding: 0;
+					list-style: none;
+
+					li
+						display: inline;
+						margin: 0 4px;
 
 		> .actions
 			display: none;
 			position: absolute;
-			top: 20px;
-			right: 20px;
+			top: 8px;
+			right: 8px;
 
 			> button
 				display: block;
@@ -148,7 +184,7 @@ ss()
 		> .text
 			display: block;
 			position: relative;
-			padding: 0 1em;
+			padding: 1em 1em 0 1em;
 			min-height: 4em;
 			max-height: 10em;
 			overflow: hidden;
@@ -167,32 +203,25 @@ ss()
 				background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%);
 
 	> footer
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		color: #bbb;
+		padding: 0 16px;
+		border-top: solid 1px #e1e8ed;
 
-		> p
-			display: inline-block;
-			margin: 0 16px;
+		> .more
+			line-height: 40px;
 
-			.count
-				font-size: 0.9em;
+		> .status
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			color: #AAB8C2;
 
-			i
-				margin-right: 6px;
-
-			button
+			> p
 				display: inline-block;
-				-webkit-appearance: none;
-				-moz-appearance: none;
-				appearance: none;
-				font-size: 1.1em;
-				border: none;
-				background: transparent;
-				box-shadow: none;
-				transition: color 0.2s ease;
-				cursor: pointer;
+				line-height: 40px;
+				margin: 0 16px;
+
+				.count
+					font-size: 0.9em;
 
 				i
-					margin: 0;
+					margin-right: 6px;
