@@ -33,43 +33,48 @@ block content
 				div.title
 					h1= ss.title
 					span.count= ss.posts.length
+					button.favorite(data-tooltip='お気に入りに登録')
+						i.fa.fa-heart
 				
 				div.info
-					div.series
-						p.caption
-							i.fa.fa-folder-open
-						if ss.series.length == 0
-							span.unknown 不明
-						else if ss.series.length == 1
-							a.title(href= config.urls.series + '/' + ss.series[0].id, title=ss.series[0].kana)= ss.series[0].title
-						else
-							each series in ss.series
-								a.title(href= config.urls.series + '/' + series.id, title=series.kana)= series.title
-							span.is-cross
-								| (クロス)
-
-					div.kyoppie
-						p.views
-							i.fa.fa-eye
-							span.count= ss.views.length
-						p.comments
-							i.fa.fa-comments
-							span.count= ss.commentsCount
-						p.favorites
-							button(data-tooltip='お気に入りに登録')
+					div.top
+						span.pages
+							= ss.posts.filter(function(post) { return post.isMaster; }).length
+							| ページ
+						div.status
+							p.views
+								i.fa.fa-eye
+								span.count= ss.views.length
+							p.comments
+								i.fa.fa-comments
+								span.count= ss.commentsCount
+							p.favorites
 								i.fa.fa-heart
-							span.count= ss.favoritesCount
-					
-					if ss.characters.length > 0
-						div.characters
+								span.count= ss.favoritesCount
+					div.bottom
+						div.series
 							p.caption
-								i.fa.fa-users
-							ul
-								each chara in ss.characters
-									li: a(href= config.urls.character + '/' + chara.profile.id,
-										title= chara.profile.name + ' (' + chara.profile.kana + ')',
-										style='color:' + chara.profile.color)= chara.profile.screenName
-			
+								i.fa.fa-folder-open
+							if ss.series.length == 0
+								span.unknown 不明
+							else if ss.series.length == 1
+								a.title(href= config.urls.series + '/' + ss.series[0].id, title=ss.series[0].kana)= ss.series[0].title
+							else
+								each series in ss.series
+									a.title(href= config.urls.series + '/' + series.id, title=series.kana)= series.title
+								span.is-cross
+									| (クロス)
+						
+						if ss.characters.length > 0
+							div.characters
+								p.caption
+									i.fa.fa-users
+								ul
+									each chara in ss.characters
+										li: a(href= config.urls.character + '/' + chara.profile.id,
+											title= chara.profile.name + ' (' + chara.profile.kana + ')',
+											style='color:' + chara.profile.color)= chara.profile.screenName
+					if ss.characters.length > 0
 						div.on-stage-ratio
 							each chara in ss.characters
 								a(href= config.urls.character + '/' + chara.profile.id,

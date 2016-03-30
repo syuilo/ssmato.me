@@ -7,33 +7,31 @@ main
 
 			&[data-is-favorited='false']
 				> header
-					.favorites
-						button
-							color: #888;
+					.favorite
+						color: #888;
 
-							&:hover
-								color: #777;
+						&:hover
+							color: #777;
 
-							&:active
-								color: #666;
+						&:active
+							color: #666;
 
-							&:disabled
-								opacity: 0.7;
+						&:disabled
+							opacity: 0.7;
 
 			&[data-is-favorited='true']
 				> header
-					.favorites
-						button
-							color: #FF1358;
+					.favorite
+						color: #FF1358;
 
-							&:hover
-								color: #FF3E77;
+						&:hover
+							color: #FF3E77;
 
-							&:active
-								color: #E60949;
+						&:active
+							color: #E60949;
 
-							&:disabled
-								opacity: 0.7;
+						&:disabled
+							opacity: 0.7;
 
 			> header
 				position: relative;
@@ -41,6 +39,9 @@ main
 				&:hover
 					> .read-later
 						display: block;
+
+					> .title > .favorite
+						display: inline-block;
 
 				> .title
 					padding: 32px 16px 22px 16px;
@@ -66,46 +67,90 @@ main
 						&:after
 							content: ')';
 
+					.favorite
+						display: none;
+						-webkit-appearance: none;
+						-moz-appearance: none;
+						appearance: none;
+						margin: 0 0 0 4px;
+						font-size: 1em;
+						border: none;
+						background: transparent;
+						box-shadow: none;
+						transition: color 0.2s ease;
+						cursor: pointer;
+
 				> .info
 					position: relative;
-					padding: 8px 8px 12px 8px;
 					color: #88817f;
 					background: #fff;
 					border: solid 1px #e1e8ed;
 
-					> .series
-						display: inline-block;
-						margin: 0 8px 0 0;
-						font-size: 0.9em;
+					> .top
+						position: relative;
+						padding: 0 8px;
 
-						> .caption
-							display: inline;
-							margin: 0;
-							color: #82706C;
+						> span
+							line-height: 28px;
+							font-size: 0.9em;
 
-						> .unknown
-						> .title
-							margin: 0 4px;
+						> .status
+							position: absolute;
+							bottom: 0;
+							right: 0;
+							color: #AAB8C2;
 
-					> .characters
-						display: inline-block;
-						margin: 0 8px 0 0;
-						font-size: 0.9em;
+							> p
+								display: inline-block;
+								line-height: 28px;
+								margin: 0;
+								padding: 0 16px;
+								border-left: solid 1px #e1e8ed;
 
-						> .caption
-							display: inline;
-							margin: 0;
-							color: #82706C;
+								.count
+									font-size: 0.9em;
 
-						ul
-							display: inline;
-							margin: 0;
-							padding: 0;
-							list-style: none;
+								i
+									margin-right: 6px;
 
-							li
+
+					> .bottom
+						padding: 4px 8px 12px 8px;
+						border-top: solid 1px #e1e8ed;
+
+						> .series
+							display: inline-block;
+							margin: 0 8px 0 0;
+							font-size: 0.9em;
+
+							> .caption
 								display: inline;
+								margin: 0;
+								color: #a7aeb3;
+
+							> .unknown
+							> .title
 								margin: 0 4px;
+
+						> .characters
+							display: inline-block;
+							margin: 0 8px 0 0;
+							font-size: 0.9em;
+
+							> .caption
+								display: inline;
+								margin: 0;
+								color: #a7aeb3;
+
+							ul
+								display: inline;
+								margin: 0;
+								padding: 0;
+								list-style: none;
+
+								li
+									display: inline;
+									margin: 0 4px;
 
 					> .on-stage-ratio
 						display: block;
@@ -125,37 +170,6 @@ main
 							display: inline-block;
 							vertical-align: top;
 							height: 8px;
-
-					> .kyoppie
-						position: absolute;
-						top: 8px;
-						right: 4px;
-						color: #bbb;
-
-						> p
-							display: inline-block;
-							margin: 0 16px;
-
-							.count
-								font-size: 0.9em;
-
-							i
-								margin-right: 6px;
-
-							button
-								display: inline-block;
-								-webkit-appearance: none;
-								-moz-appearance: none;
-								appearance: none;
-								font-size: 1.1em;
-								border: none;
-								background: transparent;
-								box-shadow: none;
-								transition: color 0.2s ease;
-								cursor: pointer;
-
-								i
-									margin: 0;
 
 				> .read-later
 					display: none;

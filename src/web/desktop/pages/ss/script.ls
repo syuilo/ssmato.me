@@ -13,7 +13,7 @@ $ ->
 	$ss.find '.on-stage-ratio > a' .each ->
 		tooltip $ @
 
-	$favorite-button = $ss.find '> header .favorites > button'
+	$favorite-button = $ss.find '> header .favorite'
 	favorite-button-tooltip = tooltip $favorite-button
 
 	if LOGIN
