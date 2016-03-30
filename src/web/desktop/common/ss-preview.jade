@@ -1,6 +1,6 @@
 mixin ss(ss, _action)
 	- var action = _action === undefined ? 'read-later' : _action;
-	article.ss(data-id= ss.id, data-is-favorited='false')
+	article.ss(tabindex='0', data-id= ss.id, data-is-favorited='false')
 		header
 			div.title
 				a(href= config.url + '/' + ss.id)
@@ -39,14 +39,16 @@ mixin ss(ss, _action)
 		div.body
 			div.text!= ss.posts[0].html
 		footer
-			a.more(href= config.url + '/' + ss.id) 続きを読む
+			a.more(href= config.url + '/' + ss.id)
+				| 続きを読む
+				i.fa.fa-ellipsis-h
 			div.status
-				p.views
+				p.views(title='読まれた数')
 					i.fa.fa-eye
 					span.count= ss.views.length
-				p.comments
+				p.comments(title='コメントの数')
 					i.fa.fa-comments
 					span.count= ss.commentsCount
-				p.favorites
+				p.favorites(title='お気に入り数')
 					i.fa.fa-heart
 					span.count= ss.favoritesCount
