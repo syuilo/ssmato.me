@@ -35,7 +35,7 @@ console.log(`[${worker.id}] Initializing...`);
 
 const store = MongoStore(expressSession);
 
-const sessionExpires = 1000 * 60 * 60 * 24 * 365;
+const sessionExpires = 1000 * 60 * 60 * 24 * 365; // One Year
 const subdomainOptions = {
 	base: config.public.domain
 };
