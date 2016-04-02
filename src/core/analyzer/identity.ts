@@ -42,7 +42,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	 *
 	 * 往々にして複数人に分裂したりする
 	 */
-	const timesId = test(/[×]\d+$/);
+	const timesId = test(/[×x]\d+$/);
 	if (timesId !== null) {
 		return timesId;
 	}
