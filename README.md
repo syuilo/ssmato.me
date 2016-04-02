@@ -2,6 +2,12 @@
 [![][david-runtime-badge]][david-runtime-link]
 [![][david-dev-badge]][david-dev-link]
 
+## External dependencies
+* Node.js
+* npm
+* MongoDB
+* Elasticsearch
+
 ## License
 [MIT](LICENSE)
 
