@@ -4,13 +4,13 @@ const base: Object = {
 	registeredAt: { type: Date, required: true, default: Date.now },
 	createdAt: { type: Date, required: false, default: null },
 	title: { type: String, required: true },
-	series: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'Series' }],
+	series: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'Series', index: true }],
 	characters: [{
 		_id: false,
 		profile: { type: Schema.Types.ObjectId, ref: 'Character' },
 		onStageRatio: { type: Number }
 	}],
-	tags: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'SSTag' }],
+	tags: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'SSTag', index: true }],
 	favoritesCount: { type: Number, required: false, default: 0 },
 	commentsCount: { type: Number, required: false, default: 0 },
 	views: [{ type: String, required: false, default: null }],
