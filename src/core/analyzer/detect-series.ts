@@ -47,12 +47,16 @@ export default(
 
 			// キャラがこのSSに登場したらそのキャラのシリーズに+1
 			extractedNames.forEach(name => {
-				if (askCharacter(char, name)) {
-					// 同じキャラの複数登場よるn重+1防止
-					if (seriesContext.found.indexOf(char.id) === -1) {
-						seriesContext.found.push(char.id);
-					}
+				if (!askCharacter(char, name)) {
+					return;
 				}
+
+				// 同じキャラの複数登場よるn重+1防止
+				if (seriesContext.found.indexOf(char.id) !== -1) {
+					return;
+				}
+
+				seriesContext.found.push(char.id);
 			});
 		});
 	});
