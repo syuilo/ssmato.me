@@ -1,6 +1,7 @@
 import { Series, Character } from '../db/models';
 import { ISSThread, ISeries, ICharacter } from '../db/interfaces';
 import analyze from './analyzer/analyze';
+import genhtml from './analyzer/generate-html';
 
 /**
  * SSを解析し利用可能な状態にします
@@ -70,7 +71,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			}
 
 			// HTML生成
-			const htmls = context.genHtml();
+			const htmls = genhtml(context);
 
 			ss.posts.forEach((post, i) => {
 				post.isMaster = context.posts[i].isMaster;

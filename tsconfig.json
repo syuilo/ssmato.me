@@ -52,6 +52,7 @@
 		"./src/core/analyzer/extract-character-names.ts",
 		"./src/core/analyzer/extract-characters.ts",
 		"./src/core/analyzer/extract-name-part-in-serif.ts",
+		"./src/core/analyzer/generate-html.ts",
 		"./src/core/analyzer/identity.ts",
 		"./src/core/analyzer/interfaces.ts",
 		"./src/core/analyzer/modify-trip.ts",
