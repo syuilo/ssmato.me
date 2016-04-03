@@ -3,10 +3,10 @@
 [![][david-dev-badge]][david-dev-link]
 
 ## External dependencies
-* Node.js
-* npm
-* MongoDB
-* Elasticsearch
+* [Node.js](https://nodejs.org/)
+* [npm](https://www.npmjs.com/)
+* [MongoDB](https://www.mongodb.org/)
+* [Elasticsearch](https://www.elastic.co/products/elasticsearch)
 
 ## License
 [MIT](LICENSE)
