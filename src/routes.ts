@@ -225,6 +225,7 @@ export default (app: express.Express) => {
 	app.param('characterId', (req, res, next, ssId) => {
 		Character
 		.findById(req.params.characterId)
+		.populate('series')
 		.exec((err: any, character: ICharacter) => {
 			if (err !== null) {
 				console.error(err);

@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { Series, SS, Character } from '../../../../../db/models';
-import { ISeries, ISSThread, ICharacter } from '../../../../../db/interfaces';
+import { SS } from '../../../../../db/models';
+import { ISSThread } from '../../../../../db/interfaces';
 import ui from '../../../ui';
 
 module.exports = (req: express.Request, res: express.Response): void => {
@@ -11,7 +11,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 			series: series.id
 		})
 		.sort({
-			_id: -1
+			// todo
 		})
 		.limit(16)
 		.populate('series')

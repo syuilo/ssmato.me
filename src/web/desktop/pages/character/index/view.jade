@@ -1,0 +1,35 @@
+extend ../../../main
+include ../../../common/ss-preview
+
+block title
+	= character.name + ' - SSまとめ'
+
+block meta
+	- var summary = character.description;
+	meta(name='keywords', content='SS, SSまとめ, ' + character.name + ', ' + character.aliases.join(','))
+	meta(name='description', content= summary)
+	meta(property='og:title', content=character.name)
+	meta(property='og:type', content='article')
+	meta(property='og:description', content= summary)
+	meta(property='og:url', content= config.url)
+	meta(property='og:image', content= config.urls.resources + '/logo.jpg')
+	meta(property='og:site_name', content='SSまとめ')
+	meta(property='twitter:card', content='summary')
+	meta(property='twitter:site', content='@syuilo')
+	meta(property='twitter:title', content=character.name)
+	meta(property='twitter:description', content= summary)
+	meta(property='twitter:image', content= config.urls.resources + '/logo.jpg')
+	meta(property='twitter:url', content= config.url)
+
+block content
+	article
+		header
+			h1
+				= character.series.map(s => s.title).join('、')
+				| の
+				b= character.name
+				| が登場するSS
+		div.main
+			div.sss
+				each ss in sss
+					+ss(ss)
