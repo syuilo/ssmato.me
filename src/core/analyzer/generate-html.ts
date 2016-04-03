@@ -190,20 +190,22 @@ function analyzeLine(serif: string): string {
 
 		// 候補が見つかったら
 		if (candidate !== null) {
-			// 既に同じアイデンティティが登録されていなかったら
-			if (!candidate.find(ids)) {
-				// アイデンティティ追加
-				ids.push(candidate);
-
-				// ハイライト
-				highlightHtml += highlight(candidate.character, candidate.name);
-
-				// 切り出し
-				tmpname = tmpname.substring(candidate.name.length);
-
-				// スキャナリセット
-				i = 0;
+			// 既に同じアイデンティティが登録されていたらスキップ
+			if (candidate.find(ids)) {
+				continue;
 			}
+
+			// アイデンティティ追加
+			ids.push(candidate);
+
+			// ハイライト
+			highlightHtml += highlight(candidate.character, candidate.name);
+
+			// 切り出し
+			tmpname = tmpname.substring(candidate.name.length);
+
+			// スキャナリセット
+			i = 0;
 		}
 	}
 
