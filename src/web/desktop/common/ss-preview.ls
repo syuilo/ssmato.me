@@ -33,7 +33,7 @@ module.exports = ($ss) ->
 					is-favorited := true
 					$ss.attr \data-is-favorited \true
 					$favorite-button.attr \data-tooltip 'お気に入り解除'
-					$counter = $favorite-button.parent!.children \.count
+					$counter = $ss.find '> footer > .status > .favorites .count'
 					$counter.text (parse-int $counter.html!, 10) + 1
 			else
 				$favorite-button.attr \disabled on
@@ -47,7 +47,7 @@ module.exports = ($ss) ->
 					is-favorited := false
 					$ss.attr \data-is-favorited \false
 					$favorite-button.attr \data-tooltip 'お気に入りに登録'
-					$counter = $favorite-button.parent!.children \.count
+					$counter = $ss.find '> footer > .status > .favorites .count'
 					$counter.text (parse-int $counter.html!, 10) - 1
 		else
 			alert 'このSSをお気に入りに登録するにはログインしてください。'
