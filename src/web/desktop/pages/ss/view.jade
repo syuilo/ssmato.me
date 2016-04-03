@@ -39,8 +39,13 @@ block content
 				div.info
 					div.top
 						span.pages
-							= ss.posts.filter(function(post) { return post.isMaster; }).length
+							= pages
 							| ページ
+						span.separator ・
+						span.time
+							| 読むのに必要な時間: およそ
+							= readTimeMinutes
+							| 分
 						div.status
 							p.views
 								i.fa.fa-eye
