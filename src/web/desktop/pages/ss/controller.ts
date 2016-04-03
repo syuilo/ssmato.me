@@ -33,12 +33,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 			ss: ss.toObject(),
 			posts: posts,
 			summary: ss.posts[0].text.split('\n').join(' '),
-			filterMode: filterMode,
-			pages: ss.posts.filter(post => post.isMaster).length,
-			readTimeMinutes: Math.floor((ss.posts
-				.filter(post => post.isMaster)
-				.map(post => post.text.length)
-				.reduce((prev, current) => prev + current) / 15) / 60)
+			filterMode: filterMode
 		});
 
 		read(req, res, ss);

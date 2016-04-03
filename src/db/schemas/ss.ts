@@ -18,6 +18,8 @@ const base: Object = {
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
 		rating: { type: Number }
 	}],
+	pagesCount: { type: Number },
+	readingTimeMinutes: { type: Number },
 	isDeleted: { type: Boolean, required: false, default: false }
 };
 

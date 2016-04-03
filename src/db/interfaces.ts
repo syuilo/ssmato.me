@@ -75,6 +75,8 @@ export interface ISS extends Document {
 	tags: string[] | Types.ObjectId[] | ISSTag[];
 	favoritesCount: number;
 	commentsCount: number;
+	pagesCount: number;
+	readingTimeMinutes: number;
 	views: string[];
 }
 

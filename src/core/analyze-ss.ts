@@ -79,6 +79,13 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 				post.html = htmls[i];
 			});
 
+			ss.pagesCount = context.posts.filter(post => post.isMaster).length;
+
+			ss.readingTimeMinutes = Math.floor((context.posts
+				.filter(post => post.isMaster)
+				.map(post => post.text.length)
+				.reduce((p, c) => p + c) / 15) / 60);
+
 			ss.markModified('posts');
 			ss.markModified('series');
 			ss.markModified('characters');
