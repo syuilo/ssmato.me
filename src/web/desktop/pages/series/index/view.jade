@@ -1,4 +1,4 @@
-extend ../../../ui
+extend ../../../main
 include ../../../common/ss-preview
 
 block title
@@ -22,19 +22,12 @@ block meta
 	meta(property='twitter:url', content= config.url)
 
 block content
-	main(role='main')
-		article
-			header
-				div.top
-					div.body
-						h1= series.title
-						p.description= series.description
-				div.bottom
-					div.body
-						p 工事中
-			div.container
-				div.main
-					section.recent
-						div.sss
-							each ss in sss
-								+ss(ss)
+	article
+		header
+			h1
+				= series.title
+				| のSS
+		div.main
+			div.sss
+				each ss in sss
+					+ss(ss)
