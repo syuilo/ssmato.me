@@ -23,7 +23,7 @@ mixin ss(ss)
 						| キャラ:
 					ul
 						each chara in ss.characters
-							li: a(href= config.urls.character + '/' + chara.profile.id,
+							li: a(href= config.urls.characters + '/' + chara.profile.id,
 								title= chara.profile.name + ' (' + chara.profile.kana + ')',
 								style='color:' + chara.profile.color)= chara.profile.screenName
 		div.body

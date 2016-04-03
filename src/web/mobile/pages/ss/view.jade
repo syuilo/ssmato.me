@@ -67,13 +67,13 @@ block content
 									i.fa.fa-users
 								ul
 									each chara in ss.characters
-										li: a(href= config.urls.character + '/' + chara.profile.id,
+										li: a(href= config.urls.characters + '/' + chara.profile.id,
 											title= chara.profile.name + ' (' + chara.profile.kana + ')',
 											style='color:' + chara.profile.color)= chara.profile.screenName
 					if ss.characters.length > 0
 						div.on-stage-ratio
 							each chara in ss.characters
-								a(href= config.urls.character + '/' + chara.profile.id,
+								a(href= config.urls.characters + '/' + chara.profile.id,
 									style={
 										background: chara.profile.color,
 										opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
