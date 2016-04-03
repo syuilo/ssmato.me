@@ -14,70 +14,70 @@
   },
   "dependencies": {
     "express/express.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "mongoose/mongoose.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "jade/jade.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "gulp/gulp.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "gulp-typescript/gulp-typescript.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "gulp-tslint/gulp-tslint.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "body-parser/body-parser.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "cookie-parser/cookie-parser.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "express-session/express-session.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "moment/moment.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "compression/compression.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "connect-mongo/connect-mongo.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "request/request.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "gm/gm.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "multer/multer.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "browserify/browserify.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "glob/glob.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "csurf/csurf.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "bcrypt/bcrypt.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "seedrandom/seedrandom.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "mongoose-deep-populate/mongoose-deep-populate.d.ts": {
-      "ref": "9f0f926a12026287b5a4a229e5672c01e7549313"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "mongodb/mongodb.d.ts": {
-      "ref": "4fd64879854251c64a085b3f62ab47eaf03d15e8"
+      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
     "debug/debug.d.ts": {
       "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
