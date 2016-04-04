@@ -11,7 +11,9 @@ const cors: any = require('cors');
 
 const app: express.Express = express();
 app.disable('x-powered-by');
-app.use(compression());
+app.use(compression(<compression.CompressionOptions>{
+	level: 1
+}));
 
 // CORS
 app.use(cors({
