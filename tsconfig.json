@@ -70,6 +70,8 @@
 		"./src/core/login.ts",
 		"./src/core/read-ss.ts",
 		"./src/core/recaptcha.ts",
+		"./src/core/search/find-by-character.ts",
+		"./src/core/search/find-by-series.ts",
 		"./src/core/special/get-sss-a.ts",
 		"./src/core/special/get-sss-b.ts",
 		"./src/core/special/mark-visit.ts",
@@ -110,7 +112,9 @@
 		"./src/web/desktop/pages/signup/controller.ts",
 		"./src/web/desktop/pages/ss/controller.ts",
 		"./src/web/desktop/ui.ts",
+		"./src/web/mobile/pages/character/index/controller.ts",
 		"./src/web/mobile/pages/index/controller.ts",
+		"./src/web/mobile/pages/series/index/controller.ts",
 		"./src/web/mobile/pages/signin/controller.ts",
 		"./src/web/mobile/pages/ss/controller.ts"
 	]
