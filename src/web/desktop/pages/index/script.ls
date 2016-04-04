@@ -1,4 +1,4 @@
-$ = require 'jquery/dist/jquery'
+$ = require 'jquery'
 
 require '../../main.ls'
 ss = require '../../common/ss-preview.ls'

@@ -1,5 +1,6 @@
-$ = require 'jquery/dist/jquery'
+$ = require 'jquery'
 
+CONFIG = require 'config'
 require '../../main.ls'
 tooltip = require '../../common/tooltiper.ls'
 

@@ -7,14 +7,6 @@ doctype html
 block vars
 
 html(lang='ja', dir='ltr', itemscope, itemtype= htmlSchema)
-	
-	- var setScript = function (name, val) {
-	-   return 'var ' + name + '=' + val + ';Object.freeze(' + name + ');';
-	- }
-	- var escapeScript = function (name, val) {
-	-   return 'eval(decodeURIComponent("' + encodeURIComponent('var ' + name + '=' + val + ';Object.freeze(' + name + ');') + '"));';
-	- }
-
 	head(prefix='og: http://ogp.me/ns#')
 		meta(charset='utf-8')
 		meta(name='robots', content='all')
@@ -36,19 +28,18 @@ html(lang='ja', dir='ltr', itemscope, itemtype= htmlSchema)
 		link(rel='search', href= config.urls.search, title='search')
 		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
 		link(rel='stylesheet', href= stylePath)
-		script!= setScript('CONFIG', JSON.stringify(config))
-		script!= setScript('LOGIN', login.toString())
+		script!= 'var LOGIN=' + login.toString() + ';Object.freeze(LOGIN);'
 		script(src= scriptPath, async, defer)
 		script(type='application/ld+json').
 			{
-			  "@context": "http://schema.org",
-			  "@type": "WebSite",
-			  "url": "#{config.url}",
-			  "potentialAction": {
-			    "@type": "SearchAction",
-			    "target": "#{config.urls.search}?q={q}",
-			    "query-input": "required name=q"
-			  }
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"url": "#{config.url}",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": "#{config.urls.search}?q={q}",
+					"query-input": "required name=q"
+				}
 			}
 
 		block assets

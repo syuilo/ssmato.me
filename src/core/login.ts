@@ -20,7 +20,7 @@ export default function login(screenName: string, password: string, session: any
 					return reject('failed');
 				}
 
-				session.userId = user.id;
+				session.user = user.toObject();
 				session.save(() => {
 					resove();
 				});

@@ -1,5 +1,6 @@
 /// <reference path="./typings/bundle.d.ts" />
 
+import * as fs from 'fs';
 import {task, src, dest} from 'gulp';
 import * as glob from 'glob';
 import * as ts from 'gulp-typescript';
@@ -33,15 +34,31 @@ task('build:ts', () =>
 		.pipe(dest('./built/'))
 );
 
+task('build:public-config', ['build:ts'], (done: () => void) => {
+	const config = require('./built/config').default;
+	fs.mkdir('./built/_', e => {
+		if (!e || (e && e.code === 'EEXIST')) {
+			fs.writeFile('./built/_/config.json', JSON.stringify(config.public), done);
+		} else {
+			console.error(e);
+		}
+	});
+});
+
 task('copy:bower_components', () => {
 	return src('./bower_components/**/*')
 		.pipe(dest('./built/resources/bower_components/'));
 });
 
-task('build:frontside-scripts', done => {
+task('build:frontside-scripts', ['build:public-config'], (done: () => void) => {
 	glob('./src/web/**/*.ls', (err: Error, files: string[]) => {
 		const tasks = files.map(entry => {
-			return browserify({ entries: [entry] })
+			return browserify({
+				entries: [entry],
+				paths: [
+					__dirname + '/built/_'
+				]
+			})
 				.bundle()
 				.pipe(source(entry.replace('src/web', 'resources').replace('.ls', '.js')))
 				.pipe(buffer())
@@ -75,3 +92,11 @@ task('build-copy', ['build:ts', 'build:frontside-scripts', 'build:frontside-styl
 		]).pipe(dest('./built/resources/'))
 	);
 });
+
+task('lint', () =>
+	src('./src/**/*.ts')
+		.pipe(tslint({
+			tslint: require('tslint')
+		}))
+		.pipe(tslint.report('verbose'))
+);

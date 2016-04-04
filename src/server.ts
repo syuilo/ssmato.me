@@ -17,8 +17,6 @@ const cors: any = require('cors');
 const vhost: any = require('vhost');
 
 import db from './db/db';
-import { User } from './db/models';
-import { IUser } from './db/interfaces';
 import uatype from './detect-ua';
 import config from './config';
 
@@ -110,8 +108,8 @@ app.use((req, res, next) => {
 	res.locals.login =
 		req.hasOwnProperty('session') &&
 		req.session !== null &&
-		req.session.hasOwnProperty('userId') &&
-		(<any>req.session).userId !== null;
+		req.session.hasOwnProperty('user') &&
+		(<any>req.session).user !== null;
 
 	res.locals.config = config.public;
 	res.locals.pagePath = req.path;
@@ -119,15 +117,10 @@ app.use((req, res, next) => {
 	res.locals.url = req.protocol + '://' + req.get('host') + req.originalUrl;
 
 	if (res.locals.login) {
-		// Fetch user document
-		User.findById((<any>req.session).userId, (err: any, user: IUser) => {
-			res.locals.me = user;
-			next();
-		});
-	} else {
-		res.locals.me = null;
-		next();
+		res.locals.me = (<any>req.session).user;
 	}
+
+	next();
 });
 
 app.use(require('subdomain')(subdomainOptions));

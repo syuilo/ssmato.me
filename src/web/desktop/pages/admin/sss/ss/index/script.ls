@@ -1,5 +1,7 @@
+$ = require 'jquery'
+
+CONFIG = require 'config'
 require '../../../../../ui.ls'
-$ = require 'jquery/dist/jquery'
 
 $ ->
 	$sssae = $ \#sssae

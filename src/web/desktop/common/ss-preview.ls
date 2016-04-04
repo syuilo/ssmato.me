@@ -1,4 +1,5 @@
-$ = require 'jquery/dist/jquery'
+$ = require 'jquery'
+CONFIG = require 'config'
 tooltip = require './tooltiper.ls'
 
 module.exports = ($ss) ->
