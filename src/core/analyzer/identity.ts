@@ -31,7 +31,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	 *
 	 * 往々にして複数人に分裂したりする
 	 */
-	const numberId = test(/\d+$/);
+	const numberId = test(/(\d|[０-９])+$/);
 	if (numberId !== null) {
 		return numberId;
 	}
@@ -53,7 +53,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	 *
 	 * 往々にして複数人に分裂したりする
 	 */
-	const aluphabetId = test(/[a-zA-Z]+$/);
+	const aluphabetId = test(/[a-zA-Zａ-ｚＡ-Ｚ]+$/);
 	if (aluphabetId !== null) {
 		return aluphabetId;
 	}
