@@ -51,6 +51,19 @@ export default loadConfig();
 //////////////////////////////////////////////////
 // CONFIGURATION INTERFACE DEFINITION
 
+interface Domains {
+	admin: string;
+	i: string;
+	api: string;
+	resources: string;
+	signup: string;
+	signin: string;
+	signout: string;
+	characters: string;
+	series: string;
+	search: string;
+}
+
 export interface IConfig {
 	mongo: {
 		uri: string;
@@ -76,30 +89,8 @@ export interface IConfig {
 	public: {
 		domain: string;
 		url: string;
-		domains: {
-			admin: string;
-			i: string;
-			api: string;
-			resources: string;
-			signup: string;
-			signin: string;
-			signout: string;
-			characters: string;
-			series: string;
-			search: string;
-		};
-		urls: {
-			admin: string;
-			i: string;
-			api: string;
-			resources: string;
-			signup: string;
-			signin: string;
-			signout: string;
-			characters: string;
-			series: string;
-			search: string;
-		};
+		domains: Domains;
+		urls: Domains;
 		themeColor: string;
 		recaptchaSiteKey: string;
 	};
