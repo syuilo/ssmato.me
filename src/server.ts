@@ -84,6 +84,7 @@ app.use(csrf({
 	cookie: false
 }));
 
+// Intercept all requests
 app.use((req, res, next) => {
 	// Security headers
 	res.header('X-Frame-Options', 'SAMEORIGIN');
@@ -116,6 +117,7 @@ app.use((req, res, next) => {
 	res.locals.url = req.protocol + '://' + req.get('host') + req.originalUrl;
 
 	if (res.locals.login) {
+		// Fetch user document
 		User.findById((<any>req.session).userId, (err: any, user: IUser) => {
 			res.locals.me = user;
 			next();
