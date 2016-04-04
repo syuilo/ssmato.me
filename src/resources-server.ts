@@ -6,31 +6,31 @@ import * as express from 'express';
 import * as compression from 'compression';
 const cors: any = require('cors');
 
-export default function server(): express.Express {
-	// Init server
-	const app: express.Express = express();
-	app.disable('x-powered-by');
-	app.use(compression());
+//////////////////////////////////////////////////
+// INIT SERVER PHASE
 
-	// CORS
-	app.use(cors({
-		origin: true,
-		credentials: false
-	}));
+const app: express.Express = express();
+app.disable('x-powered-by');
+app.use(compression());
 
-	// SVGZ support
-	// see: https://github.com/strongloop/express/issues/1911
-	app.get(/.svgz/, (req, res, next) => {
-		res.set('Content-Encoding', 'gzip');
-		next();
-	});
+// CORS
+app.use(cors({
+	origin: true,
+	credentials: false
+}));
 
-	app.use(express.static(`${__dirname}/resources/`));
+// SVGZ support
+// see: https://github.com/strongloop/express/issues/1911
+app.get(/.svgz/, (req, res, next) => {
+	res.set('Content-Encoding', 'gzip');
+	next();
+});
 
-	// Not found handling
-	app.use((req, res) => {
-		res.status(404).send('not-found');
-	});
+app.use(express.static(`${__dirname}/resources/`));
 
-	return app;
-}
+// Not found handling
+app.use((req, res) => {
+	res.status(404).send('not-found');
+});
+
+export default app;
