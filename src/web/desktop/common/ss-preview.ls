@@ -4,20 +4,26 @@ tooltip = require './tooltiper.ls'
 module.exports = ($ss) ->
 	ss-id = $ss.attr \data-id
 
+	is-favorited-checked = false
 	is-favorited = false
 
 	$favorite-button = $ss.find '> header > .title > .favorite'
 	favorite-button-tooltip = tooltip $favorite-button
 
 	if LOGIN
-		$.ajax "#{CONFIG.urls.api}/favorites/check" {
-			data:
-				'ss-id': ss-id
-		}
-		.done (x) ->
-			is-favorited := x == 'true'
-			$ss.attr \data-is-favorited x
-			$favorite-button.attr \data-tooltip (if is-favorited then 'お気に入り解除' else 'お気に入りに登録')
+		$ss.mouseover ->
+			if is-favorited-checked
+				return
+			is-favorited-checked := true
+
+			$.ajax "#{CONFIG.urls.api}/favorites/check" {
+				data:
+					'ss-id': ss-id
+			}
+			.done (x) ->
+				is-favorited := x == 'true'
+				$ss.attr \data-is-favorited x
+				$favorite-button.attr \data-tooltip (if is-favorited then 'お気に入り解除' else 'お気に入りに登録')
 
 	$favorite-button.click ->
 		if LOGIN
