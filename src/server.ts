@@ -4,7 +4,6 @@
 
 import * as cluster from 'cluster';
 import * as fs from 'fs';
-import * as path from 'path';
 import * as http from 'http';
 import * as https from 'https';
 import * as express from 'express';
@@ -132,13 +131,6 @@ app.use((req, res, next) => {
 app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources()));
 
 app.use(require('subdomain')(subdomainOptions));
-
-app.get('/favicon.ico', (req, res) => {
-	res.sendFile(path.resolve(`${__dirname}/resources/favicon.ico`));
-});
-app.get('/manifest.json', (req, res) => {
-	res.sendFile(path.resolve(`${__dirname}/resources/manifest.json`));
-});
 
 // Main routing
 routes(app);

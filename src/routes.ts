@@ -4,6 +4,7 @@
 
 import * as express from 'express';
 import * as multer from 'multer';
+import * as path from 'path';
 import { Series, Character, SSThread } from './db/models';
 import { ISeries, ICharacter, ISS } from './db/interfaces';
 import config from './config';
@@ -18,13 +19,17 @@ export default (app: express.Express) => {
 	//////////////////////////////////////////////////
 	// GENERAL
 
-	app.get('/', (req, res) => {
-		call(req, res, 'index');
-	});
+	app.get('/', (req, res) =>
+		call(req, res, 'index'));
 
-	app.get('/:ssId', (req, res) => {
-		call(req, res, 'ss');
-	});
+	app.get('/favicon.ico', (req, res) =>
+		res.sendFile(path.resolve(`${__dirname}/resources/favicon.ico`)));
+
+	app.get('/manifest.json', (req, res) =>
+		res.sendFile(path.resolve(`${__dirname}/resources/manifest.json`)));
+
+	app.get('/:ssId', (req, res) =>
+		call(req, res, 'ss'));
 
 	//////////////////////////////////////////////////
 	// I
@@ -177,7 +182,7 @@ export default (app: express.Express) => {
 	app.get(`${apiDomain}/set-filter`, require('./api/set-filter'));
 
 	//////////////////////////////////////////////////
-	// PARAMS
+	// PARAMATER DEFINITIONS
 
 	// SS
 	app.param('ssId', (req, res, next, ssId) => {
