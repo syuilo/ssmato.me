@@ -67,6 +67,9 @@ app.locals.cache = true;
 // app.locals.pretty = '    ';
 app.set('view engine', 'jade');
 
+// Init static resources server
+app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources()));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(config.cookiePass));
 app.use(compression());
@@ -126,9 +129,6 @@ app.use((req, res, next) => {
 		next();
 	}
 });
-
-// Init static resources server
-app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources()));
 
 app.use(require('subdomain')(subdomainOptions));
 

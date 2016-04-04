@@ -3,12 +3,14 @@
 //////////////////////////////////////////////////
 
 import * as express from 'express';
+import * as compression from 'compression';
 const cors: any = require('cors');
 
 export default function server(): express.Express {
 	// Init server
 	const app: express.Express = express();
 	app.disable('x-powered-by');
+	app.use(compression());
 
 	// CORS
 	app.use(cors({
