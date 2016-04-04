@@ -79,6 +79,11 @@ app.use(cors({
 	credentials: true
 }));
 
+// CSRF
+app.use(csrf({
+	cookie: false
+}));
+
 app.use((req, res, next) => {
 	// Security headers
 	res.header('X-Frame-Options', 'SAMEORIGIN');
@@ -96,6 +101,8 @@ app.use((req, res, next) => {
 	res.header('Vary', 'User-Agent, Cookie');
 
 	// Set locals
+
+	res.locals.csrftoken = req.csrfToken();
 
 	res.locals.login =
 		req.hasOwnProperty('session') &&
@@ -117,15 +124,6 @@ app.use((req, res, next) => {
 		res.locals.me = null;
 		next();
 	}
-});
-
-// CSRF
-app.use(csrf({
-	cookie: false
-}));
-app.use((req, res, next) => {
-	res.locals.csrftoken = req.csrfToken();
-	next();
 });
 
 // Init static resources server
