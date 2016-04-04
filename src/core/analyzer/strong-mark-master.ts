@@ -95,13 +95,16 @@ export default
 
 		text.split('\n').forEach(line => {
 			const name = extractNamePartInSerif(line);
-			if (name !== null) {
-				allchars.forEach(c => {
-					if (askCharacter(c, name)) {
-						chars.push(c);
-					}
-				});
+
+			if (name === null) {
+				return;
 			}
+
+			allchars.forEach(c => {
+				if (askCharacter(c, name)) {
+					chars.push(c);
+				}
+			});
 		});
 
 		// 登場したキャラが5人以上(同じキャラでも可)の場合
