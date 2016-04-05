@@ -37,6 +37,7 @@ import modifyTrip from './modify-trip';
 import paintId from './paint-id';
 import weakMarkMaster from './weak-mark-master';
 import strongMarkMaster from './strong-mark-master';
+import markAnchor from './mark-anchor';
 import detectSeries from './detect-series';
 import extractCharacters from './extract-characters';
 import SSContext from './sscontext';
@@ -77,8 +78,6 @@ export default (
 		const posts3 = weakMarkMaster(posts2);
 		debug('弱いマークをしました');
 
-		context.posts = posts3;
-
 		detectSeries(world, {
 			id: ss.id,
 			title: ss.title,
@@ -88,8 +87,13 @@ export default (
 
 			context.series = series;
 
-			// シリーズが判らなかったら終了
+			// シリーズが判らなかったら
 			if (series === null) {
+				const posts4 = markAnchor(ss, posts3);
+				debug('被安価投稿をマークをしました');
+
+				context.posts = posts4;
+
 				debug('シリーズが判らなかったので終了しました');
 				return resolve(context);
 			}
@@ -98,7 +102,10 @@ export default (
 			strongMarkMaster(world, posts3, series).then(posts4 => {
 				debug('強いマークをしました');
 
-				context.posts = posts4;
+				const posts5 = markAnchor(ss, posts4);
+				debug('被安価投稿をマークをしました');
+
+				context.posts = posts5;
 
 				// 登場キャラクター抽出
 				extractCharacters(world, {
@@ -117,5 +124,4 @@ export default (
 			});
 		}, reject);
 	});
-
 }

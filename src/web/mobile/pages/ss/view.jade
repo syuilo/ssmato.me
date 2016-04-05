@@ -79,6 +79,7 @@ block content
 					a.mode(href= config.urls.api + '/set-filter?mode=none&callback=' + url) なし
 			div.posts
 				style!= ss.htmlStyle
+				
 				each post in posts
 					s-p(id= post.number)
 						s-h
@@ -87,7 +88,7 @@ block content
 							time= post.displayCreatedAt
 							b(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
 						s-b!= post.html
-				
+
 		footer
 			small.source
 				if ss.url.indexOf('http://ex14.vip2ch.com/') == 0

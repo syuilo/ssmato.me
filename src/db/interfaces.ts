@@ -90,6 +90,7 @@ export interface ISSThread extends ISS {
 
 export interface ISSThreadPost extends Document {
 	createdAt: Date;
+	displayCreatedAt: string;
 	text: string;
 	html: string;
 	number: number;
@@ -98,6 +99,7 @@ export interface ISSThreadPost extends Document {
 	userIdForegroundColor: string;
 	userName: string;
 	isMaster: boolean;
+	isAnchor: boolean;
 	isAA: boolean;
 	ratings: ISSThreadPostRating[];
 }

@@ -32,6 +32,7 @@ export default function (db: Connection): Model<Document>[] {
 
 	const threadPostSchema = new Schema({
 		createdAt: { type: Date, required: true },
+		displayCreatedAt: { type: String, required: false },
 		number: { type: Number, required: true },
 		text: { type: String, required: true },
 		html: { type: String, required: false, default: null },
@@ -46,6 +47,7 @@ export default function (db: Connection): Model<Document>[] {
 				rating: { type: String, required: true }
 		})],
 		isMaster: { type: Boolean, required: false, default: true },
+		isAnchor: { type: Boolean, required: false, default: false },
 		isAA: { type: Boolean, required: false, default: false }
 	});
 

@@ -1,0 +1,17 @@
+extend ../../ui
+
+block title
+	| エラー
+
+block meta
+	meta(name='description', content='Something happened')
+
+block content
+	main(role='main')
+		h1
+			i.fa.fa-exclamation-triangle
+			| 技術的な問題が発生しています。
+		if err
+			details
+				summary 詳細情報
+				pre= err

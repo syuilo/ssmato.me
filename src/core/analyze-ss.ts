@@ -1,7 +1,11 @@
+import * as moment from 'moment';
+
 import { Series, Character } from '../db/models';
 import { ISSThread, ISeries, ICharacter } from '../db/interfaces';
 import analyze from './analyzer/analyze';
 import genhtml from './analyzer/generate-html';
+
+moment.locale('ja');
 
 /**
  * SSを解析し利用可能な状態にします
@@ -79,9 +83,11 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 
 			ss.posts.forEach((post, i) => {
 				post.isMaster = context.posts[i].isMaster;
+				post.isAnchor = context.posts[i].isAnchor;
 				post.userIdBackgroundColor = context.posts[i].user.backgroundColor;
 				post.userIdForegroundColor = context.posts[i].user.foregroundColor;
 				post.html = htmls.postHtmls[i];
+				post.displayCreatedAt = moment(post.createdAt).format('LL LT');
 			});
 
 			ss.pagesCount = context.posts.filter(post => post.isMaster).length;

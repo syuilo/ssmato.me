@@ -28,6 +28,7 @@ export default class SSContext {
 	 */
 	public posts: (IPost & {
 		isMaster: boolean;
+		isAnchor: boolean;
 		user: {
 			backgroundColor: string;
 			foregroundColor: string
@@ -44,6 +45,7 @@ export default class SSContext {
 		})[],
 		posts?: (IPost & {
 			isMaster: boolean;
+			isAnchor: boolean;
 			user: {
 				backgroundColor: string;
 				foregroundColor: string
