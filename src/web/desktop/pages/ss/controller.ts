@@ -18,7 +18,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		res.locals.display({
 			ss: ss.toObject(),
 			posts: posts,
-			summary: ss.posts[0].text.split('\n').join(' '),
+			summary: ss.posts[0].html.split('<br>').join(' ').replace(/<.+?>/g, ''),
 			filterMode: filterMode
 		});
 
