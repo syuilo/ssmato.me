@@ -181,13 +181,18 @@ main
 			small
 				word-break: break-all;
 
-	@media (max-width: 500px)
+@media (max-width: 500px)
+	html
+		background: #fff;
+
+	main
 		> article
 			margin: 0;
 			border: none;
 
 			> header
 				padding: 22px 0 0 0;
+				font-size: 0.9em;
 
 				h1
 					margin: 0 16px 20px 16px;
@@ -207,6 +212,9 @@ main
 
 			> .content
 				margin: 0;
+
+				> .filter
+					font-size: 0.8em;
 
 				> .posts
 					> s-p
