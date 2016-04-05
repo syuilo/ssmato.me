@@ -2,13 +2,13 @@ const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 
 const brackets = [
-	'「',
-	'｢',
-	'『',
-	'《',
-	'≪',
-	'（',
-	'('
+	'「', // 通常のセリフ
+	'｢', // ヽ
+	'『', // 回想中のセリフ、電話越しのセリフ、テレパシーなど
+	'《', // ヽ
+	'≪', // ヽ
+	'（', // 思惟や心の中で思ったことなど
+	'(' // ヽ
 ];
 
 const bracketsRegExp =
