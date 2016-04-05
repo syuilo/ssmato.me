@@ -24,7 +24,7 @@ append meta
 
 block content
 	main(role='main')
-		article
+		article(data-id= ss.id)
 			header
 				h1= ss.title
 				div.info
@@ -97,26 +97,15 @@ block content
 					else
 						a.mode(href= config.urls.api + '/set-filter?mode=none&callback=' + url) なし
 				div.posts
+					style!= ss.htmlStyle
 					each post in posts
-						- var popularity = '';
-						- if (!post.isMaster) {
-						-   if (post.popularity > 25) popularity = 'c';
-						-   if (post.popularity > 50) popularity = 'b';
-						-   if (post.popularity > 75) popularity = 'a';
-						- }
-						article.post(id= post.number, data-id= post.id, data-popularity= popularity)
-							header
-								a.number(href= '#' + post.number)= post.number
-								h2.name= post.userName
-								time.time(datetime= post.createdAt.toISOString())= post.displayCreatedAt
-								span.id(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
-							div.body
-								div.text!= post.html
-								div.actions
-									button.like
-										i.fa.fa-thumbs-o-up
-									button.dislike
-										i.fa.fa-thumbs-o-down
+						s-p(id= post.number)
+							s-h
+								a(href= '#' + post.number)= post.number
+								h2= post.userName
+								time= post.displayCreatedAt
+								b(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
+							s-b!= post.html
 					
 			footer
 				small.source

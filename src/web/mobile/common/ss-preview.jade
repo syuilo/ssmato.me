@@ -1,5 +1,5 @@
 mixin ss(ss)
-	article.ss
+	article.ss(data-id= ss.id)
 		header
 			h1
 				a(href= config.url + '/' + ss.id)
@@ -27,6 +27,7 @@ mixin ss(ss)
 								title= chara.profile.name + ' (' + chara.profile.kana + ')',
 								style='color:' + chara.profile.color)= chara.profile.screenName
 		div.body
+			style!= ss.htmlStyle
 			div.text!= ss.posts[0].html
 			a.more(href= config.url + '/' + ss.id) 続きを読む
 

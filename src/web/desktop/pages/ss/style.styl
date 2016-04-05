@@ -265,45 +265,24 @@ main
 									vertical-align: top !important;
 
 				> .posts
-					> .post
+					> s-p
+						display: block;
 						padding: 16px 8px 0 8px;
 						word-break: break-word;
 
 						&:first-child
 							padding-top: 0;
 
-						&:hover
-							> .body
-								> .actions
-									opacity: 1;
-
-						&[data-popularity='a']
-							> .body
-								> .text
-									font-size: 1.5em;
-									font-weight: bold;
-
-						&[data-popularity='b']
-							> .body
-								> .text
-									font-size: 1.25em;
-									font-weight: bold;
-
-						&[data-popularity='c']
-							> .body
-								> .text
-									font-size: 1em;
-									font-weight: bold;
-
-						> header
+						> s-h
+							display: block;
 							margin-bottom: 12px;
 
-							.number
+							a
 								display: inline;
 								margin-right: 8px;
 								color: #715D56;
 
-							.name
+							h2
 								display: inline;
 								margin: 0 8px 0 0;
 								font-size: 1em;
@@ -311,58 +290,30 @@ main
 								color: #FF9693;
 								font-family: 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo UI', 'Meiryo', 'メイリオ', sans-serif;
 
-							.created-at
+							time
 								display: inline;
 								margin-right: 8px;
 								font-size: 0.8em;
 								color: #B3A19B;
 
-							.id
+							b
 								display: inline;
 								opacity: 0.5;
 								font-size: 0.7em;
+								font-weight: normal;
 
-						> .body
-							> .text
-								padding: 0 1em;
-								color: #806358;
+						> s-b
+							display: block;
+							padding: 0 1em;
+							margin-bottom: 2em;
+							color: #806358;
 
-								.name
-									// font-weight: bold;
+							b
+								font-weight: normal;
 
-									&:hover
-										background: rgba(0, 0, 0, 0.1);
+								&:hover
+									background: rgba(0, 0, 0, 0.1);
 
-							> .actions
-								opacity: 0;
-
-								> button
-									display: inline-block;
-									-webkit-appearance: none;
-									-moz-appearance: none;
-									appearance: none;
-									margin: 0;
-									padding: 0;
-									width: 42px;
-									height: 42px;
-									font-size: 1.1em;
-									line-height: 32px;
-									border: none;
-									border-radius: 0;
-									background: transparent;
-									box-shadow: none;
-									color: #ADA7A7;
-									cursor: pointer;
-
-									*
-										pointer-events: none;
-
-									&:hover
-										color: #666;
-
-									&:disabled
-										opacity: 0.5;
-										cursor: wait;
 
 			> footer
 				> .source

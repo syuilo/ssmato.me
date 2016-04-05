@@ -20,6 +20,8 @@ const base: Object = {
 	}],
 	pagesCount: { type: Number },
 	readingTimeMinutes: { type: Number },
+	htmlInfo: { type: String },
+	htmlStyle: { type: String },
 	isDeleted: { type: Boolean, required: false, default: false }
 };
 

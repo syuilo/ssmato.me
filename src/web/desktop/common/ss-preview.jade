@@ -47,6 +47,7 @@ mixin ss(ss, _action)
 					when 'remove-from-read-laters'
 						button.remove-later(data-tooltip='「あとで読む」から削除'): i.fa.fa-minus
 		div.body
+			style!= ss.htmlStyle
 			div.text!= ss.posts[0].html
 		footer
 			a.more(href= config.url + '/' + ss.id)

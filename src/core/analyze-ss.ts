@@ -40,6 +40,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 		});
 
 		analyze(_allseries, _allchars, {
+			id: ss.id.toString(),
 			title: ss.title,
 			posts: ss.posts.map(post => {
 				return {
@@ -73,11 +74,14 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			// HTML生成
 			const htmls = genhtml(context);
 
+			ss.htmlInfo = htmls.info;
+			ss.htmlStyle = htmls.style;
+
 			ss.posts.forEach((post, i) => {
 				post.isMaster = context.posts[i].isMaster;
 				post.userIdBackgroundColor = context.posts[i].user.backgroundColor;
 				post.userIdForegroundColor = context.posts[i].user.foregroundColor;
-				post.html = htmls[i];
+				post.html = htmls.postHtmls[i];
 			});
 
 			ss.pagesCount = context.posts.filter(post => post.isMaster).length;

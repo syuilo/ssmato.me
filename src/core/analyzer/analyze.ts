@@ -58,7 +58,7 @@ export default (
 	debug('ワールドを初期化しました');
 
 	return new Promise((resolve, reject) => {
-		const context = new SSContext();
+		const context = new SSContext(ss.id);
 
 		// トリップ解析
 		const posts1 = ss.posts.map(modifyTrip);
@@ -80,6 +80,7 @@ export default (
 		context.posts = posts3;
 
 		detectSeries(world, {
+			id: ss.id,
 			title: ss.title,
 			posts: posts3
 		}).then(series => {
@@ -101,6 +102,7 @@ export default (
 
 				// 登場キャラクター抽出
 				extractCharacters(world, {
+					id: ss.id,
 					title: ss.title,
 					series: series,
 					posts: posts4

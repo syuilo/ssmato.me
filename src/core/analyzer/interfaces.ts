@@ -10,6 +10,7 @@ export interface IUser {
 }
 
 export interface ISS {
+	id: string;
 	title: string;
 	posts: IPost[];
 }

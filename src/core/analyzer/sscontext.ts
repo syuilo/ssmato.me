@@ -7,6 +7,11 @@ import { ISeries, ICharacter, IPost } from './interfaces';
 export default class SSContext {
 
 	/**
+	 * SSの識別子
+	 */
+	public id: string;
+
+	/**
 	 * SSのシリーズ
 	 */
 	public series: ISeries[] = null;
@@ -30,7 +35,9 @@ export default class SSContext {
 	})[] = null;
 
 	constructor();
+	constructor(id?: string);
 	constructor(
+		id?: string,
 		series?: ISeries[],
 		characters?: (ICharacter & {
 			onStageRatio: number;
@@ -43,6 +50,10 @@ export default class SSContext {
 			}
 		})[]
 	) {
+		if (id !== undefined) {
+			this.id = id;
+		}
+
 		if (series !== undefined) {
 			this.series = series;
 		}

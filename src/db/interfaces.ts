@@ -78,6 +78,8 @@ export interface ISS extends Document {
 	pagesCount: number;
 	readingTimeMinutes: number;
 	views: string[];
+	htmlInfo: string;
+	htmlStyle: string;
 }
 
 export interface ISSThread extends ISS {
