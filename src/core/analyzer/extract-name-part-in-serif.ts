@@ -1,6 +1,9 @@
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
 
+/**
+ * セリフに用いられる括弧の定義
+ */
 const brackets = [
 	'「', // 通常のセリフ
 	'｢', // ヽ
@@ -32,6 +35,7 @@ export default (serif: string): string => {
 		return null;
 	}
 
+	// 向日葵(幼)のようにアイデンティティの一部として括弧が含まれている場合がある
 	const includeBracketsRegExpMatch =
 		serif.match(new RegExp(`^((.+?)[（\(].+?[）\)])(${bracketsRegExp}).+`));
 
