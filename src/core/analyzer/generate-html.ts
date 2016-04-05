@@ -21,19 +21,21 @@ export default (ss: SSContext): {
 } => {
 	const highlightMemos: any = {};
 
-	let chars: any;
+	let chars: any = null;
 
-	chars = ss.characters.map((c, i) => {
-		return [
-			{
-				id: c.id,
-				name: c.name,
-				kana: c.kana,
-				color: c.color
-			},
-			nSin(i, 'abcdefghijklmnopqrstuvwxyz')
-		];
-	});
+	if (ss.characters !== null && ss.characters.length > 0) {
+		chars = ss.characters.map((c, i) => {
+			return [
+				{
+					id: c.id,
+					name: c.name,
+					kana: c.kana,
+					color: c.color
+				},
+				nSin(i, 'abcdefghijklmnopqrstuvwxyz')
+			];
+		});
+	}
 
 	const html = ss.posts.map((post, i) => {
 		let html: string = entities.encode(post.text);
@@ -51,10 +53,10 @@ export default (ss: SSContext): {
 
 	return {
 		postHtmls: html,
-		info: encodeURIComponent(JSON.stringify(chars)),
-		style: chars.map((c: any) => {
+		info: chars !== null ? encodeURIComponent(JSON.stringify(chars)) : null,
+		style: chars !== null ? chars.map((c: any) => {
 			return `[data-id='${ss.id}'] .${c[1]}{color:${c[0].color}}`;
-		}).join('')
+		}).join('') : ''
 	};
 
 	/**
