@@ -6,116 +6,97 @@ block title
 	else
 		= ss.title + ' - SSまとめ'
 
-append meta
-	meta(name='keywords', content='SS, SSまとめ')
-	meta(name='description', content= summary)
-	meta(property='og:title', content= ss.title + ' - SSまとめ')
-	meta(property='og:type', content='article')
-	meta(property='og:description', content= summary)
-	meta(property='og:url', content= config.url + '/' + ss.id)
-	meta(property='og:image', content= config.urls.resources + '/logo.jpg')
-	meta(property='og:site_name', content='SSまとめ')
-	meta(property='twitter:card', content='summary')
-	meta(property='twitter:site', content='@syuilo')
-	meta(property='twitter:title', content= ss.title + ' - SSまとめ')
-	meta(property='twitter:description', content= summary)
-	meta(property='twitter:image', content= config.urls.resources + '/logo.jpg')
-	meta(property='twitter:url', content= config.url + '/' + ss.id)
-
 block content
-	main(role='main')
-		article(data-id= ss.id)
-			header
-				h1= ss.title
-				div.info
-					div.top
-						span.pages
-							= ss.pagesCount
-							| ページ
-						span.separator ・
-						span.time
-							| 読むのに必要な時間: およそ
-							= ss.readingTimeMinutes
-							| 分
-						div.status
-							p.views
-								i.fa.fa-eye
-								span.count= ss.views.length
-							p.comments
-								i.fa.fa-comments
-								span.count= ss.commentsCount
-							p.favorites
-								i.fa.fa-heart
-								span.count= ss.favoritesCount
-					div.bottom
-						div.series
-							p.caption
-								i.fa.fa-folder-open
-							if ss.series.length == 0
-								span.unknown 不明
-							else if ss.series.length == 1
-								a.title(href= config.urls.series + '/' + ss.series[0].id, title=ss.series[0].kana)= ss.series[0].title
-							else
-								each series in ss.series
-									a.title(href= config.urls.series + '/' + series.id, title=series.kana)= series.title
-								span.is-cross
-									| (クロス)
-						
-						if ss.characters.length > 0
-							div.characters
-								p.caption
-									i.fa.fa-users
-								ul
-									each chara in ss.characters
-										li: a(href= config.urls.characters + '/' + chara.profile.id,
-											title= chara.profile.name + ' (' + chara.profile.kana + ')',
-											style='color:' + chara.profile.color)= chara.profile.screenName
-					if ss.characters.length > 0
-						div.on-stage-ratio
-							each chara in ss.characters
-								a(href= config.urls.characters + '/' + chara.profile.id,
-									style={
-										background: chara.profile.color,
-										opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
-										width: (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%'
-									})
-			div.content
-				p.filter
-					span.caption
-						i.fa.fa-filter
-						| フィルター:
-					if filterMode == 'auto'
-						span.mode.active 自動
-					else
-						a.mode(href= config.urls.api + '/set-filter?mode=auto&callback=' + url) 自動
-					if filterMode == 'master'
-						span.mode.active 本文だけ
-					else
-						a.mode(href= config.urls.api + '/set-filter?mode=master&callback=' + url) 本文だけ
-					if filterMode == 'none'
-						span.mode.active なし
-					else
-						a.mode(href= config.urls.api + '/set-filter?mode=none&callback=' + url) なし
-				div.posts
-					style!= ss.htmlStyle
-					each post in posts
-						s-p(id= post.number)
-							s-h
-								a(href= '#' + post.number)= post.number
-								h2= post.userName
-								time= post.displayCreatedAt
-								b(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
-							s-b!= post.html
+	article(data-id= ss.id)
+		header
+			h1= ss.title
+			div.info
+				div.top
+					span.pages
+						= ss.pagesCount
+						| ページ
+					span.separator ・
+					span.time
+						| 読むのに必要な時間: およそ
+						= ss.readingTimeMinutes
+						| 分
+					div.status
+						p.views
+							i.fa.fa-eye
+							span.count= ss.views.length
+						p.comments
+							i.fa.fa-comments
+							span.count= ss.commentsCount
+						p.favorites
+							i.fa.fa-heart
+							span.count= ss.favoritesCount
+				div.bottom
+					div.series
+						p.caption
+							i.fa.fa-folder-open
+						if ss.series.length == 0
+							span.unknown 不明
+						else if ss.series.length == 1
+							a.title(href= config.urls.series + '/' + ss.series[0].id)= ss.series[0].title
+						else
+							each series in ss.series
+								a.title(href= config.urls.series + '/' + series.id)= series.title
+							span.is-cross
+								| (クロス)
 					
-			footer
-				small.source
-					if ss.url.indexOf('http://ex14.vip2ch.com/') == 0
-						| SS速報VIPに投稿されたスレッドの紹介です
-						a(href= ss.url, target='_blank')
-							| 【SS速報VIP】
-							= ss.title
-							|  
-							= ss.url
-					else
-						| 元スレッド
-						a(href= ss.url, target='_blank')= ss.url
+					if ss.characters.length > 0
+						div.characters
+							p.caption
+								i.fa.fa-users
+							ul
+								each chara in ss.characters
+									li: a(href= config.urls.characters + '/' + chara.profile.id,
+										style='color:' + chara.profile.color)= chara.profile.screenName
+				if ss.characters.length > 0
+					div.on-stage-ratio
+						each chara in ss.characters
+							span(style={
+								background: chara.profile.color,
+								opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
+								width: (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%'
+							})
+		div.content
+			p.filter
+				span.caption
+					i.fa.fa-filter
+					| フィルター:
+				if filterMode == 'auto'
+					span.mode.active 自動
+				else
+					a.mode(href= config.urls.api + '/set-filter?mode=auto&callback=' + url) 自動
+				if filterMode == 'master'
+					span.mode.active 本文だけ
+				else
+					a.mode(href= config.urls.api + '/set-filter?mode=master&callback=' + url) 本文だけ
+				if filterMode == 'none'
+					span.mode.active なし
+				else
+					a.mode(href= config.urls.api + '/set-filter?mode=none&callback=' + url) なし
+			div.posts
+				style!= ss.htmlStyle
+				each post in posts
+					s-p(id= post.number)
+						s-h
+							a(href= '#' + post.number)= post.number
+							h2= post.userName
+							time= post.displayCreatedAt
+							b(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
+						s-b!= post.html
+				
+		footer
+			small.source
+				if ss.url.indexOf('http://ex14.vip2ch.com/') == 0
+					| SS速報VIPに投稿されたスレッドの紹介です
+					a(href= ss.url, target='_blank')
+						| 【SS速報VIP】
+						= ss.title
+						|  
+						= ss.url
+				else
+					| 元スレッド
+					a(href= ss.url, target='_blank')= ss.url

@@ -5,13 +5,12 @@ block title
 	= series.title + ' - SSまとめ'
 
 block content
-	main(role='main')
-		article
-			header
-				h1
-					b= series.title
-					| のSS
-			div.body
-				div.sss
-					each ss in sss
-						+ss(ss)
+	article
+		header
+			h1
+				b= series.title
+				| のSS
+		div.body
+			div.sss
+				each ss in sss
+					+ss(ss)

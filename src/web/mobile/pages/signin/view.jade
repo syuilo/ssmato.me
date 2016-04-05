@@ -10,35 +10,34 @@ block title
 	| ログイン
 
 block content
-	main(role='main')
-		a#logo(href= config.url, role='banner')
-			img(src= config.urls.resources + '/logo.png', alt='ss matome')
-		form#form
-			header
+	a#logo(href= config.url, role='banner')
+		img(src= config.urls.resources + '/logo.png', alt='ss matome')
+	form#form
+		header
+			i.fa.fa-sign-in
+			h1 ログイン
+		div.body
+			label
+				p
+					i.fa.fa-at
+					| ユーザーID
+				input#id(name='screen-name'
+					type='text'
+					pattern='^[0-9A-Za-z\-]+$'
+					placeholder='User ID'
+					autofocus
+					required)
+			label
+				p
+					i.fa.fa-lock
+					| パスワード
+				input(name='password'
+					type='password'
+					placeholder='Password'
+					required)
+			p.info(data-state='none')
+				i
+				span
+			button(type='submit')
 				i.fa.fa-sign-in
-				h1 ログイン
-			div.body
-				label
-					p
-						i.fa.fa-at
-						| ユーザーID
-					input#id(name='screen-name'
-						type='text'
-						pattern='^[0-9A-Za-z\-]+$'
-						placeholder='User ID'
-						autofocus
-						required)
-				label
-					p
-						i.fa.fa-lock
-						| パスワード
-					input(name='password'
-						type='password'
-						placeholder='Password'
-						required)
-				p.info(data-state='none')
-					i
-					span
-				button(type='submit')
-					i.fa.fa-sign-in
-					span.text ログイン
+				span.text ログイン

@@ -5,15 +5,14 @@ block title
 	= character.name + ' - SSまとめ'
 
 block content
-	main(role='main')
-		article
-			header
-				h1
-					= character.series.map(s => s.title).join('、')
-					| の
-					b= character.name
-					| が登場するSS
-			div.body
-				div.sss
-					each ss in sss
-						+ss(ss)
+	article
+		header
+			h1
+				= character.series.map(s => s.title).join('、')
+				| の
+				b= character.name
+				| が登場するSS
+		div.body
+			div.sss
+				each ss in sss
+					+ss(ss)
