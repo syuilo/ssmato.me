@@ -26,7 +26,7 @@ html(lang='ja', dir='ltr', itemscope, itemtype= htmlSchema)
 		link(rel='apple-touch-icon', sizes='180x180', href= config.urls.resources + '/apple-touch-icon-180x180.png')
 		link(rel='manifest', href= config.url + '/manifest.json')
 		link(rel='search', href= config.urls.search, title='search')
-		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
+		link(rel='stylesheet', href= config.urls.resources + '/bower_components/font-awesome/css/font-awesome.min.css')
 		link(rel='stylesheet', href= stylePath)
 		script!= 'var LOGIN=' + login.toString() + ';Object.freeze(LOGIN);'
 		script(src= scriptPath, async, defer)

@@ -6,7 +6,7 @@
     "syuilo <syuilotan@yahoo.co.jp>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/syuilo/ssmatome",
+  "homepage": "https://github.com/syuilo/ssmato.me",
   "moduleType": [],
   "private": true,
   "ignore": [
@@ -17,7 +17,8 @@
     "tests"
   ],
   "dependencies": {
+    "font-awesome": "4.5.0",
     "fuck-adblock": "3.2.0",
-    "jquery": "2.2.0"
+    "jquery": "2.2.2"
   }
 }
