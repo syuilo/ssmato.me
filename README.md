@@ -1,4 +1,4 @@
-![](/resource-projects/favicon/32.png) ssmato.me
+![](./resource-projects/favicon/32.png) ssmato.me
 ------------------------------------------------
 
 [![][travis-badge]][travis-link]
