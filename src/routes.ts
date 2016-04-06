@@ -186,8 +186,6 @@ export default (app: express.Express) => {
 
 	// SS
 	app.param('ssId', (req, res, next, ssId) => {
-		console.time('s');
-
 		SSThread
 		.findById(req.params.ssId, '-posts.text')
 		.populate('series')
@@ -202,9 +200,6 @@ export default (app: express.Express) => {
 				res.status(404);
 				call(req, res, 'ss/not-found');
 			} else {
-				console.log('↓' + ss.title);
-				console.timeEnd('s');
-
 				res.locals.ss = ss;
 				next();
 			}
