@@ -117,7 +117,7 @@ app.use((req, res, next) => {
 
 		pagePath: req.path,
 		ua: uatype(req.headers['user-agent']),
-		url: req.protocol + '://' + req.get('host') + req.originalUrl
+		url: `${req.protocol}://${req.get('host')}${req.originalUrl}`
 	};
 
 	if (res.locals.login) {
