@@ -13,7 +13,7 @@ import * as compression from 'compression';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as csrf from 'csurf';
-const cors: any = require('cors');
+import * as cors from 'cors';
 const vhost: any = require('vhost');
 
 import db from './db/db';
