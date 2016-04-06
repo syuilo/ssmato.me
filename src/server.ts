@@ -88,7 +88,7 @@ app.use(csrf({
 app.use((req, res, next) => {
 	// Security headers
 	res.header({
-		'X-Frame-Options': 'SAMEORIGIN',
+		'X-Frame-Options': 'DENY',
 		'X-XSS-Protection': '1; mode=block',
 		'X-Content-Type-Options': 'nosniff'
 	});
