@@ -1,7 +1,7 @@
 THANKS FOR CONTRIBUTING
 -----------------------
 
-Pull requests are always welcome!
+Issue reports and pull requests are always welcome!
 
 ## Code Style
 
