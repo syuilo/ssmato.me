@@ -86,19 +86,15 @@ app.use(csrf({
 
 // Intercept all requests
 app.use((req, res, next) => {
-	// Security headers
-	res.header({
-		'X-Frame-Options': 'DENY',
-		'X-XSS-Protection': '1; mode=block',
-		'X-Content-Type-Options': 'nosniff'
-	});
-
 	// HSTS
 	if (config.https.enable) {
 		res.header(
 			'Strict-Transport-Security',
 			'max-age=10886400; includeSubDomains; preload');
 	}
+
+	// See: https://developer.mozilla.org/en-US/docs/Web/HTTP/X-Frame-Options
+	res.header('X-Frame-Options', 'DENY');
 
 	// See: http://web-tan.forum.impressrd.jp/e/2013/05/17/15269
 	res.header('Vary', 'User-Agent, Cookie');
