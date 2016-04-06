@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { SS, SSThread } from '../../db/models';
-import { ISS, ISSThread } from '../../db/interfaces';
+import { SSThread } from '../../db/models';
+import { ISSThread } from '../../db/interfaces';
 import analyzeSS from '../../core/analyze-ss';
 
 module.exports = (req: express.Request, res: express.Response): void => {

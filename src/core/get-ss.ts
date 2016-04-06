@@ -218,33 +218,3 @@ function analyzePastlogCgiVer2_0($: any, html: string): IThread {
 function sanitize(text: string): string {
 	return entities.decode(text.replace(/<.+?>/g, ''));
 }
-
-function nullOrEmpty(val: string): boolean {
-	'use strict';
-
-	if (val === undefined) {
-		return true;
-	} else if (val === null) {
-		return true;
-	} else if (val.trim() === '') {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function or(...xs: any[]): string {
-	'use strict';
-
-	for (let i = 0; i < xs.length; i++) {
-		let x = xs[i];
-		if (typeof x === 'function') {
-			x = x();
-		}
-		if (!nullOrEmpty(x)) {
-			return x;
-		}
-	}
-
-	return null;
-}

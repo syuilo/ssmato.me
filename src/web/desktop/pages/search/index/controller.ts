@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { SS, SSThread } from '../../../../../db/models';
-import { IUser, ICharacter, ISSThread } from '../../../../../db/interfaces';
+import { SS } from '../../../../../db/models';
+import { ISSThread } from '../../../../../db/interfaces';
 
 module.exports = (req: express.Request, res: express.Response): void => {
 	const q: string = req.query.q;
