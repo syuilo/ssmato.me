@@ -141,7 +141,7 @@ if (config.https.enable) {
 		cert: fs.readFileSync(config.https.certPath)
 	}, app);
 
-	// 非TLSはリダイレクト
+	// If request http, redirect to https
 	http.createServer((req, res) => {
 		res.writeHead(301, {
 			Location: config.public.url + req.url
@@ -153,6 +153,7 @@ if (config.https.enable) {
 	server = http.createServer(app);
 }
 
+// LISTEN
 server.listen(port, config.bindIp, () => {
 	const host = server.address().address;
 	const port = server.address().port;
@@ -160,3 +161,5 @@ server.listen(port, config.bindIp, () => {
 	console.log(
 		`\u001b[1;32m[${worker.id}] is now listening at ${host}:${port}\u001b[0m`);
 });
+
+// Dying away
