@@ -1,4 +1,6 @@
-# ssmato.me
+![](/resource-projects/favicon/32.png) ssmato.me
+------------------------------------------------
+
 [![][travis-badge]][travis-link]
 [![][david-runtime-badge]][david-runtime-link]
 [![][david-dev-badge]][david-dev-link]
