@@ -64,7 +64,6 @@
 		"./src/core/analyzer/un-modify-title.ts",
 		"./src/core/analyzer/weak-mark-master.ts",
 		"./src/core/analyzer/world.ts",
-		"./src/core/crawle.ts",
 		"./src/core/filter-ss-posts.ts",
 		"./src/core/get-related-sss.ts",
 		"./src/core/get-ss.ts",
