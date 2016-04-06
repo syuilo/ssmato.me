@@ -76,9 +76,6 @@
     "mongoose-deep-populate/mongoose-deep-populate.d.ts": {
       "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     },
-    "mongodb/mongodb.d.ts": {
-      "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
-    },
     "debug/debug.d.ts": {
       "ref": "a44529fcb1e1cdc0355e71c42a6048de99b57c34"
     }
