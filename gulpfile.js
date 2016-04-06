@@ -13,14 +13,6 @@ const stylus = require('gulp-stylus');
 const cssnano = require('gulp-cssnano');
 const uglify = require('gulp-uglify');
 
-gulp.task('build', [
-	'build:ts',
-	'copy:bower_components',
-	'build:frontside-scripts',
-	'build:frontside-styles',
-	'build-copy'
-]);
-
 const project = ts.createProject('tsconfig.json', {
 	typescript: require('typescript')
 });
@@ -28,6 +20,14 @@ const project = ts.createProject('tsconfig.json', {
 function buildTypeScript() {
 	return project.src().pipe(ts(project));
 }
+
+gulp.task('build', [
+	'build:ts',
+	'copy:bower_components',
+	'build:frontside-scripts',
+	'build:frontside-styles',
+	'build-copy'
+]);
 
 gulp.task('build:ts', () =>
 	buildTypeScript()
@@ -92,6 +92,10 @@ gulp.task('build-copy', ['build:ts', 'build:frontside-scripts', 'build:frontside
 		]).pipe(gulp.dest('./built/resources/'))
 	);
 });
+
+gulp.task('test', [
+	'lint'
+]);
 
 gulp.task('lint', () =>
 	gulp.src('./src/**/*.ts')
