@@ -87,9 +87,11 @@ app.use(csrf({
 // Intercept all requests
 app.use((req, res, next) => {
 	// Security headers
-	res.header('X-Frame-Options', 'SAMEORIGIN');
-	res.header('X-XSS-Protection', '1; mode=block');
-	res.header('X-Content-Type-Options', 'nosniff');
+	res.header({
+		'X-Frame-Options': 'SAMEORIGIN',
+		'X-XSS-Protection': '1; mode=block',
+		'X-Content-Type-Options': 'nosniff'
+	});
 
 	// HSTS
 	if (config.https.enable) {
@@ -102,19 +104,21 @@ app.use((req, res, next) => {
 	res.header('Vary', 'User-Agent, Cookie');
 
 	// Set locals
+	res.locals = {
+		csrftoken: req.csrfToken(),
 
-	res.locals.csrftoken = req.csrfToken();
+		login:
+			req.hasOwnProperty('session') &&
+			req.session !== null &&
+			req.session.hasOwnProperty('user') &&
+			(<any>req.session).user !== null,
 
-	res.locals.login =
-		req.hasOwnProperty('session') &&
-		req.session !== null &&
-		req.session.hasOwnProperty('user') &&
-		(<any>req.session).user !== null;
+		config: config.public,
 
-	res.locals.config = config.public;
-	res.locals.pagePath = req.path;
-	res.locals.ua = uatype(req.headers['user-agent']);
-	res.locals.url = req.protocol + '://' + req.get('host') + req.originalUrl;
+		pagePath: req.path,
+		ua: uatype(req.headers['user-agent']),
+		url: req.protocol + '://' + req.get('host') + req.originalUrl
+	};
 
 	if (res.locals.login) {
 		res.locals.me = (<any>req.session).user;
