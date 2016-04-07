@@ -41,6 +41,7 @@ const threadPostSchema = new Schema({
 		bg: { type: String, required: false },
 		fg: { type: String, required: false },
 	},
+	isAA: { type: Boolean, required: false, default: false },
 	isMaster: { type: Boolean, required: false, default: true },
 	isAnchor: { type: Boolean, required: false, default: false }
 }, {

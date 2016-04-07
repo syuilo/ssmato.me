@@ -27,6 +27,7 @@ export default class SSContext {
 	 * SSの投稿
 	 */
 	public posts: (IPost & {
+		isAA: boolean;
 		isMaster: boolean;
 		isAnchor: boolean;
 		user: {
@@ -44,6 +45,7 @@ export default class SSContext {
 			onStageRatio: number;
 		})[],
 		posts?: (IPost & {
+			isAA: boolean;
 			isMaster: boolean;
 			isAnchor: boolean;
 			user: {

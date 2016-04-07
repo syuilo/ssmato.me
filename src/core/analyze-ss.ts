@@ -82,6 +82,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			ss.htmlStyle = htmls.style;
 
 			ss.posts.forEach((post, i) => {
+				post.isAA = context.posts[i].isAA;
 				post.isMaster = context.posts[i].isMaster;
 				post.isAnchor = context.posts[i].isAnchor;
 				post.user.bg = context.posts[i].user.backgroundColor;

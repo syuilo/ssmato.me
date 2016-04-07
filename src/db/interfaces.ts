@@ -100,6 +100,7 @@ export interface ISSThreadPost extends Document {
 		bg: string;
 		fg: string;
 	};
+	isAA: boolean;
 	isMaster: boolean;
 	isAnchor: boolean;
 }
