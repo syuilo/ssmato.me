@@ -69,7 +69,7 @@ export interface ISS extends Document {
 	title: string;
 	series: string[] | Types.ObjectId[] | ISeries[];
 	characters: {
-		profile: string | Types.ObjectId | ICharacter;
+		id: string | Types.ObjectId | ICharacter;
 		onStageRatio: number;
 	}[];
 	tags: string[] | Types.ObjectId[] | ISSTag[];

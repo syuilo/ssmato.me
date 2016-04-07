@@ -28,7 +28,7 @@ block assets
 
 block content
 	article
-		div.ss(data-id= ss.id, data-is-favorited='false')
+		div.ss(data-id= ss._id.toString(), data-is-favorited='false')
 			header
 				div.title
 					h1= ss.title
@@ -76,16 +76,16 @@ block content
 									i.fa.fa-users
 								ul
 									each chara in ss.characters
-										li: a(href= config.urls.characters + '/' + chara.profile.id,
-											title= chara.profile.name + ' (' + chara.profile.kana + ')',
-											style='color:' + chara.profile.color)= chara.profile.screenName
+										li: a(href= config.urls.characters + '/' + chara.id.id,
+											title= chara.id.name + ' (' + chara.id.kana + ')',
+											style='color:' + chara.id.color)= chara.id.screenName
 					if ss.characters.length > 0
 						div.on-stage-ratio
 							each chara in ss.characters
-								a(href= config.urls.characters + '/' + chara.profile.id,
-									data-tooltip= chara.profile.name + ' ' + (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%',
+								a(href= config.urls.characters + '/' + chara.id.id,
+									data-tooltip= chara.id.name + ' ' + (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%',
 									style={
-										background: chara.profile.color,
+										background: chara.id.color,
 										opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
 										width: (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%'
 									})

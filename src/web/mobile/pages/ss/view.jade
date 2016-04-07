@@ -7,7 +7,7 @@ block title
 		= ss.title + ' - SSまとめ'
 
 block content
-	article(data-id= ss.id)
+	article(data-id= ss._id.toString())
 		header
 			h1= ss.title
 			div.info
@@ -50,13 +50,13 @@ block content
 								i.fa.fa-users
 							ul
 								each chara in ss.characters
-									li: a(href= config.urls.characters + '/' + chara.profile.id,
-										style='color:' + chara.profile.color)= chara.profile.screenName
+									li: a(href= config.urls.characters + '/' + chara.id.id,
+										style='color:' + chara.id.color)= chara.id.screenName
 				if ss.characters.length > 0
 					div.on-stage-ratio
 						each chara in ss.characters
 							span(style={
-								background: chara.profile.color,
+								background: chara.id.color,
 								opacity: chara.onStageRatio / ss.characters[0].onStageRatio,
 								width: (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%'
 							})

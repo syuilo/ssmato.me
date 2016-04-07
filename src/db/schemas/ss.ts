@@ -7,7 +7,7 @@ const base: Object = {
 	series: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'Series', index: true }],
 	characters: [{
 		_id: false,
-		profile: { type: Schema.Types.ObjectId, ref: 'Character', index: true },
+		id: { type: Schema.Types.ObjectId, ref: 'Character', index: true },
 		onStageRatio: { type: Number }
 	}],
 	tags: [{ type: Schema.Types.ObjectId, required: false, default: null, ref: 'SSTag', index: true }],

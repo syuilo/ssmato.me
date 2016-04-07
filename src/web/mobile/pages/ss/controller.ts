@@ -14,10 +14,10 @@ module.exports = (req: express.Request, res: express.Response): void => {
 	const posts = filter(ss, filterMode);
 
 	res.locals.display({
-		ss: ss.toObject(),
+		ss: ss,
 		posts: posts,
 		filterMode: filterMode
 	});
 
-	read(req, res, ss);
+	read(req, res, ss._id);
 };

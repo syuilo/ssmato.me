@@ -183,11 +183,14 @@ export default (app: express.Express) => {
 
 	// SS
 	app.param('ssId', (req, res, next, ssId) => {
+		console.time('ss');
 		SSThread
-		.findById(req.params.ssId, '-posts.text -posts.createdAt')
+		.findById(req.params.ssId, '-registeredAt -ratings -posts.text -posts.createdAt')
 		.populate('series')
-		.populate('characters.profile', '_id name kana screenName aliases color')
+		.populate('characters.id', '_id name kana screenName aliases color')
+		.lean()
 		.exec((err: any, ss: ISS) => {
+			console.timeEnd('ss');
 			if (err !== null) {
 				console.error(err);
 				res.sendStatus(500);

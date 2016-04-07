@@ -12,7 +12,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 	})
 	.limit(16)
 	.populate('series')
-	.populate('characters.profile', 'name kana screenName aliases color _id')
+	.populate('characters.id', 'name kana screenName aliases color _id')
 	.exec((err: any, sss: ISSThread[]) => {
 		res.locals.display({
 			recentSS: sss.map(ss => ss.toObject())

@@ -5,6 +5,8 @@
 import * as mongoose from 'mongoose';
 import config from '../config';
 
+// mongoose.set('debug', true);
+
 // init mongo connection
 const db = mongoose.createConnection(
 	config.mongo.uri, config.mongo.options);

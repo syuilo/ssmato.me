@@ -11,6 +11,6 @@ export default (series: ISeries) => {
 	})
 	.limit(16)
 	.populate('series')
-	.populate('characters.profile', 'name kana screenName aliases color _id')
+	.populate('characters.id', 'name kana screenName aliases color _id')
 	.exec();
 }

@@ -67,7 +67,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			if (context.characters !== null) {
 				ss.characters = context.characters.map(x => {
 					return {
-						profile: x.id,
+						id: x.id,
 						onStageRatio: x.onStageRatio
 					};
 				});

@@ -16,12 +16,12 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		const posts = filter(ss, filterMode);
 
 		res.locals.display({
-			ss: ss.toObject(),
+			ss: ss,
 			posts: posts,
 			summary: ss.posts[0].html.split('<br>').join(' ').replace(/<.+?>/g, ''),
 			filterMode: filterMode
 		});
 
-		read(req, res, ss);
+		read(req, res, ss._id);
 	});
 };

@@ -8,7 +8,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		(<any>ReadLater.find({
 			user: me.id
 		}))
-		.deepPopulate('ss.series ss.characters.profile')
+		.deepPopulate('ss.series ss.characters.id')
 		.sort({
 			createdAt: -1
 		})
@@ -18,7 +18,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		(<any>Favorite.find({
 			user: me.id
 		}))
-		.deepPopulate('ss.series ss.characters.profile')
+		.deepPopulate('ss.series ss.characters.id')
 		.sort({
 			createdAt: -1
 		})
@@ -28,7 +28,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		(<any>History.find({
 			user: me.id
 		}))
-		.deepPopulate('ss.series ss.characters.profile')
+		.deepPopulate('ss.series ss.characters.id')
 		.sort({
 			createdAt: -1
 		})
