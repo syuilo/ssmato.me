@@ -186,8 +186,15 @@ export default (app: express.Express) => {
 		// console.time('ss');
 		SSThread
 		.findById(req.params.ssId, '-registeredAt -ratings -posts.text -posts.createdAt')
-		.populate('series')
-		.populate('characters.id', '_id name kana screenName aliases color')
+		.populate({
+			path: 'series',
+			options: { lean: true }
+		})
+		.populate({
+			path: 'characters.id',
+			select: '_id name kana screenName aliases color',
+			options: { lean: true }
+		})
 		.lean()
 		.exec((err: any, ss: ISS) => {
 			// console.timeEnd('ss');

@@ -63,10 +63,10 @@ block content
 							if ss.series.length == 0
 								span.unknown 不明
 							else if ss.series.length == 1
-								a.title(href= config.urls.series + '/' + ss.series[0].id, title=ss.series[0].kana)= ss.series[0].title
+								a.title(href= config.urls.series + '/' + ss.series[0]._id.toString(), title=ss.series[0].kana)= ss.series[0].title
 							else
 								each series in ss.series
-									a.title(href= config.urls.series + '/' + series.id, title=series.kana)= series.title
+									a.title(href= config.urls.series + '/' + series._id.toString(), title=series.kana)= series.title
 								span.is-cross
 									| (クロス)
 						
@@ -76,13 +76,13 @@ block content
 									i.fa.fa-users
 								ul
 									each chara in ss.characters
-										li: a(href= config.urls.characters + '/' + chara.id.id,
+										li: a(href= config.urls.characters + '/' + chara.id._id.toString(),
 											title= chara.id.name + ' (' + chara.id.kana + ')',
 											style='color:' + chara.id.color)= chara.id.screenName
 					if ss.characters.length > 0
 						div.on-stage-ratio
 							each chara in ss.characters
-								a(href= config.urls.characters + '/' + chara.id.id,
+								a(href= config.urls.characters + '/' + chara.id._id.toString(),
 									data-tooltip= chara.id.name + ' ' + (Math.round((chara.onStageRatio * 100) * 10) / 10) + '%',
 									style={
 										background: chara.id.color,
