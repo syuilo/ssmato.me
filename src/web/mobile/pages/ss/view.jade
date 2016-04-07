@@ -104,13 +104,5 @@ block content
 
 		footer
 			small.source
-				if ss.url.indexOf('http://ex14.vip2ch.com/') == 0
-					| SS速報VIPに投稿されたスレッドの紹介です
-					a(href= ss.url, target='_blank')
-						| 【SS速報VIP】
-						= ss.title
-						|  
-						= ss.url
-				else
-					| 元スレッド
-					a(href= ss.url, target='_blank')= ss.url
+				| 元スレッド
+				a(href= ss.url, target='_blank')= ss.url
