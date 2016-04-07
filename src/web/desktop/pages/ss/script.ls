@@ -1,8 +1,17 @@
 $ = require 'jquery'
+require 'fuck-adblock'
 
 CONFIG = require 'config'
 require '../../main.ls'
 tooltip = require '../../common/tooltiper.ls'
+
+if fuck-ad-block == undefined
+	ad-block-detected!
+else
+	fuck-ad-block.on-detected ad-block-detected
+
+function ad-block-detected
+	$ 'main' .prepend $ '<p class="ad-block-detected"><i class="fa fa-exclamation-triangle"></i>SSまとめは広告収入によって運営されています。宜しければ、広告ブロッカーを無効にしてご利用ください！</p>'
 
 $ ->
 	$ss = $ 'main > article > .ss'
