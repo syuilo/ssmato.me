@@ -176,9 +176,6 @@ export default (app: express.Express) => {
 	app.post(`${apiDomain}/character/add`, upload.single('image'), require('./api/character/add'));
 	app.post(`${apiDomain}/ss/get`, require('./api/ss/get'));
 	app.post(`${apiDomain}/ss/analyze`, require('./api/ss/analyze'));
-	app.post(`${apiDomain}/ss/posts/like`, require('./api/ss/posts/like'));
-	app.post(`${apiDomain}/ss/posts/dislike`, require('./api/ss/posts/dislike'));
-	app.post(`${apiDomain}/ss/posts/get-my-rating`, require('./api/ss/posts/get-my-rating'));
 	app.get(`${apiDomain}/set-filter`, require('./api/set-filter'));
 
 	//////////////////////////////////////////////////
@@ -187,7 +184,7 @@ export default (app: express.Express) => {
 	// SS
 	app.param('ssId', (req, res, next, ssId) => {
 		SSThread
-		.findById(req.params.ssId, '-posts.text')
+		.findById(req.params.ssId, '-posts.text -posts.createdAt')
 		.populate('series')
 		.populate('characters.profile', '_id name kana screenName aliases color')
 		.exec((err: any, ss: ISS) => {

@@ -53,7 +53,7 @@ export default (ss: SSContext): {
 
 	return {
 		postHtmls: html,
-		info: chars !== null ? encodeURIComponent(JSON.stringify(chars)) : null,
+		info: chars !== null ? JSON.stringify(chars) : null,
 		style: chars !== null ? chars.map((c: any) => {
 			return `[data-id='${ss.id}'] .${c[1]}{color:${c[0].color}}`;
 		}).join('') : ''

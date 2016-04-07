@@ -51,8 +51,8 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 					text: post.text,
 					number: post.number,
 					user: {
-						id: post.userId,
-						name: post.userName
+						id: post.user.id,
+						name: post.user.name
 					}
 				};
 			})
@@ -84,10 +84,10 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			ss.posts.forEach((post, i) => {
 				post.isMaster = context.posts[i].isMaster;
 				post.isAnchor = context.posts[i].isAnchor;
-				post.userIdBackgroundColor = context.posts[i].user.backgroundColor;
-				post.userIdForegroundColor = context.posts[i].user.foregroundColor;
+				post.user.bg = context.posts[i].user.backgroundColor;
+				post.user.fg = context.posts[i].user.foregroundColor;
 				post.html = htmls.postHtmls[i];
-				post.displayCreatedAt = moment(post.createdAt).format('LL LT');
+				post.createdAtStr = moment(post.createdAt).format('LL LT');
 			});
 
 			ss.pagesCount = context.posts.filter(post => post.isMaster).length;

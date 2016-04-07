@@ -90,18 +90,18 @@ export interface ISSThread extends ISS {
 
 export interface ISSThreadPost extends Document {
 	createdAt: Date;
-	displayCreatedAt: string;
+	createdAtStr: string;
 	text: string;
 	html: string;
 	number: number;
-	userId: string;
-	userIdBackgroundColor: string;
-	userIdForegroundColor: string;
-	userName: string;
+	user: {
+		id: string;
+		name: string;
+		bg: string;
+		fg: string;
+	};
 	isMaster: boolean;
 	isAnchor: boolean;
-	isAA: boolean;
-	ratings: ISSThreadPostRating[];
 }
 
 export interface ISSThreadPostRating extends Document {

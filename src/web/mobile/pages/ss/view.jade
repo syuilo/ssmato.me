@@ -84,9 +84,9 @@ block content
 					s-p(id= post.number)
 						s-h
 							a(href= '#' + post.number)= post.number
-							h2= post.userName
-							time= post.displayCreatedAt
-							b(style='background:' + post.userIdBackgroundColor + ';color:' + post.userIdForegroundColor)= post.userId
+							h2= post.user.name
+							time= post.createdAtStr
+							b(style='background:' + post.user.bg + ';color:' + post.user.fg)= post.user.id
 						s-b!= post.html
 
 		footer

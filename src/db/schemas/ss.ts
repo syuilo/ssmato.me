@@ -25,65 +25,63 @@ const base: Object = {
 	isDeleted: { type: Boolean, required: false, default: false }
 };
 
+const baseSchema = new Schema(Object.assign({
+	type: { type: String, required: true }
+}, base));
+
+const threadPostSchema = new Schema({
+	createdAt: { type: Date, required: true },
+	createdAtStr: { type: String, required: false },
+	number: { type: Number, required: true },
+	text: { type: String, required: true },
+	html: { type: String, required: false, default: null },
+	user: {
+		name: { type: String, required: true },
+		id: { type: String, required: true },
+		bg: { type: String, required: false },
+		fg: { type: String, required: false },
+	},
+	isMaster: { type: Boolean, required: false, default: true },
+	isAnchor: { type: Boolean, required: false, default: false }
+}, {
+	// Disable indexing for each posts
+	_id: false
+});
+
+const threadSchema = new Schema(Object.assign({
+	url: { type: String, required: true, unique: true },
+	type: { type: String, required: false, default: 'thread' },
+	posts: [ threadPostSchema ]
+}, base));
+
+if (!(<any>baseSchema).options.toObject) {
+	(<any>baseSchema).options.toObject = {};
+}
+(<any>baseSchema).options.toObject.transform = (doc: any, ret: any) => {
+	ret.id = doc.id;
+	delete ret._id;
+	delete ret.__v;
+};
+
+if (!(<any>threadPostSchema).options.toObject) {
+	(<any>threadPostSchema).options.toObject = {};
+}
+(<any>threadPostSchema).options.toObject.transform = (doc: any, ret: any) => {
+	ret.id = doc.id;
+	delete ret._id;
+	delete ret.__v;
+};
+
+if (!(<any>threadSchema).options.toObject) {
+	(<any>threadSchema).options.toObject = {};
+}
+(<any>threadSchema).options.toObject.transform = (doc: any, ret: any) => {
+	ret.id = doc.id;
+	delete ret._id;
+	delete ret.__v;
+};
+
 export default function (db: Connection): Model<Document>[] {
-	const baseSchema = new Schema(Object.assign({
-		type: { type: String, required: true }
-	}, base));
-
-	const threadPostSchema = new Schema({
-		createdAt: { type: Date, required: true },
-		displayCreatedAt: { type: String, required: false },
-		number: { type: Number, required: true },
-		text: { type: String, required: true },
-		html: { type: String, required: false, default: null },
-		userName: { type: String, required: true },
-		userId: { type: String, required: true },
-		userIdBackgroundColor: { type: String, required: false },
-		userIdForegroundColor: { type: String, required: false },
-		ratings: [
-			new Schema({
-				createdAt: { type: Date, required: true, default: Date.now },
-				user: { type: Schema.Types.ObjectId, ref: 'User' },
-				rating: { type: String, required: true }
-		})],
-		isMaster: { type: Boolean, required: false, default: true },
-		isAnchor: { type: Boolean, required: false, default: false },
-		isAA: { type: Boolean, required: false, default: false }
-	});
-
-	const threadSchema = new Schema(Object.assign({
-		url: { type: String, required: true, unique: true },
-		type: { type: String, required: false, default: 'thread' },
-		posts: [ threadPostSchema ]
-	}, base));
-
-	if (!(<any>baseSchema).options.toObject) {
-		(<any>baseSchema).options.toObject = {};
-	}
-	(<any>baseSchema).options.toObject.transform = (doc: any, ret: any) => {
-		ret.id = doc.id;
-		delete ret._id;
-		delete ret.__v;
-	};
-
-	if (!(<any>threadPostSchema).options.toObject) {
-		(<any>threadPostSchema).options.toObject = {};
-	}
-	(<any>threadPostSchema).options.toObject.transform = (doc: any, ret: any) => {
-		ret.id = doc.id;
-		delete ret._id;
-		delete ret.__v;
-	};
-
-	if (!(<any>threadSchema).options.toObject) {
-		(<any>threadSchema).options.toObject = {};
-	}
-	(<any>threadSchema).options.toObject.transform = (doc: any, ret: any) => {
-		ret.id = doc.id;
-		delete ret._id;
-		delete ret.__v;
-	};
-
 	const Base = db.model('SS', baseSchema, 'ss');
 	const Thread = db.model('SSThread', threadSchema, 'ss');
 

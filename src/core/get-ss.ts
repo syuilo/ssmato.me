@@ -101,8 +101,10 @@ function analyzeReadCgiVer05_02_02_2014_06_23($: any, html: string): IThread {
 			try {
 				return {
 					number: parseInt(post.match(/^<dt>(\d+)/)[1], 10),
-					userName: entities.decode(post.match(/<b>(.+?)<\/b>/)[1]),
-					userId: post.match(/ID:([0-9A-Za-z\+\/\.]+)/)[1],
+					user: {
+						name: entities.decode(post.match(/<b>(.+?)<\/b>/)[1]),
+						id: post.match(/ID:([0-9A-Za-z\+\/\.]+)/)[1],
+					},
 					text: sanitize(post.match(/<dd>(.+?)<br><br>$/)[1].split('<br>').join('\n')),
 					createdAt: new Date(post.match(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d\.\d\d/)[0] + ' +0900')
 				};
@@ -122,24 +124,24 @@ function analyzeReadCgiVer2013_10_12_prev_2011_01_08($: any, html: string): IThr
 	let posts: any[] = [];
 
 	for (let i = 0; i < lessHeaders.length; i++) {
-		let post: any = {};
-
 		try {
-			post.text = sanitize($(lessBodies[i]).html()
-				.split('<br>').join('\n'));
+			posts.push({
+				text: sanitize($(lessBodies[i]).html()
+					.split('<br>').join('\n')),
 
-			post.number = parseInt(/^([0-9]+?) [:：]/
-				.exec($(lessHeaders[i]).html())[1], 10);
+				number: parseInt(/^([0-9]+?) [:：]/
+					.exec($(lessHeaders[i]).html())[1], 10),
 
-			post.userName = $(lessHeaders[i]).find('b').parent().text();
+				createdAt: new Date(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d/
+					.exec($(lessHeaders[i]).text())[0] + ' +0900'),
 
-			post.createdAt = new Date(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d/
-				.exec($(lessHeaders[i]).text())[0] + ' +0900');
+				user: {
+					name: $(lessHeaders[i]).find('b').parent().text(),
 
-			post.userId = /ID:([0-9A-Za-z\+\/\.]*)$/
-				.exec($(lessHeaders[i]).text())[1];
-
-			posts.push(post);
+					id: /ID:([0-9A-Za-z\+\/\.]*)$/
+						.exec($(lessHeaders[i]).text())[1]
+				}
+			});
 		} catch (e) {
 			console.error(`${i + 1} ${$(lessBodies[i]).html()} ${e}`);
 		}
@@ -163,8 +165,10 @@ function analyzeReadCgiVer2014_07_20_01_SC_2014_07_20($: any, html: string): ITh
 		posts: <ISSThreadPost[]>posts.map(post => {
 			return {
 				number: parseInt(post.match(/^<dt>(\d+)/)[1], 10),
-				userName: entities.decode(post.match(/<b>(.+?)<\/b>/)[1]),
-				userId: post.match(/ID:([0-9A-Za-z\+\/\.]+)/)[1],
+				user: {
+					name: entities.decode(post.match(/<b>(.+?)<\/b>/)[1]),
+					id: post.match(/ID:([0-9A-Za-z\+\/\.]+)/)[1],
+				},
 				text: sanitize(post.match(/<dd>(.+?)<br><br>$/)[1].split('<br>').join('\n')),
 				createdAt: new Date(post.match(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d\.\d\d/)[0] + ' +0900')
 			};
@@ -186,24 +190,24 @@ function analyzePastlogCgiVer2_0($: any, html: string): IThread {
 	let posts: any[] = [];
 
 	for (let i = 0; i < lessHeaders.length; i++) {
-		let post: any = {};
-
 		try {
-			post.text = sanitize($(lessBodies[i]).html()
-				.split('<br>').join('\n'));
+			posts.push({
+				text: sanitize($(lessBodies[i]).html()
+					.split('<br>').join('\n')),
 
-			post.number = parseInt(/^([0-9]+?) [:：]/
-				.exec($(lessHeaders[i]).html())[1], 10);
+				number: parseInt(/^([0-9]+?) [:：]/
+					.exec($(lessHeaders[i]).html())[1], 10),
 
-			post.userName = $(lessHeaders[i]).find('b').parent().text();
+				user: {
+					name: $(lessHeaders[i]).find('b').parent().text(),
 
-			post.createdAt = new Date(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d/
-				.exec($(lessHeaders[i]).text())[0] + ' +0900');
+					createdAt: new Date(/\d\d\d\d\/\d\d\/\d\d\(.+?\) \d\d\:\d\d\:\d\d/
+						.exec($(lessHeaders[i]).text())[0] + ' +0900'),
 
-			post.userId = /ID:([0-9A-Za-z\+\/\.]*)$/
-				.exec($(lessHeaders[i]).text())[1];
-
-			posts.push(post);
+					id: /ID:([0-9A-Za-z\+\/\.]*)$/
+						.exec($(lessHeaders[i]).text())[1]
+				}
+			});
 		} catch (e) {
 			console.error(`${i + 1} ${$(lessBodies[i]).html()} ${e}`);
 		}
