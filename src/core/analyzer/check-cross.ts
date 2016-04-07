@@ -1,7 +1,7 @@
 import { ISS } from './interfaces';
 
 /**
- * クロスオーバーであるかどうかを取得します。
+ * クロスオーバーであるかどうかを判定します。
  * @param ss SS
  * @return bool
  */
