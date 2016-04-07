@@ -37,22 +37,28 @@ export default (ss: SSContext): {
 		});
 	}
 
-	const html = ss.posts.map((post, i) => {
+	const htmls = ss.posts.map((post, i) => {
 		let html: string = entities.encode(post.text);
 
 		// 安価
 		html = html.replace(/&gt;&gt;(\d+)/g, '<span class=anchor data-target=$1>$&</span>');
 
-		return html.split('\n').map((x, i) => {
+		html = html.split('\n').map((x, i) => {
 			if (ss.characters !== null && ss.characters.length > 0 && post.isMaster) {
 				x = analyzeLine(x);
 			}
 			return x;
 		}).join('<br>');
+
+		if (post.isAA) {
+			html = `<pre>${html}</pre>`;
+		}
+
+		return html;
 	});
 
 	return {
-		postHtmls: html,
+		postHtmls: htmls,
 		info: chars !== null ? JSON.stringify(chars) : null,
 		style: chars !== null ? chars.map((c: any) => {
 			return `[data-id='${ss.id}'] .${c[1]}{color:${c[0].color}}`;
