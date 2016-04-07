@@ -100,7 +100,12 @@ block content
 							h2= post.user.name
 							time= post.createdAtStr
 							b(style='background:' + post.user.bg + ';color:' + post.user.fg)= post.user.id
-						s-b!= post.html
+						s-b
+							if post.isAA
+								pre
+									!= post.html
+							else
+								!= post.html
 
 		footer
 			small.source
