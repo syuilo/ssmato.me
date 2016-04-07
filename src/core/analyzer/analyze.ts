@@ -35,6 +35,7 @@ import { ISS, ICharacter, ISeries } from './interfaces';
 import World from './world';
 import modifyTrip from './modify-trip';
 import paintId from './paint-id';
+import modifyIsAA from './modify-is-aa';
 import weakMarkMaster from './weak-mark-master';
 import strongMarkMaster from './strong-mark-master';
 import markAnchor from './mark-anchor';
@@ -61,8 +62,12 @@ export default (
 	return new Promise((resolve, reject) => {
 		const context = new SSContext(ss.id);
 
+		// アスキーアートかどうか
+		const posts0 = ss.posts.map(modifyIsAA);
+		debug('AA判定を設定しました');
+
 		// トリップ解析
-		const posts1 = ss.posts.map(modifyTrip);
+		const posts1 = posts0.map(modifyTrip);
 		debug('トリップを設定しました');
 
 		// IDの背景色と文字色を決定
