@@ -16,9 +16,9 @@ export default
 
 	let isAA: boolean;
 
-	// 空行が4行以上存在したらAAではなさそう
+	// 空行が8行以上存在したらAAではなさそう
 	const brankLinesCount = (post.text.match(/\n\n/g) || []).length;
-	if (brankLinesCount >= 4) {
+	if (brankLinesCount >= 8) {
 		isAA = false;
 	}
 
