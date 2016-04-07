@@ -97,7 +97,7 @@ app.use((req, res, next) => {
 	res.header('X-Frame-Options', 'DENY');
 
 	// See: http://web-tan.forum.impressrd.jp/e/2013/05/17/15269
-	res.header('Vary', 'User-Agent, Cookie');
+	res.header('Vary', 'User-Agent');
 
 	// Set locals
 	res.locals = {
