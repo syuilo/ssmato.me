@@ -22,9 +22,6 @@ export default (app: express.Express) => {
 	app.get('/', (req, res) =>
 		call(req, res, 'index'));
 
-	app.get('/favicon.ico', (req, res) =>
-		res.sendFile(path.resolve(`${__dirname}/resources/favicon.ico`)));
-
 	app.get('/manifest.json', (req, res) =>
 		res.sendFile(path.resolve(`${__dirname}/resources/manifest.json`)));
 

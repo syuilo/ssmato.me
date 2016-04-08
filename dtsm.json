@@ -81,6 +81,9 @@
     },
     "cors/cors.d.ts": {
       "ref": "513510a89acc648422c9abb047265116198f99ee"
+    },
+    "serve-favicon/serve-favicon.d.ts": {
+      "ref": "ec9eb4b28c74665a602c22db3457f0a76fa0fa23"
     }
   }
 }

@@ -14,6 +14,7 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as csrf from 'csurf';
 import * as cors from 'cors';
+import * as favicon from 'serve-favicon';
 const vhost: any = require('vhost');
 
 import db from './db/db';
@@ -69,6 +70,7 @@ app.set('etag', false);
 // Init static resources server
 app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources));
 
+app.use(favicon(`${__dirname}/resources/favicon.ico`));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(config.cookiePass));
 app.use(compression());
