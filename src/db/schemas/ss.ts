@@ -33,7 +33,7 @@ const threadPostSchema = new Schema({
 	createdAt: { type: Date, required: true },
 	createdAtStr: { type: String, required: false },
 	number: { type: Number, required: true },
-	text: { type: String, required: true },
+	text: { type: String },
 	html: { type: String, required: false, default: null },
 	user: {
 		name: { type: String, required: true },
