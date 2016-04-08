@@ -1,5 +1,5 @@
+import * as _debug from 'debug';
 const Entities = require('html-entities').AllHtmlEntities;
-const entities = new Entities();
 
 import { ICharacter } from './interfaces';
 
@@ -8,6 +8,9 @@ import CharacterIdentity from './character-identity';
 import extractNamePartInSerif from './extract-name-part-in-serif';
 import identity from './identity';
 import nSin from './n-sin-generator';
+
+const debug = _debug('sssa');
+const entities = new Entities();
 
 /**
  * SSのHTMLを生成します
@@ -38,6 +41,11 @@ export default (ss: SSContext): {
 	}
 
 	const htmls = ss.posts.map((post, i) => {
+		if (post.text === '') {
+			debug(`HTML: ${post.number} -> EMPTY`);
+			return '';
+		}
+
 		let html: string = entities.encode(post.text);
 
 		// 安価
@@ -54,6 +62,7 @@ export default (ss: SSContext): {
 			html = `<pre>${html}</pre>`;
 		}
 
+		debug(`HTML: ${post.number} -> DONE`);
 		return html;
 	});
 

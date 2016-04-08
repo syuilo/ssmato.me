@@ -28,8 +28,6 @@
 
 import * as _debug from 'debug';
 
-const debug = _debug('sssa');
-
 import { ISS, ICharacter, ISeries } from './interfaces';
 
 import World from './world';
@@ -42,6 +40,8 @@ import markAnchor from './mark-anchor';
 import detectSeries from './detect-series';
 import extractCharacters from './extract-characters';
 import SSContext from './sscontext';
+
+const debug = _debug('sssa');
 
 /**
  * SSを解析しSSContextを取得します。
