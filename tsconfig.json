@@ -62,6 +62,7 @@
 		"./src/core/analyzer/un-modify-title.ts",
 		"./src/core/analyzer/weak-mark-master.ts",
 		"./src/core/analyzer/world.ts",
+		"./src/core/escape-regexp.ts",
 		"./src/core/filter-ss-posts.ts",
 		"./src/core/get-related-sss.ts",
 		"./src/core/get-ss.ts",
@@ -70,6 +71,7 @@
 		"./src/core/recaptcha.ts",
 		"./src/core/search/find-by-character.ts",
 		"./src/core/search/find-by-series.ts",
+		"./src/core/search/find-by-title.ts",
 		"./src/core/special/get-sss-a.ts",
 		"./src/core/special/get-sss-b.ts",
 		"./src/core/special/mark-visit.ts",
@@ -115,6 +117,7 @@
 		"./src/web/mobile/pages/character/index/controller.ts",
 		"./src/web/mobile/pages/error/controller.ts",
 		"./src/web/mobile/pages/index/controller.ts",
+		"./src/web/mobile/pages/search/index/controller.ts",
 		"./src/web/mobile/pages/series/index/controller.ts",
 		"./src/web/mobile/pages/signin/controller.ts",
 		"./src/web/mobile/pages/ss/controller.ts"

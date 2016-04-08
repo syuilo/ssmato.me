@@ -1,16 +1,20 @@
-extend ../../../ui
+extend ../../../main
 include ../../../common/ss-preview
 
 block title
-	| ダッシュボード - SSまとめ
+	= q + ' - SSまとめ'
 
-block contents
-	article#stack
+block meta
+	- var summary = '「' + q + '」の検索結果';
+	meta(name='description', content= summary)
+
+block content
+	article
 		header
-			h1 「あとで読む」にスタックされているSS
-		div.body
+			h1
+				b= q
+				| の検索結果
+		div.main
 			div.sss
-				each ss in me.stack
+				each ss in sss
 					+ss(ss)
-	if me.isAdmin
-		a(href=config.urls.admin) SSまとめ管理ページへ

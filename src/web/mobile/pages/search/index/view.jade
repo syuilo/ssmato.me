@@ -1,0 +1,16 @@
+extend ../../../ui
+include ../../../common/ss-preview
+
+block title
+	= character.name + ' - SSまとめ'
+
+block content
+	article
+		header
+			h1
+				b= q
+				| の検索結果
+		div.body
+			div.sss
+				each ss in sss
+					+ss(ss)
