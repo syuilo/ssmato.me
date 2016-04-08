@@ -64,6 +64,7 @@ app.locals.compileDebug = false;
 app.locals.cache = true;
 // app.locals.pretty = '    ';
 app.set('view engine', 'jade');
+app.set('etag', false);
 
 // Init static resources server
 app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources));
