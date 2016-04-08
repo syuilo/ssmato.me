@@ -69,7 +69,7 @@ export default
 		) {
 			const _target = marked
 				.filter(x => x.number === post.number - 1);
-			if (_target !== null && _target.length !== 0) {
+			if (_target.length !== 0) {
 				const target = _target[0];
 				target.isAnchor = true;
 			}
@@ -80,7 +80,7 @@ export default
 		) {
 			const _target = marked
 				.filter(x => x.number === post.number + 1);
-			if (_target !== null && _target.length !== 0) {
+			if (_target.length !== 0) {
 				const target = _target[0];
 				target.isAnchor = true;
 			}
