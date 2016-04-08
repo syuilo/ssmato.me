@@ -1,4 +1,4 @@
-![](./resource-projects/favicon/32.png) ssmato.me
+![](./resource-projects/favicon/16.png) SSまとめ
 ------------------------------------------------
 
 [![][travis-badge]][travis-link]
