@@ -24,6 +24,7 @@ export default
 	posts
 		// 本文のみ
 		.filter(x => x.isMaster)
+		.filter(x => x.text !== '')
 		.map(x => x.text)
 		// SSのタイトル自体が安価している場合もある
 		.concat(ss.title)
@@ -57,6 +58,10 @@ export default
 	marked.forEach(post => {
 		const text = post.text;
 
+		if (text === '') {
+			return;
+		}
+
 		if ( // 安価上
 			text[0] === '上' ||
 			text[0] === '↑' ||
@@ -79,17 +84,20 @@ export default
 
 		// 安価先がさらに安価してる場合があるため
 		const anchors = text.match(/(>>|＞＞)(\d+)/g);
-		if (anchors !== null) {
-			anchors.forEach(anchor => {
-				anchor = anchor.substr(2);
 
-				marked
-				.filter(x => x.number.toString() === anchor)
-				.forEach(x => {
-					x.isAnchor = true;
-				});
-			});
+		if (anchors === null) {
+			return;
 		}
+
+		anchors.forEach(anchor => {
+			anchor = anchor.substr(2);
+
+			marked
+			.filter(x => x.number.toString() === anchor)
+			.forEach(x => {
+				x.isAnchor = true;
+			});
+		});
 	});
 
 	return marked;

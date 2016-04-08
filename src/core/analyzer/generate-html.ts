@@ -9,7 +9,7 @@ import extractNamePartInSerif from './extract-name-part-in-serif';
 import identity from './identity';
 import nSin from './n-sin-generator';
 
-const debug = _debug('sssa');
+const debug = _debug('sssa.html');
 const entities = new Entities();
 
 /**
@@ -42,7 +42,7 @@ export default (ss: SSContext): {
 
 	const htmls = ss.posts.map((post, i) => {
 		if (post.text === '') {
-			debug(`HTML: ${post.number} -> EMPTY`);
+			debug(`${post.number} -> EMPTY`);
 			return '';
 		}
 
@@ -62,7 +62,7 @@ export default (ss: SSContext): {
 			html = `<pre>${html}</pre>`;
 		}
 
-		debug(`HTML: ${post.number} -> DONE`);
+		debug(`${post.number} -> DONE`);
 		return html;
 	});
 
