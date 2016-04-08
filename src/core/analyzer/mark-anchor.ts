@@ -67,19 +67,23 @@ export default
 			text[0] === '↑' ||
 			/安価(.*?)[上↑]/.test(text)
 		) {
-			const target = post.number - 1;
-			marked
-				.filter(x => x.number === target)
-				[0].isAnchor = true;
+			const _target = marked
+				.filter(x => x.number === post.number - 1);
+			if (_target !== null) {
+				const target = _target[0];
+				target.isAnchor = true;
+			}
 		} else if ( // 安価下
 			text[0] === '下' ||
 			text[0] === '↓' ||
 			/安価(.*?)[下↓]/.test(text)
 		) {
-			const target = post.number + 1;
-			marked
-				.filter(x => x.number === target)
-				[0].isAnchor = true;
+			const _target = marked
+				.filter(x => x.number === post.number + 1);
+			if (_target !== null) {
+				const target = _target[0];
+				target.isAnchor = true;
+			}
 		}
 
 		// 安価先がさらに安価してる場合があるため
