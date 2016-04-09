@@ -7,11 +7,21 @@ html
 
 #ui-header
 	display: block;
-	height: $header-height;
 
-	.nav
+	> .info
+		display: block;
+		margin: 0;
+		padding: 4px 8px;
+		text-align: center;
+		font-size: 0.8em;
+		color: #000;
+		background: orange;
+
+	> .nav
 		display: block;
 		height: 100%;
+		background: #f5f8fa;
+		border-bottom: solid 1px #e9edf1;
 
 		&:after
 			content: '';
@@ -20,7 +30,7 @@ html
 
 		.body
 			display: block;
-			max-width: 1024px;
+			max-width: 1080px;
 			height: 100%;
 			margin: 0 auto;
 
