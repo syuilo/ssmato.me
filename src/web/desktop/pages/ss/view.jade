@@ -78,7 +78,10 @@ block content
 									each chara in ss.characters
 										li: a(href= config.urls.characters + '/' + chara.id._id.toString(),
 											title= chara.id.name + ' (' + chara.id.kana + ')',
-											style='color:' + chara.id.color)= chara.id.screenName
+											style={
+												color: chara.id.color,
+												'font-size': 50 + (chara.onStageRatio / ss.characters[0].onStageRatio * 50) + '%'
+											})= chara.id.screenName
 					if ss.characters.length > 0
 						div.on-stage-ratio
 							each chara in ss.characters
