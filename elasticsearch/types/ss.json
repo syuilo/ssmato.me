@@ -4,10 +4,12 @@
 			"properties": {
 				"title": {
 					"type": "string",
+					"index": "analyzed",
 					"analyzer": "kuromoji"
 				},
 				"body": {
 					"type": "string",
+					"index": "analyzed",
 					"analyzer": "kuromoji"
 				},
 				"id": {
