@@ -95,7 +95,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			ss.readingTimeMinutes = Math.floor((context.posts
 				.filter(post => post.isMaster)
 				.map(post => post.text.length)
-				.reduce((p, c) => p + c) / 20) / 60);
+				.reduce((p, c) => p + c) / 18) / 60);
 
 			ss.markModified('posts');
 			ss.markModified('series');
