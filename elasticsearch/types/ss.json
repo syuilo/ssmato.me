@@ -12,6 +12,14 @@
 					"index": "analyzed",
 					"analyzer": "kuromoji"
 				},
+				"character_ids": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
+				"series_ids": {
+					"type": "string",
+					"index": "not_analyzed"
+				},
 				"id": {
 					"type": "string",
 					"index": "no"
