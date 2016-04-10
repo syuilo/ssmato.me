@@ -1,4 +1,5 @@
 import * as _debug from 'debug';
+import * as escape from 'escape-html';
 const Entities = require('html-entities').AllHtmlEntities;
 
 import { ICharacter } from './interfaces';
@@ -46,7 +47,7 @@ export default (ss: SSContext): {
 			return '';
 		}
 
-		let html: string = entities.encode(post.text);
+		let html: string = escape(post.text);
 
 		// 安価
 		html = html.replace(/&gt;&gt;(\d+)/g, '<span class=anchor data-target=$1>$&</span>');
@@ -261,7 +262,7 @@ export default (ss: SSContext): {
 	function highlight(char: ICharacter, name: string): string {
 		let html: string;
 
-		const _name = entities.encode(name);
+		const _name = escape(name);
 
 		if (char !== null) {
 			const sid = chars.filter((c: any) => c[0].id === char.id)[0][1];
