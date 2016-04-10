@@ -6,7 +6,9 @@ const elasticsearch = require('elasticsearch');
 import config from '../config';
 
 // init ElasticSearch connection
-const client = new elasticsearch.Client(config.elasticsearch);
+const client = new elasticsearch.Client({
+	host: `${config.elasticsearch.host}:${config.elasticsearch.port}`
+});
 
 // Send a HEAD request
 client.ping({
