@@ -1,0 +1,19 @@
+{
+  "mappings": {
+    "ss": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "analyzer": "kuromoji"
+        },
+        "body": {
+          "type": "string",
+          "analyzer": "kuromoji"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
