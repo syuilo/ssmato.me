@@ -1,41 +1,20 @@
-@import '../../../ui'
+@import '../../../main'
 @import '../../../common/ss-preview'
 
-html
-	background: #fff;
+main
+	> article
+		> header
+			h1
+				display: block;
+				margin: 16px;
+				font-size: 1.5em;
+				font-weight: normal;
+				color: #66757f;
+				text-align: center;
 
-#stack
-	display: block;
-	box-sizing: border-box;
-	max-width: 700px;
-	margin: 0 auto;
-	border: solid 1px #ddd;
-	border-radius: 4px;
-	background: #fff;
+		> .main
+			padding: 0 16px;
 
-	> header
-		display: block;
-		line-height: 42px;
-		padding: 0 16px;
-		background: #fbfbfb;
-		border-bottom: solid 1px #ddd;
-		border-radius: 4px 4px 0 0;
-
-		h1
-			display: block;
-			margin: 0;
-			padding: 0;
-			font-size: 1em;
-			font-weight: bold;
-			color: #555;
-
-			i
-				margin-right: 5px;
-				color: #aaa;
-
-	> .body
-		> .sss
-			padding: 0 10px;
-
-			> .ss
-				ss()
+			> .sss
+				> .ss
+					ss()

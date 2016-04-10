@@ -10,7 +10,7 @@ export default (q: string) => {
 				size: 10,
 				query: {
 					simple_query_string: {
-						fields: ['title'],
+						fields: ['title', 'body'],
 						query: q,
 						default_operator: 'and'
 					}
