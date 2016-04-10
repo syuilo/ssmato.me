@@ -2,11 +2,11 @@
 // SEARCH DB
 //////////////////////////////////////////////////
 
-const ElasticSearchClient = require('elasticsearch');
+const elasticsearch = require('elasticsearch');
 import config from '../config';
 
 // init ElasticSearch connection
-const client = new ElasticSearchClient(config.elasticsearch);
+const client = new elasticsearch.Client(config.elasticsearch);
 
 // Send a HEAD request
 client.ping({
