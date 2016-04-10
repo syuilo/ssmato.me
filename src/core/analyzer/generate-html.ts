@@ -123,7 +123,7 @@ export default (ss: SSContext): {
 		// 見つからなかったら --- 複数のキャラの発言時に A・B・C のように区切って記述する場合がある
 
 		const separators =
-			['・', '、', '&', '＆'];
+			['・', '、', '&', '＆', ' '];
 
 		const htmls = separators.map(separator => {
 			// セパレータで分割
