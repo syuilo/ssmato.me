@@ -72,6 +72,7 @@
 		"./src/core/search/find-by-character.ts",
 		"./src/core/search/find-by-series.ts",
 		"./src/core/search/find-by-title.ts",
+		"./src/core/special/es-index.ts",
 		"./src/core/special/get-sss-a.ts",
 		"./src/core/special/get-sss-b.ts",
 		"./src/core/special/mark-visit.ts",
