@@ -2,14 +2,14 @@
 // SEARCH DB
 //////////////////////////////////////////////////
 
-const ElasticSearchClient = require('elasticsearchclient');
+const ElasticSearchClient = require('elasticsearch');
 import config from '../config';
 
 // init ElasticSearch connection
-const elasticSearchClient = new ElasticSearchClient(config.elasticsearch);
+const client = new ElasticSearchClient(config.elasticsearch);
 
 // Send a HEAD request
-elasticSearchClient.ping({
+client.ping({
 	// ping usually has a 3000ms timeout
 	requestTimeout: Infinity,
 
@@ -23,4 +23,4 @@ elasticSearchClient.ping({
 	}
 });
 
-export default elasticSearchClient;
+export default client;
