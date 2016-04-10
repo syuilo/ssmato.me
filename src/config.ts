@@ -72,6 +72,10 @@ export interface IConfig {
 			pass: string;
 		}
 	};
+	elasticsearch: {
+		host: string;
+		port: number;
+	};
 	port: {
 		http: number;
 		https: number;
