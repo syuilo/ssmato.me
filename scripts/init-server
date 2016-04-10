@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# init MongoDB
+systemctl start mongodb
+
+# init Elasticsearch
+/usr/local/elasticsearch/bin/elasticsearch -d
