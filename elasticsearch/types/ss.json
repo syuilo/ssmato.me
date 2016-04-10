@@ -19,10 +19,6 @@
 				"series_ids": {
 					"type": "string",
 					"index": "not_analyzed"
-				},
-				"id": {
-					"type": "string",
-					"index": "no"
 				}
 			}
 		}
