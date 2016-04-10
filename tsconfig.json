@@ -83,6 +83,7 @@
 		"./src/core/special/remove-white-spaces.ts",
 		"./src/core/special/weed-out.ts",
 		"./src/db/db.ts",
+		"./src/db/es.ts",
 		"./src/db/interfaces.ts",
 		"./src/db/models.ts",
 		"./src/db/schemas/character.ts",
