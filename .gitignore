@@ -6,4 +6,5 @@ npm-debug.log
 /tmp
 /uploads
 /src/core/special
-/*.pem
+identity
+*.pem
