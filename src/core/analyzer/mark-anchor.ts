@@ -1,6 +1,7 @@
 const assign = require('assign-deep');
 
 import { ISS, IPost } from './interfaces';
+import { Token, IAnchorToken } from './token-types';
 
 /**
  * 投稿の被安価投稿をマークします
@@ -10,7 +11,8 @@ import { ISS, IPost } from './interfaces';
  */
 export default
 	<T extends IPost & {
-		isMaster: boolean
+		isMaster: boolean;
+		tokens: Token[]
 	}>
 	(ss: ISS, posts: T[]):
 	(T & {
@@ -18,27 +20,20 @@ export default
 	})[] => {
 
 	// 本文内の安価リスト
-	const masterAnchors: string[] = [];
+	const anchors: number[] = [];
 
-	// 安価抽出
-	posts
-		// 本文のみ
-		.filter(x => x.isMaster)
-		.filter(x => x.text !== '')
-		.map(x => x.text)
-		// SSのタイトル自体が安価している場合もある
-		.concat(ss.title)
-		// 安価っぽい文字列を抽出
-		.map(x => x.match(/(>>|＞＞)(\d+)/g))
-		// ゴミ除去
-		.filter(x => x !== null)
-		// 「>>」を除去
-		.map(x => x.map(y => y.substr(2)))
-		.forEach(x => x.forEach(y => {
-			if (masterAnchors.indexOf(y) === -1) {
-				masterAnchors.push(y);
-			}
-		}));
+	posts.filter(p => p.isMaster).forEach(p => {
+		p.tokens.filter(t => t.type === 'anchor').forEach((a: IAnchorToken) => {
+			const targets = analyzeAnchor(a.target);
+			targets.forEach(anchors.push);
+		});
+	});
+
+	const titileMatch = ss.title.match(/(>>|＞＞)(\d+)/g);
+
+	if (titileMatch !== null) {
+		titileMatch.forEach(a => anchors.push(a.substr(2)));
+	}
 
 	const marked = <(T & {
 		isAnchor: boolean;
@@ -105,4 +100,31 @@ export default
 	});
 
 	return marked;
+}
+
+function analyzeAnchor(anchor: string): number[] {
+	if (/^\d+$/.test(anchor)) {
+		return [parseInt(anchor, 10)];
+	} else {
+		return null;
+	}
+
+	// TODO: >>10~20 や >>10,20 などに対応
+/*
+	function range(start: number, stop: number, step: number): number[] {
+		if (arguments.length <= 1) {
+			stop = start || 0;
+			start = 0;
+		}
+		step = step || 1;
+
+		const length = Math.max(Math.ceil((stop - start) / step), 0);
+		const range = Array(length);
+
+		for (let idx = 0; idx < length; idx++, start += step) {
+			range[idx] = start;
+		}
+
+		return range;
+	}*/
 }

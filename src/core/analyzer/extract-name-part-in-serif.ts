@@ -1,6 +1,3 @@
-const Entities = require('html-entities').AllHtmlEntities;
-const entities = new Entities();
-
 /**
  * セリフに用いられる括弧の定義
  */
@@ -17,10 +14,6 @@ const brackets = [
 const bracketsRegExp =
 	brackets
 	.map(b => `\\${b}`)
-	.concat(
-		brackets
-		.map(b => '\\' + entities.encode(b))
-	)
 	.join('|');
 
 /**
@@ -35,19 +28,11 @@ export default (serif: string): string => {
 		return null;
 	}
 
-	// 向日葵(幼)のようにアイデンティティの一部として括弧が含まれている場合がある
-	const includeBracketsRegExpMatch =
-		serif.match(new RegExp(`^((.+?)[（\(].+?[）\)])(${bracketsRegExp}).+`));
+	const serifRegExpMatch =
+		serif.match(new RegExp(`^((.+?)([（\(].+?[）\)])?)(${bracketsRegExp}).+`));
 
-	if (includeBracketsRegExpMatch !== null) {
-		return includeBracketsRegExpMatch[1];
-	}
-
-	const normalRegExpMatch =
-		serif.match(new RegExp(`^(.+?)(${bracketsRegExp}).+`));
-
-	if (normalRegExpMatch !== null) {
-		return normalRegExpMatch[1];
+	if (serifRegExpMatch !== null) {
+		return serifRegExpMatch[1];
 	}
 
 	return null;

@@ -18,9 +18,9 @@ export default (
 			isMaster: boolean;
 		}[]
 	}
-): Promise<(ICharacter & {
+): (ICharacter & {
 	onStageRatio: number;
-})[]> => new Promise((resolve, reject) => {
+})[] => {
 
 	// シリーズに登場するキャラクター
 	const allchars = world.getAllSeriesCharacters(ss.series);
@@ -67,5 +67,5 @@ export default (
 		}
 	});
 
-	resolve(returns);
-});
+	return returns;
+}

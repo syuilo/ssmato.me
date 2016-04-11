@@ -35,6 +35,7 @@ import modifyTrip from './modify-trip';
 import paintId from './paint-id';
 import modifyIsAA from './modify-is-aa';
 import weakMarkMaster from './weak-mark-master';
+import tokenize from './tokenizer';
 import strongMarkMaster from './strong-mark-master';
 import markAnchor from './mark-anchor';
 import detectSeries from './detect-series';
@@ -59,74 +60,78 @@ export default (
 	const world = new World(series, characters);
 	debug('ワールドを初期化しました');
 
-	return new Promise((resolve, reject) => {
-		const context = new SSContext(ss.id);
+	const context = new SSContext(ss.id);
 
-		// アスキーアートかどうか
-		const posts0 = ss.posts.map(modifyIsAA);
-		debug('AA判定を設定しました');
+	const posts = ss.posts;
 
-		// トリップ解析
-		const posts1 = posts0.map(modifyTrip);
-		debug('トリップを設定しました');
+	// アスキーアートかどうか
+	const posts1 = posts.map(modifyIsAA);
+	debug('AA判定を設定しました');
 
-		// IDの背景色と文字色を決定
-		const posts2 = posts1.map(paintId);
-		debug('IDカラーを設定しました');
+	// トリップ解析
+	const posts2 = posts1.map(modifyTrip);
+	debug('トリップを設定しました');
 
-		// 本文を判別
-		/* Note:
-		 * SSを(正確に)同定するには本文の投稿にマークする必要があり、
-		 * 本文の投稿を(正確に)マークするにはSSが同定されている必要があるという矛盾に陥るので、
-		 * まずSSが同定されているという前提が必要ない「弱い」マークを実行してSSを同定した後に「強い」(正確な)マークを行えばよい
-		 */
-		const posts3 = weakMarkMaster(posts2);
-		debug('弱いマークをしました');
+	// IDの背景色と文字色を決定
+	const posts3 = posts2.map(paintId);
+	debug('IDカラーを設定しました');
 
-		detectSeries(world, {
-			id: ss.id,
-			title: ss.title,
-			posts: posts3
-		}).then(series => {
-			debug('シリーズを同定しました');
+	// 本文を判別
+	/* Note:
+	 * SSを(正確に)同定するには本文の投稿にマークする必要があり、
+	 * 本文の投稿を(正確に)マークするにはSSが同定されている必要があるという矛盾に陥るので、
+	 * まずSSが同定されているという前提が必要ない「弱い」マークを実行してSSを同定した後に「強い」(正確な)マークを行えばよい
+	 */
+	const posts4 = weakMarkMaster(posts3);
+	debug('弱いマークをしました');
 
-			context.series = series;
-
-			// シリーズが判らなかったら
-			if (series === null) {
-				const posts4 = markAnchor(ss, posts3);
-				debug('被安価投稿をマークをしました');
-
-				context.posts = posts4;
-
-				debug('シリーズが判らなかったので終了しました');
-				return resolve(context);
-			}
-
-			// シリーズが判ったので「強い」mark-masterを実行できる
-			strongMarkMaster(world, posts3, series).then(posts4 => {
-				debug('強いマークをしました');
-
-				const posts5 = markAnchor(ss, posts4);
-				debug('被安価投稿をマークをしました');
-
-				context.posts = posts5;
-
-				// 登場キャラクター抽出
-				extractCharacters(world, {
-					id: ss.id,
-					title: ss.title,
-					series: series,
-					posts: posts4
-				}).then(characters => {
-					debug('キャラクターの統計を抽出しました');
-
-					context.characters = characters;
-
-					debug('完了');
-					resolve(context);
-				}, reject);
-			});
-		}, reject);
+	const series = detectSeries(world, {
+		id: ss.id,
+		title: ss.title,
+		posts: posts4
 	});
+	debug(series !== null ? 'シリーズを同定しました' : 'シリーズは不明でした');
+
+	context.series = series;
+
+	// シリーズが判らなかったら
+	if (series === null) {
+		const posts5 = tokenize(world, posts4, null);
+		debug('構文解析をしました');
+
+		const posts6 = markAnchor(ss, posts5);
+		debug('被安価投稿をマークをしました');
+
+		context.posts = posts6;
+
+		debug('完了');
+		return context;
+	}
+
+	// シリーズが判ったので「強い」mark-masterを実行できる
+	const posts5 = strongMarkMaster(world, posts4, series);
+	debug('強いマークをしました');
+
+	const posts6 = tokenize(world, posts5, series);
+	debug('構文解析をしました');
+
+	const posts7 = markAnchor(ss, posts6);
+	debug('被安価投稿をマークをしました');
+
+	context.posts = posts7;
+
+	// 登場キャラクター抽出
+	extractCharacters(world, {
+		id: ss.id,
+		title: ss.title,
+		series: series,
+		posts: posts4
+	}).then(characters => {
+		debug('キャラクターの統計を抽出しました');
+
+		context.characters = characters;
+
+		debug('完了');
+		resolve(context);
+	}, reject);
 }

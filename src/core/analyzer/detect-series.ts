@@ -19,7 +19,7 @@ export default(
 			isMaster: boolean
 		}[]
 	}
-): Promise<ISeries[]> => new Promise((resolve, reject) => {
+): ISeries[] => {
 
 	// クロスSSかどうか
 	const isCross = checkCross(ss);
@@ -68,13 +68,11 @@ export default(
 	if (chart[0].found.length > 0) {
 		// クロスオーバーかつ第二候補も見つかったら
 		if (isCross && chart[1].found.length > 0) {
-			resolve([chart[0].series, chart[1].series]);
-			return;
+			return [chart[0].series, chart[1].series];
 		}
 
 		// それ以外は最有力候補をシリーズとして断定
-		resolve([chart[0].series]);
-		return;
+		return [chart[0].series];
 	}
 
 	// タイトル内の【】内の文字列
@@ -96,10 +94,9 @@ export default(
 
 	// SSタイトルでシリーズを推定出来たら
 	if (seriesInTitle !== undefined && seriesInTitle !== null) {
-		resolve([seriesInTitle]);
-		return;
+		return [seriesInTitle];
 	}
 
 	// 該当なし(同定失敗)
-	resolve(null);
-});
+	return null;
+}

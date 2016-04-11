@@ -1,4 +1,5 @@
 import { ISeries, ICharacter, IPost } from './interfaces';
+import { Token } from './token-types';
 
 /**
  * 解析済みSSクラスです
@@ -30,6 +31,7 @@ export default class SSContext {
 		isAA: boolean;
 		isMaster: boolean;
 		isAnchor: boolean;
+		tokens: Token[];
 		user: {
 			backgroundColor: string;
 			foregroundColor: string
@@ -48,6 +50,7 @@ export default class SSContext {
 			isAA: boolean;
 			isMaster: boolean;
 			isAnchor: boolean;
+			tokens: Token[];
 			user: {
 				backgroundColor: string;
 				foregroundColor: string

@@ -24,11 +24,11 @@ export default
 		})[],
 		series: ISeries[]
 	):
-	Promise<(
+	(
 		T & {
 			isMaster: boolean
 		}
-	)[]> => new Promise((resolve, reject) => {
+	)[] => {
 
 	// シリーズに登場するキャラクター
 	const allchars = world.getAllSeriesCharacters(series);
@@ -75,7 +75,7 @@ export default
 	});
 
 	// スキャン
-	const returns = posts.map(post => {
+	return posts.map(post => {
 		const isMaster = (
 			masters
 			.filter(x => x.id === post.user.id)
@@ -86,8 +86,6 @@ export default
 			isMaster
 		});
 	});
-
-	resolve(returns);
 
 	// 与えられたテキストが「シリーズのキャラが登場するSS形式の」文章であるかどうかを判定します。
 	function isSerifs(text: string): boolean {
@@ -110,4 +108,4 @@ export default
 		// 登場したキャラが5人以上(同じキャラでも可)の場合
 		return chars.length >= 5;
 	}
-});
+}
