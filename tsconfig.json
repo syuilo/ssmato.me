@@ -45,6 +45,7 @@
 		"./src/core/analyzer/character-identity.ts",
 		"./src/core/analyzer/check-cross.ts",
 		"./src/core/analyzer/detect-series.ts",
+		"./src/core/analyzer/extract-anchors.ts",
 		"./src/core/analyzer/extract-character-names-in-text.ts",
 		"./src/core/analyzer/extract-character-names.ts",
 		"./src/core/analyzer/extract-characters.ts",

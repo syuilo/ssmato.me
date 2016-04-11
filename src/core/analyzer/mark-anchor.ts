@@ -2,6 +2,7 @@ const assign = require('assign-deep');
 
 import { ISS, IPost } from './interfaces';
 import { Token, IAnchorToken } from './token-types';
+import extractAnchors from './extract-anchors';
 
 /**
  * 投稿の被安価投稿をマークします
@@ -20,20 +21,38 @@ export default
 	})[] => {
 
 	// 本文内の安価リスト
-	const anchors: number[] = [];
+	const anchors: string[] = [];
 
+	// 本文だけ
 	posts.filter(p => p.isMaster).forEach(p => {
+		// 名前が安価している場合もある
+		const nameMatch = extractAnchors(p.user.name);
+		if (nameMatch !== null) {
+			nameMatch.forEach(a => anchors.push(a.substr(2)));
+		}
+
+		// 本文中の安価
 		p.tokens.filter(t => t.type === 'anchor').forEach((a: IAnchorToken) => {
-			const targets = analyzeAnchor(a.target);
-			targets.forEach(anchors.push);
+			anchors.push(a.target);
 		});
 	});
 
-	const titileMatch = ss.title.match(/(>>|＞＞)(\d+)/g);
-
+	// SSのタイトル自体が安価している場合もある
+	const titileMatch = extractAnchors(ss.title);
 	if (titileMatch !== null) {
 		titileMatch.forEach(a => anchors.push(a.substr(2)));
 	}
+
+	const anchorTargets: number[] = [];
+
+	anchors.forEach(anchor => {
+		const targets = parseAnchor(anchor);
+		if (targets !== null) {
+			targets.forEach(target => {
+				anchorTargets.push(target);
+			});
+		}
+	});
 
 	const marked = <(T & {
 		isAnchor: boolean;
@@ -41,7 +60,7 @@ export default
 		let isAnchor = false;
 
 		// 本文から安価されている投稿
-		if (masterAnchors.indexOf(post.number.toString()) !== -1) {
+		if (anchorTargets.indexOf(post.number) !== -1) {
 			isAnchor = true;
 		}
 
@@ -82,17 +101,15 @@ export default
 		}
 
 		// 安価先がさらに安価してる場合があるため
-		const anchors = text.match(/(>>|＞＞)(\d+)/g);
+		const anchors = getAnchorTargets(text);
 
 		if (anchors === null) {
 			return;
 		}
 
 		anchors.forEach(anchor => {
-			anchor = anchor.substr(2);
-
 			marked
-			.filter(x => x.number.toString() === anchor)
+			.filter(x => x.number === anchor)
 			.forEach(x => {
 				x.isAnchor = true;
 			});
@@ -102,7 +119,31 @@ export default
 	return marked;
 }
 
-function analyzeAnchor(anchor: string): number[] {
+function getAnchorTargets(text: string): number[] {
+	const anchors: string[] = [];
+
+	const anchorsMatch = extractAnchors(text);
+	if (anchorsMatch === null) {
+		return null;
+	}
+
+	anchorsMatch.forEach(a => anchors.push(a.substr(2)));
+
+	const anchorTargets: number[] = [];
+
+	anchors.forEach(anchor => {
+		const targets = parseAnchor(anchor);
+		if (targets !== null) {
+			targets.forEach(target => {
+				anchorTargets.push(target);
+			});
+		}
+	});
+
+	return anchorTargets;
+}
+
+function parseAnchor(anchor: string): number[] {
 	if (/^\d+$/.test(anchor)) {
 		return [parseInt(anchor, 10)];
 	} else {

@@ -3,6 +3,7 @@ const assign = require('assign-deep');
 import { IPost, ISeries, ICharacter } from './interfaces';
 import { Token, IToken, ITextToken, IAnchorToken, ICharacterToken } from './token-types';
 import extractNamePart from './extract-name-part-in-serif';
+import extractAnchors from './extract-anchors';
 
 import World from './world';
 
@@ -38,7 +39,7 @@ export default
 	const parsers = {
 		// === 安価 ===
 		anchor: (text: string): IToken[] => {
-			const anchorRegExpMatch = text.match(/^(>>|＞＞)([\d-]+)/);
+			const anchorRegExpMatch = extractAnchors(text);
 
 			if (anchorRegExpMatch !== null) {
 				const anchor = anchorRegExpMatch[0];

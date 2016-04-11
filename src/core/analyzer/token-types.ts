@@ -1,6 +1,6 @@
 import { ICharacter } from './interfaces';
 
-export type Token = ITextToken | IAnchorToken | ICharacterToken;
+export type Token = ITextToken | IAnchorToken | ICharacterNameToken;
 
 export interface IToken {
 	type: string;
@@ -16,7 +16,7 @@ export interface IAnchorToken extends IToken {
 	target: string;
 }
 
-export interface ICharacterToken extends IToken {
+export interface ICharacterNameToken extends IToken {
 	type: 'character-name';
 	character: ICharacter;
 }

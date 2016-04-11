@@ -1,8 +1,7 @@
 import { ISS, ISeries, ICharacter } from './interfaces';
 
 import World from './world';
-import askCharacter from './ask-character';
-import extractCharacterNames from './extract-character-names';
+import { Token, ICharacterNameToken } from './token-types';
 
 /**
  * 対象のSSに登場するキャラクターとその割合を抽出します
@@ -16,24 +15,22 @@ export default (
 		series: ISeries[];
 		posts: {
 			isMaster: boolean;
+			tokens: Token[];
 		}[]
 	}
 ): (ICharacter & {
 	onStageRatio: number;
 })[] => {
+	const foundCharacters: ICharacter[] = [];
 
-	// シリーズに登場するキャラクター
-	const allchars = world.getAllSeriesCharacters(ss.series);
+	ss.posts.forEach((p: any) => {
+		p.tokens
+		.filter((t: ICharacterNameToken) => t.type === 'character-name')
+		.forEach((t: ICharacterNameToken) => {
+			foundCharacters.push(t.character);
+		});
+	});
 
-	const foundCharacters =
-		// 登場するすべてのキャラクターの名前と思われる文字列を取得
-		extractCharacterNames(ss)
-		// その名前(と思われる文字列)で呼ばれているシリーズ内のキャラクターを取得
-		.map(name => allchars.filter(char => askCharacter(char, name)))
-		// 上の過程で発生した空配列(キャラクターが見つからなかった場合 filter に合致せず[]が返るため)を除去
-		.filter(char => char.length === 1)
-		// 上の上でfilter使ったせいでキャラクターが配列に入った状態なので取り出す
-		.map(char => char[0]);
 
 	// すべてのキャラの登場回数
 	const allCount = foundCharacters.length;

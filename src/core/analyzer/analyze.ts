@@ -53,7 +53,7 @@ export default (
 	series: ISeries[],
 	characters: ICharacter[],
 	ss: ISS
-): Promise<SSContext> => {
+): SSContext => {
 
 	debug('開始しています...');
 
