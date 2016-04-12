@@ -1,16 +1,14 @@
 extend ../../../ui
-include ../../../common/ss-preview
 
 block title
-	= character.name + ' - SSまとめ'
+	| SS検索
+
+append meta
+	meta(name='description', content='お気に入りのSSを見つけよう')
 
 block content
-	article
-		header
-			h1
-				b= q
-				| の検索結果
-		div.body
-			div.sss
-				each ss in sss
-					+ss(ss)
+	img(src= config.urls.resources + '/search.png', alt='SSの検索')
+	form#search(action= config.urls.search, method='get', role='search')
+		div#textarea
+			input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required)
+			i.fa.fa-search

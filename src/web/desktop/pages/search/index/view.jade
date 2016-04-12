@@ -1,20 +1,15 @@
-extend ../../../main
-include ../../../common/ss-preview
+extend ../../../ui
 
 block title
-	= q + ' - SSまとめ'
+	| SS検索
 
 block meta
-	- var summary = '「' + q + '」の検索結果';
-	meta(name='description', content= summary)
+	meta(name='description', content='お気に入りのSSを見つけよう')
 
-block content
-	article
-		header
-			h1
-				b= q
-				| の検索結果
-		div.main
-			div.sss
-				each ss in sss
-					+ss(ss)
+block contents
+	main
+		img(src= config.urls.resources + '/search.png', alt='SSの検索')
+		form#search(action= config.urls.search, method='get', role='search')
+			div#textarea
+				input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required)
+				i.fa.fa-search

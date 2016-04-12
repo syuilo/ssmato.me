@@ -46,36 +46,32 @@ export default (app: express.Express) => {
 		}
 	});
 
-	app.get(`${iDomain}/`, (req, res) => {
-		call(req, res, 'i/index');
-	});
+	app.get(`${iDomain}/`, (req, res) =>
+		call(req, res, 'i/index'));
 
 	//////////////////////////////////////////////////
 	// SEARCH
 
 	const searchDomain = `/subdomain/${config.public.domains.search}`;
 
-	app.get(`${searchDomain}/`, (req, res) => {
-		call(req, res, 'search/index');
-	});
+	app.get(`${searchDomain}/`, (req, res) =>
+		call(req, res, 'search/index'));
 
 	//////////////////////////////////////////////////
 	// SERIES
 
 	const seriesDomain = `/subdomain/${config.public.domains.series}`;
 
-	app.get(`${seriesDomain}/:seriesId`, (req, res) => {
-		call(req, res, 'series/index');
-	});
+	app.get(`${seriesDomain}/:seriesId`, (req, res) =>
+		call(req, res, 'series/index'));
 
 	//////////////////////////////////////////////////
 	// CHARACTERS
 
 	const charactersDomain = `/subdomain/${config.public.domains.characters}`;
 
-	app.get(`${charactersDomain}/:characterId`, (req, res) => {
-		call(req, res, 'character/index');
-	});
+	app.get(`${charactersDomain}/:characterId`, (req, res) =>
+		call(req, res, 'character/index'));
 
 	//////////////////////////////////////////////////
 	// SIGN UP
@@ -136,25 +132,20 @@ export default (app: express.Express) => {
 		}
 	});
 
-	app.get(`${adminDomain}/`, (req, res) => {
-		call(req, res, 'admin/index');
-	});
+	app.get(`${adminDomain}/`, (req, res) =>
+		call(req, res, 'admin/index'));
 
-	app.get(`${adminDomain}/character/add`, (req, res) => {
-		call(req, res, 'admin/character/add');
-	});
+	app.get(`${adminDomain}/character/add`, (req, res) =>
+		call(req, res, 'admin/character/add'));
 
-	app.get(`${adminDomain}/series/add`, (req, res) => {
-		call(req, res, 'admin/series/add');
-	});
+	app.get(`${adminDomain}/series/add`, (req, res) =>
+		call(req, res, 'admin/series/add'));
 
-	app.get(`${adminDomain}/sss/get`, (req, res) => {
-		call(req, res, 'admin/sss/get');
-	});
+	app.get(`${adminDomain}/sss/get`, (req, res) =>
+		call(req, res, 'admin/sss/get'));
 
-	app.get(`${adminDomain}/sss/ss/:ssId`, (req, res) => {
-		call(req, res, 'admin/sss/ss/index');
-	});
+	app.get(`${adminDomain}/sss/ss/:ssId`, (req, res) =>
+		call(req, res, 'admin/sss/ss/index'));
 
 	//////////////////////////////////////////////////
 	// API
@@ -261,13 +252,21 @@ function call(
 	path: string,
 	options?: any
 ): void {
-	res.locals.display = (data?: any) => {
-		const view = `${__dirname}/web/${res.locals.ua}/pages/${path}/view.jade`;
-		data.stylePath = `${config.public.urls.resources}/${res.locals.ua}/pages/${path}/style.css`;
-		data.scriptPath = `${config.public.urls.resources}/${res.locals.ua}/pages/${path}/script.js`;
+	res.locals.display = (data?: any, view?: string) => {
+		if (data === undefined) {
+			data = {};
+		}
+
+		if (view === undefined) {
+			view = path;
+		}
+
+		const viewTemplate = `${__dirname}/web/${res.locals.ua}/pages/${view}/view.jade`;
+		data.stylePath = `${config.public.urls.resources}/${res.locals.ua}/pages/${view}/style.css`;
+		data.scriptPath = `${config.public.urls.resources}/${res.locals.ua}/pages/${view}/script.js`;
 		delete res.locals.display;
 
-		res.render(view, data);
+		res.render(viewTemplate, data);
 	};
 
 	let controller: any;

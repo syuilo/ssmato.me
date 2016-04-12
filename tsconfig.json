@@ -115,7 +115,6 @@
 		"./src/web/desktop/pages/i/index/controller.ts",
 		"./src/web/desktop/pages/index/controller.ts",
 		"./src/web/desktop/pages/search/index/controller.ts",
-		"./src/web/desktop/pages/search/result/controller.ts",
 		"./src/web/desktop/pages/series/index/controller.ts",
 		"./src/web/desktop/pages/signin/controller.ts",
 		"./src/web/desktop/pages/signup/controller.ts",

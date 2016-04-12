@@ -1,0 +1,24 @@
+extend ../../../../ui
+include ../../../../common/ss-preview
+
+block title
+	= q + ' - SS検索'
+
+block meta
+	- var summary = '「' + q + '」の検索結果';
+	meta(name='description', content= summary)
+
+block contents
+	form#search(action= config.urls.search, method='get', role='search')
+		div#textarea
+			input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required, value=q)
+			i.fa.fa-search
+	main
+		article#result
+			header
+				h1
+					b= q
+					| の検索結果
+			div.sss
+				each ss in sss
+					+ss(ss)

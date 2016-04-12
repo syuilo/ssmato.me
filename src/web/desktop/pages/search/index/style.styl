@@ -1,20 +1,58 @@
-@import '../../../main'
-@import '../../../common/ss-preview'
+@import '../../../ui'
+
+html
+	background: #F7F7F7;
 
 main
-	> article
-		> header
-			h1
+	display: block;
+	padding: 32px 16px 0 16px;
+
+	> img
+		display: block;
+		pointer-events: none;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 300px;
+
+	#search
+		display: block;
+
+		#textarea
+			display: block;
+			position: relative;
+			width: 100%;
+			max-width: 634px;
+			margin: 0 auto;
+
+			> i
 				display: block;
-				margin: 16px;
-				font-size: 1.5em;
-				font-weight: normal;
-				color: #66757f;
+				pointer-events: none;
+				position: absolute;
+				top: 1px;
+				left: 1px;
+				width: 46px;
+				line-height: 46px;
 				text-align: center;
+				color: #888;
 
-		> .main
-			padding: 0 16px;
+			#input
+				display: block;
+				width: 100%;
+				margin: 0;
+				padding: 0 12px 0 40px;
+				line-height: 46px;
+				font-size: 1em;
+				color: #555;
+				font-weight: bold;
+				background: #fff;
+				border: 1px solid #d0d0d0;
+				border-radius: 2px;
+				outline: none;
+				box-shadow: 0 0 0 114514px #fff inset;
 
-			> .sss
-				> .ss
-					ss()
+				&:hover
+					border-color: #c9c9c9;
+
+				&:focus
+					color: #333;
+					border-color: #c0c0c0;
