@@ -1,11 +1,12 @@
 const assign = require('assign-deep');
 
-import { IPost, ISeries, ICharacter } from './interfaces';
+import { IPost, ICharacter } from './interfaces';
 import { Token, IToken, ITextToken, IAnchorToken, ICharacterNameToken } from './token-types';
+import CharacterIdentity from './character-identity';
+import identity from './identity';
+import match from './ask-character';
 import extractNamePart from './extract-name-part-in-serif';
 import extractAnchors from './extract-anchors';
-
-import World from './world';
 
 /**
  * キャラ名を複数記述するときの区切り文字の定義
@@ -14,8 +15,12 @@ const separators =
 	['・', '、', '&', '＆', ' '];
 
 export default class Tokenizer {
-	public series: ISeries[];
+	public characters: ICharacter[];
 	private charMemos: any = {};
+
+	constructor(characters: ICharacter[]) {
+		this.characters = characters;
+	}
 
 	/**
 	 * トークン列を取得します
@@ -38,7 +43,7 @@ export default class Tokenizer {
 				}
 			}
 
-			if (this.series !== null && this.series.length > 0 && analyzers.indexOf('character-name') !== -1) {
+			if (analyzers.indexOf('character-name') !== -1) {
 				const serifNameTokens = this.inspectSerif(buffer);
 				if (serifNameTokens !== null) {
 					serifNameTokens.forEach(pushToken);
@@ -58,6 +63,21 @@ export default class Tokenizer {
 		return tokens;
 	}
 
+	public tokenizePosts
+	<T extends IPost & { isMaster: boolean; }>
+	(
+		posts: T[]
+	): (T & {
+		tokens: Token[]
+	})[] {
+		return posts.map((post, i) => {
+			const analyzers = post.isMaster ? ['anchor', 'character-name'] : ['anchor'];
+			return assign(post, {
+				tokens: this.tokenize(post.text, analyzers)
+			});
+		});
+	}
+
 	private inspectAnchor(text: string): IToken[] {
 		const anchorRegExpMatch = extractAnchors(text);
 
@@ -73,6 +93,10 @@ export default class Tokenizer {
 	}
 
 	private inspectSerif(text: string): IToken[] {
+		if (this.characters === null || this.characters.length === 0) {
+			return null;
+		}
+
 		const part = extractNamePart(text);
 
 		if (part === null) {
@@ -85,7 +109,7 @@ export default class Tokenizer {
 			return cachedToken;
 		}
 
-		const matchChars = seriesChars
+		const matchChars = this.characters
 			.filter(c => match(c, part));
 
 		// キャラが見つかったら
@@ -119,7 +143,7 @@ export default class Tokenizer {
 
 			// 区切った各キャラ名に対し合致するキャラを取得
 			names.forEach(n => {
-				const matchChars = seriesChars
+				const matchChars = this.characters
 					.map(c => identity(c, n))
 					.filter(id => id !== null);
 
@@ -193,7 +217,7 @@ export default class Tokenizer {
 			for (let j = 1; j < tmpname.length + 1; j++) {
 				const part = tmpname.substring(0, j);
 
-				const matchedChars = seriesChars
+				const matchedChars = this.characters
 					.filter(c => match(c, part));
 
 				// キャラが１人見つかったら
@@ -244,71 +268,6 @@ export default class Tokenizer {
 	}
 }
 
-/**
- *
- * @param world World
- * @param ss SS
- * @return
- */
-export default
-	<T extends IPost & {
-		isMaster: boolean;
-	}>
-	(
-		world: World,
-		posts: T[],
-		series: ISeries[]
-	): (T & {
-		tokens: Token[]
-	})[] => {
-
-	const charMemos: any = {};
-
-	// シリーズに登場するキャラクター
-	const seriesChars = world.getAllSeriesCharacters(series);
-
-
-
-	return posts.map((post, i) => {
-		const tokens: IToken[] = [];
-		let buffer = post.text;
-
-		if (buffer === '') {
-			return assign(post, {
-				tokens: [createTextToken('')]
-			});
-		}
-
-		while (buffer !== '') {
-			const anchorTokens = parsers.anchor(buffer);
-			if (anchorTokens !== null) {
-				anchorTokens.forEach(pushToken);
-				continue;
-			}
-
-			if (series !== null && series.length > 0 && post.isMaster) {
-				const serifNameTokens = parsers.serif(buffer);
-				if (serifNameTokens !== null) {
-					serifNameTokens.forEach(pushToken);
-					continue;
-				}
-			}
-
-			const token = createTextToken(buffer[0]);
-			pushToken(token);
-
-			function pushToken(token: IToken): void {
-				tokens.push(token);
-				buffer = buffer.substring(token.text.length);
-			}
-		}
-
-		return assign(post, {
-			tokens
-		});
-	});
-}
-
 function createTextToken(text: string): ITextToken {
 	return {
 		type: 'text',
@@ -330,176 +289,4 @@ function createCharacterNameToken(text: string, character: ICharacter): ICharact
 		text: text,
 		character: character
 	};
-}
-
-/**
- * 対象のキャラクターがある名前で呼ばれているか否かを取得します。
- * @param character 対象のキャラクター
- * @param name 名前
- * @return bool
- */
-function match(character: ICharacter, name: string): boolean {
-	return identity(character, name) !== null;
-}
-
-/**
- * 対象のキャラクターと名前からアイデンティティを生成します。
- * @param character 対象のキャラクター
- * @param name 名前
- * @return CharacterIdentity
- */
-function identity(character: ICharacter, name: string): CharacterIdentity {
-	// 完全一致
-	if (match(name)) {
-		return instantiation();
-	}
-
-	// 括弧付きアイデンティティ
-	/* e.g.
-	 * 櫻子(幼)
-	 *
-	 * 状態を表す
-	 */
-	const bracketsId = test(/[（\(].+?[）\)]/);
-	if (bracketsId !== null) {
-		return bracketsId;
-	}
-
-	// 数字付きアイデンティティ
-	/* e.g.
-	 * まどか2
-	 *
-	 * 往々にして複数人に分裂したりする
-	 */
-	const numberId = test(/(\d|[０-９])+$/);
-	if (numberId !== null) {
-		return numberId;
-	}
-
-	// 乗算アイデンティティ
-	/* e.g.
-	 * 杏子×100
-	 *
-	 * 往々にして複数人に分裂したりする
-	 */
-	const timesId = test(/[×x]\d+$/);
-	if (timesId !== null) {
-		return timesId;
-	}
-
-	// アルファベット付きアイデンティティ
-	/* e.g.
-	 * 京子B
-	 *
-	 * 往々にして複数人に分裂したりする
-	 */
-	const aluphabetId = test(/[a-zA-Zａ-ｚＡ-Ｚ]+$/);
-	if (aluphabetId !== null) {
-		return aluphabetId;
-	}
-
-	// 諦め
-	return null;
-
-	function test(reg: RegExp): CharacterIdentity {
-		const idMatch = name.match(reg);
-		const id = idMatch !== null ? idMatch[0] : null;
-
-		if (id === null) {
-			return null;
-		}
-
-		if (match(name.replace(reg, ''))) {
-			return instantiation(id);
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * キャラクター名がクエリと合致するか否かを取得します。
-	 * @param query クエリ
-	 * @return bool
-	 */
-	function match(query: string): boolean {
-		return character.name === query ||
-			character.screenName === query ||
-			removeSpaces(character.name) === query ||
-			character.aliases.indexOf(query) !== -1;
-	}
-
-	function instantiation(id?: string): CharacterIdentity {
-		if (id !== undefined) {
-			return new CharacterIdentity(character, name, id);
-		} else {
-			return new CharacterIdentity(character, name);
-		}
-	}
-
-	function removeSpaces(s: string): string {
-		return s.replace(/\s/g, '');
-	}
-}
-
-/**
- * キャラクターのアイデンティティを表します。
- * @class CharacterIdentity
- */
-class CharacterIdentity {
-
-	public character: ICharacter;
-	public name: string;
-	private id: string;
-
-	constructor(character: ICharacter, name: string);
-	constructor(character: ICharacter, name: string, id: string);
-	constructor(character: ICharacter, name: string, id?: string) {
-		this.character = character;
-		this.name = name;
-
-		if (id !== undefined) {
-			this.id = id;
-		} else {
-			this.id = null;
-		}
-	}
-
-	/**
-	 * このキャラクター アイデンティティ インスタンスを表す文字列を取得します。
-	 * @method CharacterIdentity#toString
-	 * @return string
-	 */
-	public toString(): string {
-		if (this.id !== null) {
-			return this.character.id.toString() + this.id;
-		} else {
-			return this.character.id.toString();
-		}
-	}
-
-	/**
-	 * 与えられたアイデンティティの中に自分と同じアイデンティティがあるか取得します。
-	 * @method CharacterIdentity#find
-	 * @param identities アイデンティティの配列
-	 * @return boolean
-	 */
-	public find(identities: CharacterIdentity[]): boolean {
-		for (let i = 0; i < identities.length; i++) {
-			const id = identities[i];
-			if (id.toString() === this.toString()) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * 2つのアイデンティティ インスタンスが等しいか比較します。
-	 * @method CharacterIdentity#equals
-	 * @return boolean
-	 */
-	public equals(charIdentity: CharacterIdentity): boolean {
-		return charIdentity.toString() === this.toString();
-	}
 }

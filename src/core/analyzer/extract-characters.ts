@@ -31,7 +31,6 @@ export default (
 		});
 	});
 
-
 	// すべてのキャラの登場回数
 	const allCount = foundCharacters.length;
 

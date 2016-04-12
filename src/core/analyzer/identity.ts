@@ -10,8 +10,8 @@ import CharacterIdentity from './character-identity';
  */
 export default (character: ICharacter, name: string): CharacterIdentity => {
 	// 完全一致
-	if (inquiry(name)) {
-		return genId();
+	if (match(name)) {
+		return instantiation();
 	}
 
 	// 括弧付きアイデンティティ
@@ -69,8 +69,8 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 			return null;
 		}
 
-		if (inquiry(name.replace(reg, ''))) {
-			return genId(id);
+		if (match(name.replace(reg, ''))) {
+			return instantiation(id);
 		} else {
 			return null;
 		}
@@ -81,14 +81,14 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	 * @param query クエリ
 	 * @return bool
 	 */
-	function inquiry(query: string): boolean {
+	function match(query: string): boolean {
 		return character.name === query ||
 			character.screenName === query ||
-			removeWhiteSpaces(character.name) === query ||
+			removeSpaces(character.name) === query ||
 			character.aliases.indexOf(query) !== -1;
 	}
 
-	function genId(id?: string): CharacterIdentity {
+	function instantiation(id?: string): CharacterIdentity {
 		if (id !== undefined) {
 			return new CharacterIdentity(character, name, id);
 		} else {
@@ -96,7 +96,7 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 		}
 	}
 
-	function removeWhiteSpaces(s: string): string {
+	function removeSpaces(s: string): string {
 		return s.replace(/\s/g, '');
 	}
 }
