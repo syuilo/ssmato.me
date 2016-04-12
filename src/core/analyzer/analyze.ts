@@ -92,7 +92,10 @@ export default (
 	});
 	debug(series !== null ? 'シリーズを同定しました' : 'シリーズは不明でした');
 
-	const tokenizer = new Tokenizer(world.getAllSeriesCharacters(series));
+	const tokenizer = new Tokenizer(
+		series !== null
+			? world.getAllSeriesCharacters(series)
+			: null);
 
 	context.series = series;
 
