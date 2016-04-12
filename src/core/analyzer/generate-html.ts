@@ -38,7 +38,7 @@ export default (ss: SSContext): {
 			return '';
 		}
 
-		let html = post.tokens.map(token => {
+		let html = post.tokens.map((token: any) => {
 			switch (token.type) {
 				case 'text':
 					return escape(token.text).replace(/\n/g, '<br>');

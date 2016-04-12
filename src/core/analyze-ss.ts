@@ -43,7 +43,7 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 			};
 		});
 
-		analyze(_allseries, _allchars, {
+		const context = analyze(_allseries, _allchars, {
 			id: ss.id.toString(),
 			title: ss.title,
 			posts: ss.posts.map(post => {
@@ -56,59 +56,58 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 					}
 				};
 			})
-		}).then(context => {
+		});
 
-			if (context.series !== null) {
-				ss.series = context.series.map(x => x.id);
-			} else {
-				ss.series = [];
-			}
+		if (context.series !== null) {
+			ss.series = context.series.map(x => x.id);
+		} else {
+			ss.series = [];
+		}
 
-			if (context.characters !== null) {
-				ss.characters = context.characters.map(x => {
-					return {
-						id: x.id,
-						onStageRatio: x.onStageRatio
-					};
-				});
-			} else {
-				ss.characters = [];
-			}
-
-			// HTML生成
-			const htmls = genhtml(context);
-
-			ss.htmlInfo = htmls.info;
-			ss.htmlStyle = htmls.style;
-
-			ss.posts.forEach((post, i) => {
-				post.isMaster = context.posts[i].isMaster;
-				post.isAnchor = context.posts[i].isAnchor;
-				post.user.bg = context.posts[i].user.backgroundColor;
-				post.user.fg = context.posts[i].user.foregroundColor;
-				post.html = htmls.postHtmls[i];
-				post.createdAtStr = moment(post.createdAt).format('LL LT');
+		if (context.characters !== null) {
+			ss.characters = context.characters.map(x => {
+				return {
+					id: x.id,
+					onStageRatio: x.onStageRatio
+				};
 			});
+		} else {
+			ss.characters = [];
+		}
 
-			ss.pagesCount = context.posts.filter(post => post.isMaster).length;
+		// HTML生成
+		const htmls = genhtml(context);
 
-			ss.readingTimeMinutes = Math.floor((context.posts
-				.filter(post => post.isMaster)
-				.map(post => post.text.length)
-				.reduce((p, c) => p + c) / 18) / 60);
+		ss.htmlInfo = htmls.info;
+		ss.htmlStyle = htmls.style;
 
-			ss.markModified('posts');
-			ss.markModified('series');
-			ss.markModified('characters');
+		ss.posts.forEach((post, i) => {
+			post.isMaster = context.posts[i].isMaster;
+			post.isAnchor = context.posts[i].isAnchor;
+			post.user.bg = context.posts[i].user.backgroundColor;
+			post.user.fg = context.posts[i].user.foregroundColor;
+			post.html = htmls.postHtmls[i];
+			post.createdAtStr = moment(post.createdAt).format('LL LT');
+		});
 
-			ss.save((err: any, ss: ISSThread) => {
-				if (err !== null) {
-					console.error(err);
-					reject(err);
-				} else {
-					resolve(ss);
-				}
-			});
-		}, reject);
+		ss.pagesCount = context.posts.filter(post => post.isMaster).length;
+
+		ss.readingTimeMinutes = Math.floor((context.posts
+			.filter(post => post.isMaster)
+			.map(post => post.text.length)
+			.reduce((p, c) => p + c) / 18) / 60);
+
+		ss.markModified('posts');
+		ss.markModified('series');
+		ss.markModified('characters');
+
+		ss.save((err: any, ss: ISSThread) => {
+			if (err !== null) {
+				console.error(err);
+				reject(err);
+			} else {
+				resolve(ss);
+			}
+		});
 	});
 });
