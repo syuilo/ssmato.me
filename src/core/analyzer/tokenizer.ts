@@ -27,7 +27,11 @@ export default class Tokenizer {
 	 * @method Tokenizer#tokenize
 	 * @return Token[]
 	 */
-	public tokenize(buffer: string, analyzers: string[] = ['anchor', 'character-name']): Token[] {
+	public tokenize(buffer: string, analyzers?: string[]): Token[] {
+		if (analyzers === undefined) {
+			analyzers = ['anchor', 'character-name'];
+		}
+
 		const tokens: Token[] = [];
 
 		if (buffer === '') {
@@ -55,7 +59,12 @@ export default class Tokenizer {
 			pushToken(token);
 
 			function pushToken(token: Token): void {
-				tokens.push(token);
+				if (token.type === 'text' && tokens.length !== 0 && tokens[tokens.length - 1].type === 'text') {
+					tokens[tokens.length - 1].text += token.text;
+				} else {
+					tokens.push(token);
+				}
+
 				buffer = buffer.substring(token.text.length);
 			}
 		}
@@ -142,29 +151,34 @@ export default class Tokenizer {
 			const chars: CharacterIdentity[] = [];
 
 			// 区切った各キャラ名に対し合致するキャラを取得
-			names.forEach(n => {
+			names.some(n => {
 				const matchChars = this.characters
 					.map(c => identity(c, n))
 					.filter(id => id !== null);
 
 				if (matchChars.length !== 0) {
-					const matchChar = matchChars[0];
+					const matchChar = matchChars[0]; // TODO 誰を選択するか
 					chars.push(matchChar);
+					return false;
 				} else {
-					// 順序を保つためにキャラが見つからなかったら null をpush
-					chars.push(null);
+					return true;
 				}
 			});
 
-			if (chars.length === 0) {
+			if (chars.length !== names.length) {
 				return false;
 			}
 
 			// === 結果を出したら ===
 
 			chars.forEach((id, i) => {
-				const nameToken = createCharacterNameToken(id.name, id.character);
-				tokens.push(nameToken);
+				if (id === null) {
+					const textToken = createTextToken(names[i]);
+					tokens.push(textToken);
+				} else {
+					const nameToken = createCharacterNameToken(id.name, id.character);
+					tokens.push(nameToken);
+				}
 
 				// 末尾の要素以外はセパレータを挿入
 				if (i + 1 < chars.length) {

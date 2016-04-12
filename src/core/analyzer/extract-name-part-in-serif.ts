@@ -22,14 +22,13 @@ const bracketsRegExp =
  * @return キャラクター名部分
  */
 export default (serif: string): string => {
-	serif = serif.trim();
-
 	if (serif === '') {
 		return null;
 	}
 
 	const serifRegExpMatch =
-		serif.match(new RegExp(`^((.+?)([（\(].+?[）\)])?)(${bracketsRegExp}).+`));
+		serif.match(new RegExp(
+			`^(([^${bracketsRegExp}|\n]+?)([（\(][^${bracketsRegExp}|\n]+?[）\)])?)(${bracketsRegExp}).+`));
 
 	if (serifRegExpMatch !== null) {
 		return serifRegExpMatch[1];
