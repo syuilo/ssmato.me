@@ -51,7 +51,7 @@
     "assign-deep": "0.4.5",
     "bcrypt": "0.8.5",
     "body-parser": "1.15.0",
-    "cheerio-httpcli": "0.6.7",
+    "cheerio-httpcli": "0.6.8",
     "compression": "1.6.1",
     "connect-mongo": "1.1.0",
     "cookie-parser": "1.4.1",
