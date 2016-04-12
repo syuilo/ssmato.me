@@ -1,13 +1,18 @@
 import { SS } from '../../db/models';
 import client from '../../db/es';
 
-export default (q: string) => {
+export default (q: string, from?: number) => {
+	if (from === undefined) {
+		from = 0;
+	}
+
 	return new Promise((resolve, reject) => {
 		client.search({
 			index: 'ss',
 			body: {
 				fields: [],
 				size: 10,
+				from: from,
 				query: {
 					simple_query_string: {
 						fields: ['title', 'body'],

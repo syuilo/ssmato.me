@@ -22,3 +22,6 @@ block content
 			div.sss
 				each ss in sss
 					+ss(ss)
+			nav
+				a(href= '/?q=' + q + '&from=' + (from + 10))
+					| 次
