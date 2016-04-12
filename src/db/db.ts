@@ -2,6 +2,7 @@
 // CORE DB
 //////////////////////////////////////////////////
 
+import * as cluster from 'cluster';
 import * as mongoose from 'mongoose';
 import config from '../config';
 
@@ -12,7 +13,7 @@ const db = mongoose.createConnection(
 	config.mongo.uri, config.mongo.options);
 
 db.once('open', () => {
-	console.log('Connected to MongoDB');
+	console.log(`[${cluster.worker.id}] Connected to MongoDB`);
 });
 
 db.on('error', (err: any) => {

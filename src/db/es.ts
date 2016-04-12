@@ -2,6 +2,7 @@
 // SEARCH DB
 //////////////////////////////////////////////////
 
+import * as cluster from 'cluster';
 const elasticsearch = require('elasticsearch');
 import config from '../config';
 
@@ -21,7 +22,7 @@ client.ping({
 	if (error) {
 		console.error('elasticsearch cluster is down!');
 	} else {
-		console.log('All is well');
+		console.log(`[${cluster.worker.id}] Connected to Elasticsearch`);
 	}
 });
 
