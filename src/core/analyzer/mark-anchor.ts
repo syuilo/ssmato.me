@@ -69,7 +69,7 @@ export default
 		});
 	});
 
-	marked.forEach(post => {
+	marked.filter(p => p.isAnchor).forEach(post => {
 		const text = post.text;
 
 		if (text === '') {

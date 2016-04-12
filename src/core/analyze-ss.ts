@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import client from '../db/es';
 
 import { Series, Character } from '../db/models';
 import { ISSThread, ISeries, ICharacter } from '../db/interfaces';
@@ -104,10 +105,28 @@ export default (ss: ISSThread): Promise<ISSThread> => new Promise((resolve, reje
 		ss.save((err: any, ss: ISSThread) => {
 			if (err !== null) {
 				console.error(err);
-				reject(err);
-			} else {
-				resolve(ss);
+				return reject(err);
 			}
+
+			resolve(ss);
+
+			client.index({
+				index: 'ss',
+				type: 'ss',
+				id: ss._id.toString(),
+				body: {
+					title: ss.title,
+					body: ss.posts.filter(p => p.isMaster).map(p => p.text).join('\n\n'),
+					series_ids: ss.series,
+					character_ids: ss.characters !== null && ss.characters.length !== 0 ? ss.characters.map(c => c.id) : null,
+				}
+			}, (error: any, response: any) => {
+				if (error) {
+					console.error(error);
+				} else {
+					console.log(response);
+				}
+			});
 		});
 	});
 });

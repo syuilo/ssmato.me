@@ -6,7 +6,6 @@ import CharacterIdentity from './character-identity';
 import identity from './identity';
 import match from './ask-character';
 import extractNamePart from './extract-name-part-in-serif';
-import extractAnchors from './extract-anchors';
 
 /**
  * キャラ名を複数記述するときの区切り文字の定義
@@ -39,7 +38,7 @@ export default class Tokenizer {
 		}
 
 		while (buffer !== '') {
-			if (analyzers.indexOf('anchors') !== -1) {
+			if (analyzers.indexOf('anchor') !== -1) {
 				const anchorTokens = this.inspectAnchor(buffer);
 				if (anchorTokens !== null) {
 					anchorTokens.forEach(pushToken);
@@ -88,11 +87,11 @@ export default class Tokenizer {
 	}
 
 	private inspectAnchor(text: string): IToken[] {
-		const anchorRegExpMatch = extractAnchors(text);
+		const anchorRegExpMatch = text.match(/^(>>|＞＞)([\d-]+)/);
 
 		if (anchorRegExpMatch !== null) {
 			const anchor = anchorRegExpMatch[0];
-			const anchorTarget = anchorRegExpMatch[1];
+			const anchorTarget = anchorRegExpMatch[2];
 
 			const token = createAnchorToken(anchor, anchorTarget);
 			return [token];
