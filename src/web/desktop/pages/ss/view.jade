@@ -27,6 +27,10 @@ block assets
 		{lang: 'ja'}
 
 block content
+	noscript
+		p
+			i.fa.fa-exclamation-triangle
+			| JavaScriptが無効になっているか、利用できない環境のようです。SSまとめのご利用にはJavaScriptが有効になっている必要があります。
 	article
 		div.ss(data-id= ss._id.toString(), data-is-favorited='false')
 			header
