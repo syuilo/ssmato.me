@@ -1,6 +1,7 @@
 import { ISS, ISeries, ICharacter } from './interfaces';
 
 import World from './world';
+import Tokenizer from './tokenizer';
 import { Token, ICharacterNameToken } from './token-types';
 
 /**
@@ -11,6 +12,7 @@ import { Token, ICharacterNameToken } from './token-types';
  */
 export default (
 	world: World,
+	tokenizer: Tokenizer,
 	ss: ISS & {
 		series: ISeries[];
 		posts: {
@@ -23,12 +25,20 @@ export default (
 })[] => {
 	const foundCharacters: ICharacter[] = [];
 
+	// 本文中
 	ss.posts.forEach((p: any) => {
 		p.tokens
 		.filter((t: ICharacterNameToken) => t.type === 'character-name')
 		.forEach((t: ICharacterNameToken) => {
 			foundCharacters.push(t.character);
 		});
+	});
+
+	// SSタイトル
+	(tokenizer.tokenize(ss.title, ['character-name']) || [])
+	.filter((t: ICharacterNameToken) => t.type === 'character-name')
+	.forEach((t: ICharacterNameToken) => {
+		foundCharacters.push(t.character);
 	});
 
 	// すべてのキャラの登場回数

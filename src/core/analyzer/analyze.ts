@@ -35,7 +35,7 @@ import modifyTrip from './modify-trip';
 import paintId from './paint-id';
 import modifyIsAA from './modify-is-aa';
 import weakMarkMaster from './weak-mark-master';
-import tokenize from './tokenizer';
+import Tokenizer from './tokenizer';
 import strongMarkMaster from './strong-mark-master';
 import markAnchor from './mark-anchor';
 import detectSeries from './detect-series';
@@ -50,14 +50,14 @@ const debug = _debug('sssa');
  * @return SSContext
  */
 export default (
-	series: ISeries[],
-	characters: ICharacter[],
+	allseries: ISeries[],
+	allcharacters: ICharacter[],
 	ss: ISS
 ): SSContext => {
 
 	debug('開始しています...');
 
-	const world = new World(series, characters);
+	const world = new World(allseries, allcharacters);
 	debug('ワールドを初期化しました');
 
 	const context = new SSContext(ss.id);
@@ -92,11 +92,13 @@ export default (
 	});
 	debug(series !== null ? 'シリーズを同定しました' : 'シリーズは不明でした');
 
+	const tokenizer = new Tokenizer(world.getAllSeriesCharacters(series));
+
 	context.series = series;
 
 	// シリーズが判らなかったら
 	if (series === null) {
-		const posts5 = tokenize(world, posts4, null);
+		const posts5 = tokenizer.tokenizePosts(posts4);
 		debug('構文解析をしました');
 
 		const posts6 = markAnchor(ss, posts5);
@@ -112,7 +114,7 @@ export default (
 	const posts5 = strongMarkMaster(world, posts4, series);
 	debug('強いマークをしました');
 
-	const posts6 = tokenize(world, posts5, series);
+	const posts6 = tokenizer.tokenizePosts(posts5);
 	debug('構文解析をしました');
 
 	const posts7 = markAnchor(ss, posts6);
@@ -121,17 +123,16 @@ export default (
 	context.posts = posts7;
 
 	// 登場キャラクター抽出
-	extractCharacters(world, {
+	const characters = extractCharacters(world, tokenizer, {
 		id: ss.id,
 		title: ss.title,
 		series: series,
-		posts: posts4
-	}).then(characters => {
-		debug('キャラクターの統計を抽出しました');
+		posts: posts7
+	});
+	debug('キャラクターの統計を抽出しました');
 
-		context.characters = characters;
+	context.characters = characters;
 
-		debug('完了');
-		resolve(context);
-	}, reject);
+	debug('完了');
+	return context;
 }
