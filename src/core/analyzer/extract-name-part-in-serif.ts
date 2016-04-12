@@ -16,6 +16,9 @@ const bracketsRegExp =
 	.map(b => `\\${b}`)
 	.join('|');
 
+const serifRegExp =
+	`^(([^${bracketsRegExp}|\n]+?)([（\(][^${bracketsRegExp}|\n]+?[）\)])?)(${bracketsRegExp}).+`;
+
 /**
  * セリフ行の中のキャラクター名部分を抽出します
  * @param serif セリフ
@@ -27,8 +30,7 @@ export default (serif: string): string => {
 	}
 
 	const serifRegExpMatch =
-		serif.match(new RegExp(
-			`^(([^${bracketsRegExp}|\n]+?)([（\(][^${bracketsRegExp}|\n]+?[）\)])?)(${bracketsRegExp}).+`));
+		serif.match(new RegExp(serifRegExp));
 
 	if (serifRegExpMatch !== null) {
 		return serifRegExpMatch[1];
