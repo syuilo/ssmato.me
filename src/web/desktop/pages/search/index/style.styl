@@ -1,11 +1,19 @@
 @import '../../../../common'
 
 html
-	background: #fff;
+	background: #ffeee6;
+
+html, body
+	height: 100%;
 
 main
 	display: block;
-	padding: 64px 16px 0 16px;
+	box-sizing: border-box;
+	padding: 64px 16px 32px 16px;
+	min-height: calc(100% - (8px + 128px));
+	background: #fff;
+	background-clip: padding-box;
+	border-top: solid 8px transparent;
 
 	> img
 		display: block;
@@ -114,7 +122,9 @@ main
 
 footer
 	display: block;
-	padding: 32px 0;
+	box-sizing: border-box;
+	padding: 16px;
+	height: 128px;
 	text-align: center;
 
 	small
