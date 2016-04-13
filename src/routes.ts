@@ -22,6 +22,9 @@ export default (app: express.Express) => {
 	app.get('/', (req, res) =>
 		call(req, res, 'index'));
 
+	app.get('/robots.txt', (req, res) =>
+		res.sendStatus(404));
+
 	app.get('/manifest.json', (req, res) =>
 		res.sendFile(path.resolve(`${__dirname}/resources/manifest.json`)));
 
