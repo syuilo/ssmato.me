@@ -1,10 +1,24 @@
 extend ../../../../common
 
 block title
-	| SS検索
+	| SSまとめ検索
 
 block meta
-	meta(name='description', content='お気に入りのSSを見つけよう')
+	- var summary = 'SSまとめ検索で、お気に入りのSSを見つけよう';
+	meta(name='keywords', content='SS, SSまとめ, SS検索')
+	meta(name='description', content= summary)
+	meta(property='og:title', content='SSまとめ検索')
+	meta(property='og:type', content='article')
+	meta(property='og:description', content= summary)
+	meta(property='og:url', content= config.url)
+	meta(property='og:image', content= config.urls.resources + '/logo.png')
+	meta(property='og:site_name', content='SSまとめ')
+	meta(property='twitter:card', content='summary')
+	meta(property='twitter:site', content='@syuilo')
+	meta(property='twitter:title', content='SSまとめ検索')
+	meta(property='twitter:description', content= summary)
+	meta(property='twitter:image', content= config.urls.resources + '/logo.png')
+	meta(property='twitter:url', content= config.url)
 
 block body
 	main
