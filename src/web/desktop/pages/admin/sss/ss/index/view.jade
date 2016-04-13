@@ -4,7 +4,7 @@ block title
 	| SSの編集 - SSまとめ
 
 block assets
-	script!= 'var SSID="' + ss.id + '";Object.freeze(SSID);'
+	script!= 'var SSID="' + ss._id.toString() + '";Object.freeze(SSID);'
 
 block contents
 	main(role='main')
