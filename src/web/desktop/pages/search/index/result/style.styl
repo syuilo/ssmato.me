@@ -1,60 +1,83 @@
-@import '../../../../ui'
+@import '../../../../../common'
 @import '../../../../common/ss-preview'
 
-#search
+html
+	background: #fff;
+
+body > header
 	display: block;
-	padding: 16px 0;
+	padding: 12px 0;
 	background: #F7F7F7;
 	border-bottom: solid 1px #eee;
 
-	#textarea
+	#search
 		display: block;
-		position: relative;
 		width: 100%;
 		max-width: 1000px;
 		margin: 0 auto;
 
-		> i
+		&:after
+			content: "";
 			display: block;
-			pointer-events: none;
-			position: absolute;
-			top: 1px;
-			left: 1px;
-			width: 46px;
-			line-height: 46px;
-			text-align: center;
-			color: #888;
+			clear: both;
 
-		#input
+		> a
 			display: block;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			appearance: none;
-			user-select: text;
-			-moz-user-select: text;
-			-webkit-user-select: text;
-			-ms-user-select: text;
-			cursor: auto;
-			width: 100%;
-			max-width: 500px;
-			margin: 0;
-			padding: 0 12px 0 40px;
-			line-height: 46px;
-			font-size: 1em;
-			color: #555;
-			font-weight: bold;
-			background: #fff;
-			border: 1px solid #d0d0d0;
-			border-radius: 2px;
-			outline: none;
-			box-shadow: 0 0 0 114514px #fff inset;
+			float: left;
+			margin-right: 12px;
 
-			&:hover
-				border-color: #c9c9c9;
+			> img
+				display: block;
+				height: 42px;
 
-			&:focus
-				color: #333;
-				border-color: #c0c0c0;
+		#textarea
+			display: block;
+			float: left;
+			position: relative;
+			width: 400px;
+
+			> i
+				display: block;
+				pointer-events: none;
+				position: absolute;
+				top: 1px;
+				left: 1px;
+				width: 42px;
+				font-size: 0.9em;
+				line-height: 40px;
+				text-align: center;
+				color: #888;
+
+			#input
+				display: block;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				user-select: text;
+				-moz-user-select: text;
+				-webkit-user-select: text;
+				-ms-user-select: text;
+				cursor: auto;
+				width: 100%;
+				max-width: 500px;
+				margin: 0;
+				padding: 0 12px 0 36px;
+				line-height: 40px;
+				font-size: 0.9em;
+				color: #666;
+				font-weight: bold;
+				background: #fff;
+				border: 1px solid #d0d0d0;
+				border-radius: 2px;
+				outline: none;
+				box-shadow: 0 0 0 114514px #fff inset;
+
+				&:hover
+					border-color: #c9c9c9;
+
+				&:focus
+					color: #444;
+					border-color: #c0c0c0;
 
 #result
 	> header
@@ -68,6 +91,11 @@
 			font-size: 1em;
 			font-weight: normal;
 			color: #66757f;
+
+	> .ad
+		max-width: 1000px;
+		margin: 0 auto;
+		padding: 16px 0 0 0;
 
 	> .sss
 		max-width: 1000px;

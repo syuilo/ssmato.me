@@ -1,4 +1,4 @@
-extend ../../../ui
+extend ../../../../common
 
 block title
 	| SS検索
@@ -6,7 +6,7 @@ block title
 block meta
 	meta(name='description', content='お気に入りのSSを見つけよう')
 
-block contents
+block body
 	main
 		img(src= config.urls.resources + '/search.png', alt='SSの検索')
 		form#search(action= config.urls.search, method='get', role='search')
@@ -26,3 +26,5 @@ block contents
 			<script>
 			(adsbygoogle = window.adsbygoogle || []).push({});
 			</script>
+	footer
+		include ../../../../copyright

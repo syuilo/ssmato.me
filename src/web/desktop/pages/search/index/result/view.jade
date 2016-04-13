@@ -1,4 +1,4 @@
-extend ../../../../ui
+extend ../../../../../common
 include ../../../../common/ss-preview
 
 block title
@@ -8,17 +8,29 @@ block meta
 	- var summary = '「' + q + '」の検索結果';
 	meta(name='description', content= summary)
 
-block contents
-	form#search(action= config.urls.search, method='get', role='search')
-		div#textarea
-			input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required, value=q)
-			i.fa.fa-search
+block body
+	header
+		form#search(action= config.urls.search, method='get', role='search')
+			a(href= config.urls.search): img(src= config.urls.resources + '/search.png', alt='SS検索')
+			div#textarea
+				input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required, value=q)
+				i.fa.fa-search
 	main
 		article#result
 			header
 				h1
 					b= q
 					| の検索結果
+			div.ad.
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- search-result -->
+				<ins class="adsbygoogle"
+				style="display:inline-block;width:728px;height:90px"
+				data-ad-client="ca-pub-3738125028983387"
+				data-ad-slot="9275792551"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
 			div.sss
 				each ss in sss
 					+ss(ss)
