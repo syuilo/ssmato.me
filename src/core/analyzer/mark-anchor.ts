@@ -91,7 +91,11 @@ export default
 			text[0] === '下' ||
 			text[0] === '↓' ||
 			/安価(.*?)[下↓]/.test(text) ||
-			text.indexOf('ksk') > -1
+			text.indexOf('ksk') > -1 ||
+			text.indexOf('支援') > -1 ||
+			text.indexOf('しえ') > -1 ||
+			text.indexOf('④') > -1 ||
+			text.indexOf('シエンタ') > -1
 		) {
 			const _target = marked
 				.filter(x => x.number === post.number + 1);
