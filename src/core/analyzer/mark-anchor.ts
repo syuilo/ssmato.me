@@ -90,7 +90,8 @@ export default
 		} else if ( // 安価下
 			text[0] === '下' ||
 			text[0] === '↓' ||
-			/安価(.*?)[下↓]/.test(text)
+			/安価(.*?)[下↓]/.test(text) ||
+			text.indexOf('ksk') > -1
 		) {
 			const _target = marked
 				.filter(x => x.number === post.number + 1);
