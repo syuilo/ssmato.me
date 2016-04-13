@@ -155,7 +155,7 @@ function parseAnchor(anchor: string): number[] {
 		return null;
 	}
 
-	// TODO: >>10~20 や >>10,20 などに対応
+	// TODO: >>10~20 や >>10,20 や >>+1 などに対応
 /*
 	function range(start: number, stop: number, step: number): number[] {
 		if (arguments.length <= 1) {
