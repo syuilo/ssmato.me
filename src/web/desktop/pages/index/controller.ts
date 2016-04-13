@@ -9,15 +9,23 @@ module.exports = (req: express.Request, res: express.Response): void => {
 		.find({
 			'isDeleted': false
 		})
-		.sort({
-			_id: -1
+		.populate({
+			path: 'series',
+			options: { lean: true }
 		})
-		.limit(16)
-		.populate('series')
-		.populate('characters.id', 'name kana screenName aliases color _id')
+		.populate({
+			path: 'characters.id',
+			select: '_id name kana screenName aliases color',
+			options: { lean: true }
+		})
+		.sort({
+			_id: 1
+		})
+		.limit(10)
+		.lean()
 		.exec((err: any, sss: ISSThread[]) => {
 			res.locals.display({
-				recentSS: sss.map(ss => ss.toObject())
+				recentSS: sss
 			});
 		});
 	});
