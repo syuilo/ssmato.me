@@ -7,7 +7,7 @@ html
 body > header
 	display: block;
 	padding: 12px 16px;
-	background: #F7F7F7;
+	background: #f5f8fa;
 
 	#search
 		display: block;
@@ -66,7 +66,7 @@ body > header
 				color: #666;
 				font-weight: bold;
 				background: #fff;
-				border: 1px solid #d5d5d5;
+				border: 1px solid #dadada;
 				border-radius: 2px;
 				outline: none;
 				box-shadow: 0 0 0 114514px #fff inset;
@@ -91,10 +91,21 @@ body > header
 			font-weight: normal;
 			color: #66757f;
 
+			> small
+				margin-left: 8px;
+				opacity: 0.5;
+				font-size: 0.8em;
+
+				&:before
+					content: '(';
+
+				&:after
+					content: ')';
+
 	> .ad
 		max-width: 1000px;
-		margin: 0 auto;
-		padding: 16px 16px 0 16px;
+		margin: 16px auto;
+		padding: 0 16px;
 
 		> ins
 			display: block !important;
@@ -108,5 +119,55 @@ body > header
 			ss()
 
 	> nav
-		padding: 16px;
+		margin: 16px;
 		text-align: center;
+
+		.more
+			display: inline-block;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			cursor: pointer;
+			margin: 0;
+			padding: 12px 18px;
+			font-size: 1em;
+			line-height: 1em;
+			color: #555;
+			font-weight: bold;
+			text-decoration: none;
+			background: #fbfbfb;
+			border: 1px solid #d0d0d0;
+			border-radius: 3px;
+			outline: none;
+			box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.05);
+			font-family: 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+			transition: all 0.05s ease;
+
+			&:hover
+				background: #fff;
+				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+
+			&:focus
+				border-color: #c0c0c0;
+
+			&:active
+				box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+body > footer
+	display: block;
+	padding: 32px;
+	text-align: center;
+	background: #f5f8fa;
+
+	small
+		color: rgba(0, 0, 0, 0.5);
+
+		a
+			color: inherit;
+
+		*
+			margin: 0 2px;

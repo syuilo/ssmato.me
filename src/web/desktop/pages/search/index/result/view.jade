@@ -8,7 +8,7 @@ block title
 	= q + ' - SS検索'
 
 block meta
-	- var summary = '「' + q + '」の検索結果';
+	- var summary = '「' + q + '」のSS検索結果';
 	meta(name='description', content= summary)
 
 block body
@@ -24,6 +24,9 @@ block body
 				h1
 					b= q
 					| の検索結果
+					small
+						= page
+						| ページ目
 			div.ad.
 				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 				<!-- search-result -->
@@ -38,5 +41,17 @@ block body
 				each ss in sss
 					+ss(ss)
 			nav
-				a(href= '/?q=' + q + '&p=' + (page + 1))
+				a.more(href= '/?q=' + q + '&p=' + (page + 1))
 					| もっと
+			div.ad.
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- search-result -->
+				<ins class="adsbygoogle"
+				style="display:inline-block;width:728px;height:90px"
+				data-ad-client="ca-pub-3738125028983387"
+				data-ad-slot="9275792551"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+	footer
+		include ../../../../../copyright
