@@ -30,8 +30,16 @@ export default (q: string, from?: number) => {
 
 			SS
 			.find({ _id: { $in: ids }})
-			.populate('series')
-			.populate('characters.id', 'name kana screenName aliases color _id')
+			.populate({
+				path: 'series',
+				options: { lean: true }
+			})
+			.populate({
+				path: 'characters.id',
+				select: '_id name kana screenName aliases color',
+				options: { lean: true }
+			})
+			.lean()
 			.exec((err, sss) => {
 				if (err !== null) {
 					reject(err);

@@ -17,7 +17,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 			res.locals.display({
 				q: q,
 				from: from,
-				sss: sss.map(ss => ss.toObject())
+				sss: sss
 			}, 'search/index/result');
 		});
 	} else {
