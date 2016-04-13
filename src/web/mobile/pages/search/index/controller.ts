@@ -6,7 +6,7 @@ import config from '../../../../../config';
 module.exports = (req: express.Request, res: express.Response): void => {
 	if (req.query.hasOwnProperty('q')) {
 		const q: string = req.query.q;
-		const from: number = parseInt(req.query.from, 10) || 0;
+		const page: number = parseInt(req.query.p, 10) || 1;
 		const imfeelinglucky = req.query.hasOwnProperty('imfeelinglucky');
 
 		if (q === '') {
@@ -14,13 +14,13 @@ module.exports = (req: express.Request, res: express.Response): void => {
 			return;
 		}
 
-		search(q, from).then((sss: ISSThread[]) => {
+		search(q, page).then((sss: ISSThread[]) => {
 			if (imfeelinglucky) {
 				res.redirect(config.public.url + '/' + sss[0]._id.toString());
 			} else {
 				res.locals.display({
 					q: q,
-					from: from,
+					page: page,
 					sss: sss
 				}, 'search/index/result');
 			}
