@@ -11,7 +11,7 @@ block contents
 		img(src= config.urls.resources + '/search.png', alt='SSの検索')
 		form#search(action= config.urls.search, method='get', role='search')
 			div#textarea
-				input#input(type='search', name='q', placeholder='キーワードを入力', autofocus, required)
+				input#input(type='search', name='q', placeholder='キーワードを入力', title='検索', autofocus, required)
 				i.fa.fa-search
 			div#buttons
 				button(type='submit') 検索！
