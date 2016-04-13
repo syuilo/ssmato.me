@@ -73,6 +73,10 @@ main
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				appearance: none;
+				user-select: none;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
 				cursor: pointer;
 				margin: 12px 6px;
 				padding: 12px 18px;
@@ -86,6 +90,7 @@ main
 				outline: none;
 				box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5) inset, 0 1px 1px rgba(0, 0, 0, 0.05);
 				font-family: 'Proxima Nova Reg', "FOT-スーラ Pro M", 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', 'Meiryo', 'メイリオ', sans-serif;
+				transition: all 0.05s ease;
 
 				&:hover
 					background: #fff;
@@ -96,3 +101,6 @@ main
 
 				&:active
 					box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+
+	> .ad
+		text-align: center;
