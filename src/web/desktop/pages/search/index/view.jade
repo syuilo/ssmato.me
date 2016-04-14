@@ -21,7 +21,7 @@ block meta
 	meta(property='twitter:url', content= config.url)
 
 block body
-	main(role="main")
+	main
 		img(src= config.urls.resources + '/search.png', alt='SSの検索', role="banner")
 		form#search(action= config.urls.search, method='get', role='search')
 			div#textarea
