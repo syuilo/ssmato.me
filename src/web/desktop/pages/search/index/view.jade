@@ -21,8 +21,8 @@ block meta
 	meta(property='twitter:url', content= config.url)
 
 block body
-	main
-		img(src= config.urls.resources + '/search.png', alt='SSの検索')
+	main(role="main")
+		img(src= config.urls.resources + '/search.png', alt='SSの検索', role="banner")
 		form#search(action= config.urls.search, method='get', role='search')
 			div#textarea
 				input#input(type='search', name='q', placeholder='キーワードを入力', title='検索', autofocus, required)
