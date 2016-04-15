@@ -53,16 +53,16 @@ export default loadConfig();
 
 interface Domains {
 	admin: string;
+	api: string;
+	characters: string;
 	i: string;
 	image: string;
-	api: string;
 	resources: string;
+	search: string;
+	series: string;
 	signup: string;
 	signin: string;
 	signout: string;
-	characters: string;
-	series: string;
-	search: string;
 }
 
 export interface IConfig {
