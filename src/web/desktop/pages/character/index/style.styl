@@ -2,25 +2,65 @@
 @import '../../../common/ss-preview'
 
 #profile
-	> img
+	background: #F5F8FA;
+
+	> .container
 		display: block;
-		width: 256px;
+		width: 100%;
+		max-width: 1024px;
+		padding: 32px;
+		margin: 0 auto;
 
-main
-	> article
-		> header
-			padding: 32px 16px 8px 32px;
+		&:after
+			content: "";
+			display: block;
+			clear: both;
 
-			h1
-				display: block;
-				margin: 0;
-				font-size: 1.3em;
-				font-weight: normal;
-				color: #66757f;
+		> img
+			display: block;
+			float: left;
+			width: 256px;
 
 		> .main
-			padding: 0 16px;
+			box-sizing: border-box;
+			float: left;
+			width: calc(100% - 256px);
+			padding: 0 32px;
 
-			> .sss
-				> .ss
-					ss()
+			> header
+				margin-bottom: 16px;
+
+				> h1
+					display: block;
+					margin: 0;
+					font-size: 2em;
+					font-weight: normal;
+					color: #66757f;
+
+				> .series
+					display: block;
+					margin: 0;
+					padding: 0;
+					list-style: none;
+					font-size: 0.8em;
+					opacity: 0.8;
+
+					> li
+						display: inline;
+						margin: 0;
+						padding: 0;
+
+			> .body
+				color: #66757f;
+
+main
+	display: block;
+
+	> .sss
+		display: block;
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+
+		> .ss
+			ss()

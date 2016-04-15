@@ -24,19 +24,22 @@ block meta
 block contents
 	main
 		article#profile
-			img.img(src= config.urls.image + '/character/' + character._id, alt='')
-			header
-				ul.series
-					each series in character.series
-						li: a(href= config.urls.series + '/' + series._id)= series.title
-				h1
-					if character.ruby == null
-						ruby
-							= character.name
-							rt= character.kana
-					else
-						!= character.ruby
-		div.main
-			div.sss
-				each ss in sss
-					+ss(ss)
+			div.container
+				img.img(src= config.urls.image + '/character/' + character._id, alt='')
+				div.main
+					header
+						h1
+							if character.ruby == null
+								ruby
+									= character.name
+									rt= character.kana
+							else
+								!= character.ruby
+						ul.series
+							each series in character.series
+								li: a(href= config.urls.series + '/' + series._id)= series.title
+					div.body
+						div.bio= character.bio
+		div.sss
+			each ss in sss
+				+ss(ss)
