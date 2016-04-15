@@ -1,1 +1,1 @@
-export default (text: string) => text.match(/(>>|＞＞)([\d-]+)/g);
+export default (text: string) => text.match(/(>>|＞＞)([0-9０-９\-]+)/g);
