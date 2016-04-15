@@ -4,6 +4,9 @@ include ../../../common/ss-preview
 block title
 	= character.name + ' - SSまとめ'
 
+block vars
+	- themeColor = character.color;
+
 block meta
 	- var summary = character.description;
 	meta(name='keywords', content='SS, SSまとめ, ' + character.name + ', ' + character.aliases.join(','))
@@ -23,7 +26,7 @@ block meta
 
 block contents
 	main
-		article#profile
+		article#profile(style={'border-color': character.color})
 			div.container
 				img.img(src= config.urls.image + '/character/' + character._id, alt='')
 				div.main

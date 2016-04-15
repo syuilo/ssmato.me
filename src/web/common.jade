@@ -3,6 +3,7 @@ doctype html
 != '\n<!-- Thank you for using ssmato.me! <3 @syuilo -->\n'
 
 - var htmlSchema = 'http://schema.org/WebPage';
+- var themeColor = config.themeColor;
 
 block vars
 
@@ -11,7 +12,7 @@ html(lang='ja', dir='ltr', itemscope, itemtype= htmlSchema)
 		meta(charset='utf-8')
 		meta(name='robots', content='all')
 		meta(name='application-name', content='SSまとめ')
-		meta(name='theme-color', content= config.themeColor)
+		meta(name='theme-color', content= themeColor)
 		meta(name='referrer', content='origin')
 		meta(name='csrf-token', content= csrftoken)
 		block meta
