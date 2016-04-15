@@ -23,8 +23,8 @@ block meta
 
 block contents
 	main
-		article
-			img(src= config.urls.image + '/character/' + character._id, alt='')
+		article#profile
+			img.img(src= config.urls.image + '/character/' + character._id, alt='')
 			header
 				ul.series
 					each series in character.series
@@ -36,7 +36,7 @@ block contents
 							rt= character.kana
 					else
 						!= character.ruby
-			div.main
-				div.sss
-					each ss in sss
-						+ss(ss)
+		div.main
+			div.sss
+				each ss in sss
+					+ss(ss)
