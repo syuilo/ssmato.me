@@ -1,0 +1,110 @@
+extend ../../../../ui
+
+block title
+	| キャラクターの編集 - SSまとめ
+
+block assets
+	script(src='https://www.google.com/recaptcha/api.js')
+	script!= 'var CHARACTER_ID="' + character._id.toString() + '";Object.freeze(CHARACTER_ID);'
+
+block contents
+	main(role='main')
+		header
+			h1 キャラクターの編集
+			p データベースのキャラクター情報を更新します。
+		
+		div.body
+			form#form(autocomplete='off')
+				header
+					i.fa.fa-user
+					= character._id.toString()
+				div.group.series.required
+					label
+						p.caption
+							| 登場シリーズ
+						input(name='series'
+								type='text'
+								autocomplete='off'
+								autofocus
+								required
+								value= character.series.join(','))
+				label.required
+					p.caption
+						| 名前
+					input(name='name'
+							type='text'
+							placeholder='例: 佐倉 杏子'
+							autocomplete='off'
+							required
+							value= character.name)
+				label.required
+					p.caption
+						| 名前(ふりがな)
+					input(name='kana'
+							type='text'
+							placeholder='例: さくら きょうこ'
+							pattern='^[ぁ-んー ]+$'
+							autocomplete='off'
+							required
+							value= character.kana)
+				label.required
+					p.caption
+						| 表示名
+					input(name='screen-name'
+							type='text'
+							placeholder='例: 杏子'
+							autocomplete='off'
+							required
+							value= character.screenName)
+				label
+					p.caption
+						| ルビ (HTML)
+					input(name='ruby'
+							type='text'
+							placeholder='<ruby>佐<rt>さ</rt>倉<rt>くら</rt></ruby> <ruby>杏<rt>きょう</rt>子<rt>こ</rt></ruby>'
+							autocomplete='off'
+							required
+							value= character.ruby)
+					a(href='http://www.htmq.com/html5/ruby.shtml', target='_blank', style={'font-size': '0.8em'}) ルビについて
+				label
+					p.caption
+						| 呼び名 ※ , で区切る
+					input(name='aliases'
+							type='text'
+							placeholder='例: あんこ, あん, あんあん'
+							autocomplete='off'
+							value= character.aliases.join(','))
+				label
+					p.caption
+						| イメージカラー
+					input(name='color'
+							type='color'
+							autocomplete='off'
+							value= character.color)
+				label
+					p.caption
+						| BIO
+					textarea(name='bio'
+							placeholder='例: マミの縄張りを狙い、別の町からやってきた魔法少女。\r\nいつも何かを食べている。\r\n周囲の被害を鑑みない利己主義者。'
+							autocomplete='off')= character.bio
+				label
+					p.caption
+						| 写真
+					input(name='image', type='file', accept='image/jpeg')
+				label
+					p.caption
+						| 性別
+					input(name='gender'
+							type='text'
+							autocomplete='off'
+							value= character.gender)
+				label#recaptcha
+					div.g-recaptcha(
+							data-callback='onRecaptchaed'
+							data-expired-callback='onRecaptchaExpired'
+							data-sitekey=config.recaptchaSiteKey)
+				div.actions
+					input(type='reset', value='リセット')
+					button(type='submit')
+						i.fa.fa-check
+						span 更新

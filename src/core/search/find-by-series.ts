@@ -4,7 +4,7 @@ import { ISeries } from '../../db/interfaces';
 export default (series: ISeries) => {
 	return SS
 	.find({
-		'series': series.id
+		'series': series._id
 	})
 	.sort({
 		// todo

@@ -141,6 +141,9 @@ export default (app: express.Express) => {
 	app.get(`${adminDomain}/character/add`, (req, res) =>
 		call(req, res, 'admin/character/add'));
 
+	app.get(`${adminDomain}/character/edit/:characterId`, (req, res) =>
+		call(req, res, 'admin/character/edit'));
+
 	app.get(`${adminDomain}/series/add`, (req, res) =>
 		call(req, res, 'admin/series/add'));
 
@@ -165,6 +168,7 @@ export default (app: express.Express) => {
 	app.post(`${apiDomain}/screen-name/available`, require('./api/screen-name/available'));
 	app.post(`${apiDomain}/series/add`, require('./api/series/add'));
 	app.post(`${apiDomain}/character/add`, upload.single('image'), require('./api/character/add'));
+	app.post(`${apiDomain}/character/update`, upload.single('image'), require('./api/character/update'));
 	app.post(`${apiDomain}/ss/get`, require('./api/ss/get'));
 	app.post(`${apiDomain}/ss/analyze`, require('./api/ss/analyze'));
 	app.get(`${apiDomain}/set-filter`, require('./api/set-filter'));
@@ -208,6 +212,7 @@ export default (app: express.Express) => {
 	app.param('seriesId', (req, res, next, ssId) => {
 		Series
 		.findById(req.params.seriesId)
+		.lean()
 		.exec((err: any, series: ISeries) => {
 			if (err !== null) {
 				console.error(err);
@@ -228,7 +233,7 @@ export default (app: express.Express) => {
 	app.param('characterId', (req, res, next, ssId) => {
 		Character
 		.findById(req.params.characterId, '-image')
-		.populate('series')
+		.lean()
 		.exec((err: any, character: ICharacter) => {
 			if (err !== null) {
 				console.error(err);

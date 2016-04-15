@@ -4,7 +4,7 @@ import { ICharacter } from '../../db/interfaces';
 export default (character: ICharacter) => {
 	return SS
 	.find({
-		'characters.id': character.id
+		'characters.id': character._id
 	})
 	.sort({
 		// todo
