@@ -33,6 +33,7 @@ function loadConfig(): IConfig {
 	(<any>conf).public.urls = {
 		admin: `${scheme}${domains.admin}.${domain}`,
 		i: `${scheme}${domains.i}.${domain}`,
+		image: `${scheme}${domains.image}.${domain}`,
 		api: `${scheme}${domains.api}.${domain}`,
 		resources: `${scheme}${domains.resources}.${domain}`,
 		signup: `${scheme}${domains.signup}.${domain}`,
