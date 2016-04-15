@@ -82,10 +82,14 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 	 * @return bool
 	 */
 	function match(query: string): boolean {
-		return character.name === query ||
-			character.screenName === query ||
-			removeSpaces(character.name) === query ||
-			character.aliases.indexOf(query) !== -1;
+		query = katakanaToHiragana(removeSpaces(query));
+		const name = katakanaToHiragana(removeSpaces(character.name));
+		const screenName = katakanaToHiragana(removeSpaces(character.screenName));
+		const aliases = character.aliases.map(name => katakanaToHiragana(removeSpaces(name)));
+
+		return name === query ||
+			screenName === query ||
+			aliases.indexOf(query) !== -1;
 	}
 
 	function instantiation(id?: string): CharacterIdentity {
@@ -100,3 +104,27 @@ export default (character: ICharacter, name: string): CharacterIdentity => {
 		return s.replace(/\s/g, '');
 	}
 }
+
+/**
+ * カタカナをひらがなに変換します
+ * @param {String} src - カタカナ
+ * @returns {String} - ひらがな
+ */
+function katakanaToHiragana(src: string): string {
+	return src.replace(/[\u30a1-\u30f6]/g, match => {
+		const char = match.charCodeAt(0) - 0x60;
+		return String.fromCharCode(char);
+	});
+}
+
+///**
+// * ひらがなをカタカナに変換します
+// * @param {String} src - ひらがな
+// * @returns {String} - カタカナ
+// */
+//function hiraganaToKatagana(src: string): string {
+//	return src.replace(/[\u3041-\u3096]/g, match => {
+//		const char = match.charCodeAt(0) + 0x60;
+//		return String.fromCharCode(char);
+//	});
+//}
