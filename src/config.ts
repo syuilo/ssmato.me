@@ -54,6 +54,7 @@ export default loadConfig();
 interface Domains {
 	admin: string;
 	i: string;
+	image: string;
 	api: string;
 	resources: string;
 	signup: string;
