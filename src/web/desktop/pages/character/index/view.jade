@@ -1,4 +1,4 @@
-extend ../../../main
+extend ../../../ui
 include ../../../common/ss-preview
 
 block title
@@ -21,15 +21,22 @@ block meta
 	meta(property='twitter:image', content= config.urls.resources + '/logo.jpg')
 	meta(property='twitter:url', content= config.url)
 
-block content
-	article
-		header
-			h1
-				= character.series.map(s => s.title).join('、')
-				| の
-				b= character.name
-				| が登場するSS
-		div.main
-			div.sss
-				each ss in sss
-					+ss(ss)
+block contents
+	main
+		article
+			img(src= config.urls.image + '/character/' + character._id, alt='')
+			header
+				ul.series
+					each series in character.series
+						li: a(href= config.urls.series + '/' + series._id)= series.title
+				h1
+					if character.ruby == null
+						ruby
+							= character.name
+							rt= character.kana
+					else
+						!= character.ruby
+			div.main
+				div.sss
+					each ss in sss
+						+ss(ss)

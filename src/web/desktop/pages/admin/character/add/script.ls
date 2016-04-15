@@ -21,6 +21,7 @@ $ ->
 		series = $form.find '[name="series"]' .val!
 		name = $form.find '[name="name"]' .val!
 		kana = $form.find '[name="kana"]' .val!
+		ruby = $form.find '[name="ruby"]' .val!
 		screen-name = $form.find '[name="screen-name"]' .val!
 		aliases = $form.find '[name="aliases"]' .val!
 		color = $form.find '[name="color"]' .val!
@@ -34,6 +35,7 @@ $ ->
 			..append 'series-id' series
 			..append 'name' name
 			..append 'kana' kana
+			..append 'ruby' ruby
 			..append 'screen-name' screen-name
 			..append 'color' color
 			..append 'aliases' aliases

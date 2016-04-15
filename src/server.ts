@@ -22,6 +22,7 @@ import uatype from './detect-ua';
 import config from './config';
 
 import resources from './resources-server';
+import image from './image-server';
 import routes from './routes';
 
 const worker = cluster.worker;
@@ -69,6 +70,9 @@ app.set('etag', false);
 
 // Init static resources server
 app.use(vhost(`${config.public.domains.resources}.${config.public.domain}`, resources));
+
+// Init images server
+app.use(vhost(`${config.public.domains.image}.${config.public.domain}`, image));
 
 app.use(favicon(`${__dirname}/resources/favicon.ico`));
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -227,7 +227,7 @@ export default (app: express.Express) => {
 	// Character
 	app.param('characterId', (req, res, next, ssId) => {
 		Character
-		.findById(req.params.characterId)
+		.findById(req.params.characterId, '-image')
 		.populate('series')
 		.exec((err: any, character: ICharacter) => {
 			if (err !== null) {

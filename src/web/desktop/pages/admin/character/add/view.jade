@@ -28,7 +28,7 @@ block contents
 							option(selected, disabled, hidden, value='') ---選択してください---
 							each series in serieses
 								option(value= series.id)= series.title
-					a(href='/series/add', target='_blank') 該当するシリーズが無い場合
+					a(href='/series/add', target='_blank', style={'font-size': '0.8em'}) 該当するシリーズが無い場合
 				label.required
 					p.caption
 						| 名前
@@ -54,21 +54,28 @@ block contents
 							placeholder='例: 杏子'
 							autocomplete='off'
 							required)
-				label.required
+				label
+					p.caption
+						| ルビ (HTML)
+					input(name='ruby'
+							type='text'
+							placeholder='<ruby>佐倉<rt>さくら</rt></ruby> <ruby>杏子<rt>きょうこ</rt></ruby>'
+							autocomplete='off'
+							required)
+					a(href='http://www.htmq.com/html5/ruby.shtml', target='_blank', style={'font-size': '0.8em'}) ルビについて
+				label
 					p.caption
 						| 呼び名 ※ , で区切る
 					input(name='aliases'
 							type='text'
-							placeholder='例: 杏子, あんこ, あん'
-							autocomplete='off'
-							required)
-				label.required
+							placeholder='例: あんこ, あん, あんあん'
+							autocomplete='off')
+				label
 					p.caption
 						| イメージカラー
 					input(name='color'
 							type='color'
-							autocomplete='off'
-							required)
+							autocomplete='off')
 				label
 					p.caption
 						| BIO

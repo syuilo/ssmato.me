@@ -9,6 +9,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 	const seriesId: string = req.body['series-id'];
 	const name: string = req.body['name'];
 	const kana: string = req.body['kana'];
+	const ruby: string = req.body['ruby'];
 	const screenName: string = req.body['screen-name'];
 	const aliases: string = req.body['aliases'];
 	const color: string = req.body['color'];
@@ -77,12 +78,7 @@ module.exports = (req: express.Request, res: express.Response): void => {
 				return;
 			}
 
-			if (isEmpty(aliases)) {
-				res.sendStatus(400);
-				return;
-			}
-
-			if (isEmpty(color) || !/^#[a-fA-F0-9]{6}$/.test(color)) {
+			if (!isEmpty(color) && !/^#[a-fA-F0-9]{6}$/.test(color)) {
 				res.sendStatus(400);
 				return;
 			}
@@ -93,10 +89,11 @@ module.exports = (req: express.Request, res: express.Response): void => {
 				name: name.trim(),
 				kana: kana.trim(),
 				screenName: screenName.trim(),
-				aliases: aliases.split(',').map(x => x.trim()).filter(x => x !== ''),
-				color: color.trim(),
-				bio: bio === undefined ? null : bio,
-				gender: gender === undefined ? null : gender
+				aliases: aliases !== undefined ? aliases.split(',').map(x => x.trim()).filter(x => x !== '') : [],
+				color: color !== undefined ? color.trim() : '#000000',
+				ruby: ruby !== undefined ? ruby : null,
+				bio: bio !== undefined ? bio : null,
+				gender: gender !== undefined ? gender : null
 			}, (err, character) => {
 				if (err !== null) {
 					console.error(err);

@@ -38,6 +38,7 @@ export interface ICharacter extends Document {
 	image: Buffer;
 	name: string;
 	kana: string;
+	ruby: string;
 	screenName: string;
 	aliases: string[];
 	color: string;
