@@ -5,7 +5,7 @@ import findBySeries from '../../../../../core/search/find-by-series';
 
 module.exports = (req: express.Request, res: express.Response): void => {
 	const series = res.locals.series;
-	findBySeries(series).then((sss: ISSThread[]) => {
+	findBySeries(series._id).then((sss: ISSThread[]) => {
 		Character
 		.find({ series: series._id }, '_id name kana ruby screenName color')
 		.lean()
