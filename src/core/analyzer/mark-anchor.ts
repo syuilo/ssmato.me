@@ -94,6 +94,7 @@ export default
 			text.indexOf('ksk') > -1 ||
 			text.indexOf('支援') > -1 ||
 			text.indexOf('sien') > -1 ||
+			text.indexOf('紫煙') > -1 ||
 			text.indexOf('しえ') > -1 ||
 			text.indexOf('④') > -1 ||
 			text.indexOf('シエンタ') > -1
