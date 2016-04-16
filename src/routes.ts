@@ -167,8 +167,12 @@ export default (app: express.Express) => {
 	app.post(`${apiDomain}/favorites/check`, require('./api/favorites/check'));
 	app.post(`${apiDomain}/screen-name/available`, require('./api/screen-name/available'));
 	app.post(`${apiDomain}/series/add`, require('./api/series/add'));
-	app.post(`${apiDomain}/character/add`, upload.single('image'), require('./api/character/add'));
-	app.post(`${apiDomain}/character/update`, upload.single('image'), require('./api/character/update'));
+	app.post(`${apiDomain}/character/add`,
+		upload.fields([{ name: 'image', maxCount: 1 }, { name: 'icon', maxCount: 1 }]),
+		require('./api/character/add'));
+	app.post(`${apiDomain}/character/update`,
+		upload.fields([{ name: 'image', maxCount: 1 }, { name: 'icon', maxCount: 1 }]),
+		require('./api/character/update'));
 	app.post(`${apiDomain}/ss/get`, require('./api/ss/get'));
 	app.post(`${apiDomain}/ss/analyze`, require('./api/ss/analyze'));
 	app.get(`${apiDomain}/set-filter`, require('./api/set-filter'));

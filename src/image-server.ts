@@ -41,6 +41,21 @@ app.get('/character/:characterId', (req, res) => {
 	});
 });
 
+app.get('/character/:characterId/icon', (req, res) => {
+	Character.findById(req.params.characterId, 'icon', (err: any, char: ICharacter) => {
+		if (char === null) {
+			res.sendStatus(404);
+			return;
+		}
+
+		if (char.icon === null) {
+			res.sendFile(__dirname + '/resources/no-image.png');
+		} else {
+			res.send(char.icon);
+		}
+	});
+});
+
 app.get('/series/:seriesId', (req, res) => {
 	Series.findById(req.params.seriesId, 'image', (err: any, series: ISeries) => {
 		if (series === null) {
@@ -48,7 +63,11 @@ app.get('/series/:seriesId', (req, res) => {
 			return;
 		}
 
-		// res.send(series.image);
+		if (series.image === null) {
+			res.sendFile(__dirname + '/resources/no-image.png');
+		} else {
+			res.send(series.image);
+		}
 	});
 });
 

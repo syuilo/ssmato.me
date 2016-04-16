@@ -5,8 +5,10 @@ import {ICharacter} from '../../db/interfaces';
 import recaptcha from '../../core/recaptcha';
 
 module.exports = (req: express.Request, res: express.Response): void => {
-	const file: any = (<any>req).file;
-	const image: Buffer = file !== undefined ? fs.readFileSync(file.path) : null;
+	const imageFile: any = ((<any>req).files['image'] || [])[0];
+	const iconFile: any = ((<any>req).files['icon'] || [])[0];
+	const image: Buffer = imageFile !== undefined ? fs.readFileSync(imageFile.path) : null;
+	const icon: Buffer = iconFile !== undefined ? fs.readFileSync(iconFile.path) : null;
 	const characterId: string = req.body['character-id'];
 	const seriesId: string = req.body['series-id'];
 	const name: string = req.body['name'];
@@ -47,8 +49,12 @@ module.exports = (req: express.Request, res: express.Response): void => {
 				return;
 			}
 
-			if (file !== undefined) {
-				fs.unlink(file.path);
+			if (imageFile !== undefined) {
+				fs.unlink(imageFile.path);
+			}
+
+			if (iconFile !== undefined) {
+				fs.unlink(iconFile.path);
 			}
 
 			if (isEmpty(seriesId)) {
@@ -78,6 +84,10 @@ module.exports = (req: express.Request, res: express.Response): void => {
 
 			if (image !== null) {
 				char.image = image;
+			}
+
+			if (icon !== null) {
+				char.icon = icon;
 			}
 
 			char.series = seriesId.split(',');

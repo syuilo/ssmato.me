@@ -3,6 +3,7 @@ import {Schema, Connection, Document, Model} from 'mongoose';
 export default function(db: Connection): Model<Document> {
 	const schema: any = new Schema({
 		createdAt: { type: Date, required: true, default: Date.now },
+		image: { type: Buffer, required: false, default: null },
 		description: { type: String, required: false, default: null },
 		title: { type: String, required: true, unique: true },
 		kana: { type: String, required: true },

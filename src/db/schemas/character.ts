@@ -6,6 +6,7 @@ export default function(db: Connection): Model<Document> {
 		bio: { type: String, required: false, default: null },
 		gender: { type: String, required: false, default: null },
 		image: { type: Buffer, required: false, default: null },
+		icon: { type: Buffer, required: false, default: null },
 		color: { type: String, required: false, default: '#000000' },
 		kana: { type: String, required: true },
 		name: { type: String, required: true },

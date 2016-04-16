@@ -1,21 +1,117 @@
-@import '../../../main'
+@import '../../../ui'
 @import '../../../common/ss-preview'
 
-main
-	> article
-		> header
-			padding: 32px 16px 8px 32px;
+#profile
+	background: #F5F8FA;
 
-			h1
-				display: block;
-				margin: 0;
-				font-size: 1.3em;
-				font-weight: normal;
-				color: #66757f;
+	> .container
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 1024px;
+		padding: 32px;
+		margin: 0 auto;
+
+		&:after
+			content: "";
+			display: block;
+			clear: both;
+
+		> img
+			display: block;
+			float: left;
+			max-width: 256px;
+			max-height: 256px;
 
 		> .main
-			padding: 0 16px;
+			box-sizing: border-box;
+			float: left;
+			width: calc(100% - 256px);
+			padding: 0 32px;
 
-			> .sss
-				> .ss
-					ss()
+			> header
+				margin-bottom: 16px;
+
+				> h1
+					display: block;
+					margin: 0;
+					font-size: 2em;
+					font-weight: normal;
+					color: #66757f;
+
+					> ruby
+						> rt
+							font-size: 30%;
+
+			> .body
+				color: #66757f;
+
+#characters
+	> .container
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 1088px;
+		padding: 32px;
+		margin: 0 auto;
+
+		&:after
+			content: "";
+			display: block;
+			clear: both;
+
+		> ul
+			display: block;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			> li
+				display: block;
+				float: left;
+				width: 256px;
+
+				> a
+					display: block;
+					padding: 16px;
+
+					&:hover
+						background: #f8fbfd;
+
+					&:after
+						content: "";
+						display: block;
+						clear: both;
+
+					> img
+						display: block;
+						width: 64px;
+						float: left;
+
+					> p
+						display: block;
+						box-sizing: border-box;
+						float: left;
+						margin: 0;
+						padding: 0 0 0 16px;
+						width: calc(100% - 64px);
+						line-height: 64px;
+						overflow: hidden;
+						white-space: nowrap;
+						word-wrap: break-word;
+						word-break: break-all;
+						text-overflow: ellipsis;
+
+main
+	display: block;
+
+	> .sss
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 1024px;
+		padding: 16px 32px;
+		margin: 0 auto;
+
+		> .ss
+			ss()

@@ -30,6 +30,9 @@ $ ->
 		image = if $form.find '[name="image"]' .val! != ''
 			then ($form.find '[name="image"]' .prop \files)[0]
 			else null
+		icon = if $form.find '[name="icon"]' .val! != ''
+			then ($form.find '[name="icon"]' .prop \files)[0]
+			else null
 
 		data = new FormData!
 			..append 'series-id' series
@@ -49,6 +52,9 @@ $ ->
 
 		if image?
 			data.append \image image
+
+		if icon?
+			data.append \icon icon
 
 		$.ajax "#{CONFIG.urls.api}/character/add" {
 			+async

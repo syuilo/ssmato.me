@@ -1,4 +1,4 @@
-extend ../../../main
+extend ../../../ui
 include ../../../common/ss-preview
 
 block title
@@ -21,13 +21,32 @@ block meta
 	meta(property='twitter:image', content= config.urls.resources + '/logo.jpg')
 	meta(property='twitter:url', content= config.url)
 
-block content
-	article
-		header
-			h1
-				b= series.title
-				| のSS
-		div.main
-			div.sss
-				each ss in sss
-					+ss(ss)
+block contents
+	main
+		article#profile
+			div.container
+				img.img(src= config.urls.image + '/series/' + series._id, alt='')
+				div.main
+					header
+						h1
+							ruby
+								= series.title
+								rt= series.kana
+					div.body
+						div.description= series.description
+		div#characters
+			div.container
+				ul
+					each character in characters
+						li: a(href= config.urls.characters + '/' + character._id)
+							img.img(src= config.urls.image + '/character/' + character._id + '/icon', alt='')
+							p
+								if character.ruby == null
+									ruby
+										= character.name
+										rt= character.kana
+								else
+									!= character.ruby
+		div.sss
+			each ss in sss
+				+ss(ss)

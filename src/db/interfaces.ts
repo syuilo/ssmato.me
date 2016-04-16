@@ -24,6 +24,7 @@ export interface IHistory extends Document {
 
 export interface ISeries extends Document {
 	createdAt: Date;
+	image: Buffer;
 	title: string;
 	kana: string;
 	aliases: string[];
@@ -36,6 +37,7 @@ export interface ICharacter extends Document {
 	bio: string;
 	gender: string;
 	image: Buffer;
+	icon: Buffer;
 	name: string;
 	kana: string;
 	ruby: string;
