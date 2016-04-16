@@ -55,21 +55,21 @@
 		padding: 32px;
 		margin: 0 auto;
 
-		&:after
-			content: "";
-			display: block;
-			clear: both;
-
 		> ul
-			display: block;
+			display: -webkit-flex;
+			display: -moz-flex;
+			display: -ms-flex;
+			display: -o-flex;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
 			margin: 0;
 			padding: 0;
 			list-style: none;
 
 			> li
 				display: block;
-				float: left;
-				width: 256px;
+				flex: 1 1 256px;
 
 				> a
 					display: block;
