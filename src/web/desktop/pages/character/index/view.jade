@@ -43,6 +43,10 @@ block contents
 								li: a(href= config.urls.series + '/' + series._id)= series.title
 					div.body
 						div.bio= character.bio
+						if login && me.isAdmin
+							a.edit(href= config.urls.admin + '/character/edit/' + character._id)
+								i.fa.fa-pencil
+								| 編集
 		div.sss
 			each ss in sss
 				+ss(ss)
