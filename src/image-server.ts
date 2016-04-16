@@ -33,7 +33,11 @@ app.get('/character/:characterId', (req, res) => {
 			return;
 		}
 
-		res.send(char.image);
+		if (char.image === null) {
+			res.sendFile(__dirname + '/resources/no-image.png');
+		} else {
+			res.send(char.image);
+		}
 	});
 });
 
