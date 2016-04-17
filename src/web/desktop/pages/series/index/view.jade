@@ -38,7 +38,7 @@ block contents
 			div.container
 				ul
 					each character in characters
-						li: a(href= config.urls.characters + '/' + character._id)
+						li: a(href= config.urls.characters + '/' + character._id): div
 							img.img(src= config.urls.image + '/character/' + character._id + '/icon', alt='')
 							p
 								if character.ruby == null
