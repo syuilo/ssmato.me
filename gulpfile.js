@@ -1,4 +1,4 @@
-/// <reference path="./typings/bundle.d.ts" />
+'use strict';
 
 const fs = require('fs');
 const gulp = require('gulp');
@@ -13,13 +13,11 @@ const stylus = require('gulp-stylus');
 const cssnano = require('gulp-cssnano');
 const uglify = require('gulp-uglify');
 
+const env = process.env.NODE_ENV;
+
 const project = ts.createProject('tsconfig.json', {
 	typescript: require('typescript')
 });
-
-function buildTypeScript() {
-	return project.src().pipe(ts(project));
-}
 
 gulp.task('build', [
 	'build:ts',
@@ -30,8 +28,10 @@ gulp.task('build', [
 ]);
 
 gulp.task('build:ts', () =>
-	buildTypeScript()
-		.pipe(gulp.dest('./built/'))
+	project
+	.src()
+	.pipe(ts(project))
+	.pipe(gulp.dest('./built/'))
 );
 
 gulp.task('build:public-config', ['build:ts'], done => {
@@ -53,28 +53,42 @@ gulp.task('copy:bower_components', () => {
 gulp.task('build:frontside-scripts', ['build:public-config'], done => {
 	glob('./src/web/**/*.ls', (err, files) => {
 		const tasks = files.map(entry => {
-			return browserify({
-				entries: [entry],
-				paths: [
-					__dirname + '/built/_'
-				]
-			})
+			let bundle =
+				browserify({
+					entries: [entry],
+					paths: [
+						__dirname + '/built/_'
+					]
+				})
 				.bundle()
-				.pipe(source(entry.replace('src/web', 'resources').replace('.ls', '.js')))
-				.pipe(buffer())
-				.pipe(uglify())
+				.pipe(source(entry.replace('src/web', 'resources').replace('.ls', '.js')));
+
+			if (env === 'produvtion') {
+				bundle = bundle
+					.pipe(buffer())
+					.pipe(uglify())
+			}
+
+			return bundle
 				.pipe(gulp.dest('./built'));
 		});
+
 		es.merge(tasks).on('end', done);
 	});
 });
 
 gulp.task('build:frontside-styles', ['copy:bower_components'], () => {
-	return gulp.src('./src/web/**/*.styl')
-		.pipe(stylus())
-		.pipe(cssnano({
-			safe: true // 高度な圧縮は無効にする (一部デザインが不適切になる場合があるため)
-		}))
+	let styl = gulp.src('./src/web/**/*.styl')
+		.pipe(stylus());
+
+	if (env === 'produvtion') {
+		styl = styl
+			.pipe(cssnano({
+				safe: true // 高度な圧縮は無効にする (一部デザインが不適切になる場合があるため)
+			}))
+	}
+
+	return styl
 		.pipe(gulp.dest('./built/resources/'));
 });
 
