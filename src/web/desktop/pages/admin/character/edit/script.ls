@@ -39,11 +39,15 @@ $ ->
 			..append 'series-id' series
 			..append 'name' name
 			..append 'kana' kana
-			..append 'ruby' ruby
 			..append 'screen-name' screen-name
 			..append 'color' color
-			..append 'aliases' aliases
 			..append 'g-recaptcha-response' grecaptcha.get-response!
+
+		if aliases.trim! != ''
+			data.append \aliases aliases
+
+		if ruby.trim! != ''
+			data.append \ruby ruby
 
 		if bio.trim! != ''
 			data.append \bio bio
