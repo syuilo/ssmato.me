@@ -63,7 +63,7 @@ gulp.task('build:frontside-scripts', ['build:public-config'], done => {
 				.bundle()
 				.pipe(source(entry.replace('src/web', 'resources').replace('.ls', '.js')));
 
-			if (env === 'produvtion') {
+			if (env === 'production') {
 				bundle = bundle
 					.pipe(buffer())
 					.pipe(uglify())
@@ -81,7 +81,7 @@ gulp.task('build:frontside-styles', ['copy:bower_components'], () => {
 	let styl = gulp.src('./src/web/**/*.styl')
 		.pipe(stylus());
 
-	if (env === 'produvtion') {
+	if (env === 'production') {
 		styl = styl
 			.pipe(cssnano({
 				safe: true // 高度な圧縮は無効にする (一部デザインが不適切になる場合があるため)
