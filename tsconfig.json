@@ -109,6 +109,7 @@
 		"./src/resources-server.ts",
 		"./src/routes.ts",
 		"./src/server.ts",
+		"./src/web/desktop/pages/about/index/controller.ts",
 		"./src/web/desktop/pages/admin/character/add/controller.ts",
 		"./src/web/desktop/pages/admin/character/edit/controller.ts",
 		"./src/web/desktop/pages/admin/index/controller.ts",

@@ -32,6 +32,7 @@ function loadConfig(): IConfig {
 	// Define URLs
 	(<any>conf).public.urls = {
 		admin: `${scheme}${domains.admin}.${domain}`,
+		about: `${scheme}${domains.about}.${domain}`,
 		i: `${scheme}${domains.i}.${domain}`,
 		image: `${scheme}${domains.image}.${domain}`,
 		api: `${scheme}${domains.api}.${domain}`,
@@ -54,6 +55,7 @@ export default loadConfig();
 
 interface Domains {
 	admin: string;
+	about: string;
 	api: string;
 	characters: string;
 	i: string;

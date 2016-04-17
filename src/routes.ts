@@ -32,6 +32,14 @@ export default (app: express.Express) => {
 		call(req, res, 'ss'));
 
 	//////////////////////////////////////////////////
+	// ABOUT
+
+	const aboutDomain = `/subdomain/${config.public.domains.about}`;
+
+	app.get(`${aboutDomain}/`, (req, res) =>
+		call(req, res, 'about/index'));
+
+	//////////////////////////////////////////////////
 	// I
 
 	const iDomain = `/subdomain/${config.public.domains.i}`;
