@@ -8,16 +8,15 @@ import * as http from 'http';
 import * as https from 'https';
 import * as express from 'express';
 import * as expressSession from 'express-session';
-import * as MongoStore from 'connect-mongo';
 import * as compression from 'compression';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as csrf from 'csurf';
 import * as cors from 'cors';
 import * as favicon from 'serve-favicon';
+const connectRedis = require('connect-redis');
 const vhost: any = require('vhost');
 
-import db from './db/db';
 import uatype from './detect-ua';
 import config from './config';
 
@@ -32,7 +31,7 @@ console.log(`[${worker.id}] Initializing...`);
 //////////////////////////////////////////////////
 // SERVER OPTIONS
 
-const store = MongoStore(expressSession);
+const RedisStore = connectRedis(expressSession);
 
 const sessionExpires = 1000 * 60 * 60 * 24 * 365; // One Year
 const subdomainOptions = {
@@ -52,8 +51,10 @@ const session: any = {
 		expires: new Date(Date.now() + sessionExpires),
 		maxAge: sessionExpires
 	},
-	store: new store({
-		mongooseConnection: db
+	store: new RedisStore({
+		host: config.redis.host,
+		port: config.redis.port,
+		pass: config.redis.pass
 	})
 };
 

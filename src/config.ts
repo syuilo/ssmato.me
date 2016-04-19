@@ -76,6 +76,11 @@ export interface IConfig {
 			pass: string;
 		}
 	};
+	redis: {
+		host: string;
+		port: number;
+		pass: string;
+	};
 	elasticsearch: {
 		host: string;
 		port: number;

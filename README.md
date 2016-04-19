@@ -9,7 +9,9 @@
 * [Node.js](https://nodejs.org/)
 * [npm](https://www.npmjs.com/)
 * [MongoDB](https://www.mongodb.org/)
+* [Redis](http://redis.io/)
 * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
+* [GraphicsMagick](http://www.graphicsmagick.org/)
 
 ## License
 [MIT](LICENSE)

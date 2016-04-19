@@ -3,5 +3,8 @@
 # init MongoDB
 systemctl start mongodb
 
+# init Redis
+redis-server /etc/redis.conf
+
 # init Elasticsearch
 /usr/local/elasticsearch/bin/elasticsearch -d
