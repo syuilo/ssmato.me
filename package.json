@@ -36,7 +36,7 @@
     "dtsm": "1.0.0",
     "event-stream": "3.3.2",
     "gulp": "3.9.1",
-    "gulp-cssnano": "2.1.1",
+    "gulp-cssnano": "2.1.2",
     "gulp-stylus": "2.3.1",
     "gulp-tslint": "4.3.5",
     "gulp-typescript": "2.13.0",
