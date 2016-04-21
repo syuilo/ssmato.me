@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "assign-deep": "0.4.5",
-    "bcrypt": "0.8.5",
+    "bcrypt": "0.8.6",
     "body-parser": "1.15.0",
     "cheerio-httpcli": "0.6.8",
     "compression": "1.6.1",
