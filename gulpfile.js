@@ -85,7 +85,7 @@ gulp.task('build:frontside-styles', ['copy:bower_components'], () => {
 		styl = styl
 			.pipe(cssnano({
 				safe: true // 高度な圧縮は無効にする (一部デザインが不適切になる場合があるため)
-			}))
+			}));
 	}
 
 	return styl
