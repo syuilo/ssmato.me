@@ -66,7 +66,7 @@ gulp.task('build:frontside-scripts', ['build:public-config'], done => {
 			if (env === 'production') {
 				bundle = bundle
 					.pipe(buffer())
-					.pipe(uglify())
+					.pipe(uglify());
 			}
 
 			return bundle
