@@ -1,6 +1,8 @@
 ![](./resource-projects/favicon/16.png) SSまとめ
 ------------------------------------------------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/syuilo/ssmato.me.svg)](https://greenkeeper.io/)
+
 [![][travis-badge]][travis-link]
 [![][david-runtime-badge]][david-runtime-link]
 [![][david-dev-badge]][david-dev-link]
